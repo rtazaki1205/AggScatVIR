@@ -2,7 +2,7 @@
 
 `AggScatVIR` provides the optical properties of protoplanetary dust analogs at visible and near-infrared wavelengths. One can freely download the scattering matrix and opacity of various dust particles studied in Tazaki & Dominik (2022) and Tazaki, Ginski, and Dominik (in prep).
 
-Please read the [document]() for a detailed description.
+Please read the [document](https://rtazaki1205.github.io/AggScatVIR/) for a detailed description.
 
 # How to cite?
 
