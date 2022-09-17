@@ -1,9 +1,0 @@
-Appendix C: Python modules
-==========================
-
-Information on specific functions, classes, and methods.
-
-.. toctree::
-   :glob:
-
-   api/*
