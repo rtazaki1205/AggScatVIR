@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Python Tools &mdash; AggScatVIR v0.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Dust models" href="dustmodels.html" />
+    <link rel="prev" title="Get started" href="struct.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> AggScatVIR
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">What’s AggScatVIR?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="struct.html">Get started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Python Tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Basic-Usage">Basic Usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Reading-aggregate-models">Reading aggregate models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Reading-irregular-grain-models">Reading irregular grain models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Advanced-options:-chop-and-single-size">Advanced options: chop and single size</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#Example-1:-Comparing-different-models">Example 1: Comparing different models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Example-2:-Polarization-phase-function">Example 2: Polarization phase function</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dustmodels.html">Dust models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="radmc.html">Application for RADMC-3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app_def.html">Appendix A: Definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app_gallery.html">Appendix B: Gallery of optical properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">Appendix C: Python modules</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">AggScatVIR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Python Tools</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/examples.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt .copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+.jp-RenderedHTMLCommon table,
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+.jp-RenderedHTMLCommon thead,
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+.jp-RenderedHTMLCommon tr,
+.jp-RenderedHTMLCommon th,
+.jp-RenderedHTMLCommon td,
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+.jp-RenderedHTMLCommon th,
+div.rendered_html th {
+  font-weight: bold;
+}
+.jp-RenderedHTMLCommon tbody tr:nth-child(odd),
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+.jp-RenderedHTMLCommon tbody tr:hover,
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="Python-Tools">
+<h1>Python Tools<a class="headerlink" href="#Python-Tools" title="Permalink to this heading"></a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">AggScatVIR</span></code> package provides some python tools. Using the python tools, you can quickly look into the optical properties of dust particles in this database. This notebook explains the basic usage of the tools.</p>
+<div class="section" id="Basic-Usage">
+<h2>Basic Usage<a class="headerlink" href="#Basic-Usage" title="Permalink to this heading"></a></h2>
+<p>The first step is to import a necessary module:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aggscatpy</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Reading-aggregate-models">
+<h3>Reading aggregate models<a class="headerlink" href="#Reading-aggregate-models" title="Permalink to this heading"></a></h3>
+<p>For example, let’s suppose you would like to see the optical properties of high-porosity compact aggregates <code class="docutils literal notranslate"><span class="pre">CAHP</span></code> consisting of 4096 monomers of a radius of 100 nm with the <code class="docutils literal notranslate"><span class="pre">amc</span></code> composition. In this case, you need to type</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">=</span><span class="n">dustmodel</span><span class="p">(</span><span class="n">partype</span><span class="o">=</span><span class="s1">&#39;CAHP&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="s1">&#39;4096&#39;</span><span class="p">,</span><span class="n">amon</span><span class="o">=</span><span class="s1">&#39;100nm&#39;</span><span class="p">,</span><span class="n">comp</span><span class="o">=</span><span class="s1">&#39;amc&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>This will create an instance <code class="docutils literal notranslate"><span class="pre">a</span></code>, which contains the information of the dust model specified in the arguments. Once you have created an instance, you can extract the physical and optical properties of the dust model as well as some auxiliary information by using its attributes.</p>
+<p>For example, you can find a relative path to the file we’ve read, you can use the <code class="docutils literal notranslate"><span class="pre">path</span></code> attribute:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">.</span><span class="n">path</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;../aggscatrt/distave/nochop/dustkapscatmat_CAHP_Nmax4096_100nm_amc.inp&#39;
+</pre></div></div>
+</div>
+<p>If you are interested in the phyiscal quantities of the dust model, such as radius and porosity, you can use the <code class="docutils literal notranslate"><span class="pre">dustspec()</span></code> method:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">.</span><span class="n">dustspec</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+=============== Dust Parameters ===============
+Model name = CAHP_Nmax4096_100nm_amc.inp
+Monomer radius           (um) = 0.10000
+Material density       (g/cc) = 1.7779
+-----Minimum aggregate in the distribution-----
+Number of monomers            = 8
+Volume-eq radius         (um) = 2.00000e-01
+Characteristic radius    (um) = 3.25143e-01
+Porosity                  (%) = 76.73
+-----Maximum aggregate in the distribution-----
+Number of monomers            = 4096
+Volume-eq radius         (um) = 1.60000e+00
+Characteristic radius    (um) = 3.14402e+00
+Porosity                  (%) = 86.82
+-----------------------------------------------
+Power-law index of size dist. = 3.50000e+00
+</pre></div></div>
+</div>
+<p>If you want to check what the optical properties look like, the <code class="docutils literal notranslate"><span class="pre">showmodel</span></code> method will create quick overview plots for you.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">.</span><span class="n">showmodel</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/examples_10_0.png" src="_images/examples_10_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Reading-irregular-grain-models">
+<h3>Reading irregular grain models<a class="headerlink" href="#Reading-irregular-grain-models" title="Permalink to this heading"></a></h3>
+<p>As with the case of aggregate models, you can also invoke the optical properties of irregular grain models via:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c</span><span class="o">=</span><span class="n">dustmodel</span><span class="p">(</span><span class="n">partype</span><span class="o">=</span><span class="s1">&#39;grs&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="s1">&#39;1_6000&#39;</span><span class="p">,</span><span class="n">comp</span><span class="o">=</span><span class="s1">&#39;org&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>In this case, the <code class="docutils literal notranslate"><span class="pre">partype</span></code> must have <code class="docutils literal notranslate"><span class="pre">'grs'</span></code>. As you can see in the above command, the <code class="docutils literal notranslate"><span class="pre">size</span></code> argument has a bit trickly value. This value represents the volume-equivalent radius of grains in units of microns (the decimal point needs to be replaced by an underscore). Therefore, <code class="docutils literal notranslate"><span class="pre">size='1_6000'</span></code> means that we are calling a model with the volume-equivalent radius <span class="math notranslate nohighlight">\(1.6~\mu\)</span>m.</p>
+<p>You can check the available input values by typing the following command:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">get_sizelist</span><span class="p">(</span><span class="s1">&#39;grs&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;0_2000&#39;,
+ &#39;0_2520&#39;,
+ &#39;0_3175&#39;,
+ &#39;0_4000&#39;,
+ &#39;0_5040&#39;,
+ &#39;0_6350&#39;,
+ &#39;0_8000&#39;,
+ &#39;1_0079&#39;,
+ &#39;1_2699&#39;,
+ &#39;1_6000&#39;]
+</pre></div></div>
+</div>
+<p>Let’s look at the optical properties of the grs model contained in the instance <code class="docutils literal notranslate"><span class="pre">c</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c</span><span class="o">.</span><span class="n">showmodel</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/examples_17_0.png" src="_images/examples_17_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Advanced-options:-chop-and-single-size">
+<h3>Advanced options: chop and single size<a class="headerlink" href="#Advanced-options:-chop-and-single-size" title="Permalink to this heading"></a></h3>
+<p>In the default setup, the <code class="docutils literal notranslate"><span class="pre">dustmodel</span></code> class will read a data file <strong>with size distribution and without any forward-scattering chopping</strong>. However, this package also offers files without size distribution and with forward-scattering chopping.</p>
+<p>To read these files, you have to specify two additional arguments: <code class="docutils literal notranslate"><span class="pre">dist</span></code> and <code class="docutils literal notranslate"><span class="pre">chop</span></code> when calling the <code class="docutils literal notranslate"><span class="pre">dustmodel</span></code> class. For example, if you want to switch off the size distribution, you need to set <code class="docutils literal notranslate"><span class="pre">dist=False</span></code> (default: <code class="docutils literal notranslate"><span class="pre">dist=True</span></code>). If you would like to chop forward scattering, you can set either <code class="docutils literal notranslate"><span class="pre">chop='chop5'</span></code> or <code class="docutils literal notranslate"><span class="pre">chop='chop10'</span></code> (default: <code class="docutils literal notranslate"><span class="pre">chop='nochop'</span></code>). Note that the available chop value is either 5 degrees or 10 degrees.</p>
+<p>For example, if you need the optical properties without size distribution and with forward-scattering chopping of 5 degrees, you can type:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c</span><span class="o">=</span><span class="n">dustmodel</span><span class="p">(</span><span class="n">partype</span><span class="o">=</span><span class="s1">&#39;CAHP&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="s1">&#39;4096&#39;</span><span class="p">,</span><span class="n">amon</span><span class="o">=</span><span class="s1">&#39;100nm&#39;</span><span class="p">,</span><span class="n">comp</span><span class="o">=</span><span class="s1">&#39;amc&#39;</span><span class="p">,</span><span class="n">dist</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">chop</span><span class="o">=</span><span class="s1">&#39;chop5&#39;</span><span class="p">)</span>
+<span class="n">c</span><span class="o">.</span><span class="n">path</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;../aggscatrt/single/chop5/dustkapscatmat_CAHP_4096_100nm_amc_chop5.inp&#39;
+</pre></div></div>
+</div>
+<p>As you can see here, the path now points to a directory different from the default one (../aggscatrt/distave/nochop/). Let’s see the optical properties in this case:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">c</span><span class="o">.</span><span class="n">showmodel</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/examples_22_0.png" src="_images/examples_22_0.png" />
+</div>
+</div>
+<p>In the plots, as expected, the phase function gets flat (chopped) at a scattering angle below 5 degrees. Also, now you can see some wiggles in the phase function, which is absent in the distribution-averaged case.</p>
+</div>
+</div>
+<div class="section" id="Example-1:-Comparing-different-models">
+<h2>Example 1: Comparing different models<a class="headerlink" href="#Example-1:-Comparing-different-models" title="Permalink to this heading"></a></h2>
+<p>Since an instance created by the <code class="docutils literal notranslate"><span class="pre">dustmodel</span></code> class directly stores the values of the physical and optical properties of a specific dust model, you can easily perform a more flexible analysis.</p>
+<p>For example, let’s examine how the phase function of aggregates changes with fractal dimension <span class="math notranslate nohighlight">\(D_\mathrm{f}=1.1\)</span>, <span class="math notranslate nohighlight">\(1.3\)</span>, <span class="math notranslate nohighlight">\(1.5\)</span>, and <span class="math notranslate nohighlight">\(1.9\)</span> at the <span class="math notranslate nohighlight">\(H\)</span> band wavelength (<span class="math notranslate nohighlight">\(\lambda=1.63~\mu\)</span>m). To do so, first create some lists:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pt</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;FA19&#39;</span><span class="p">,</span><span class="s1">&#39;FA15&#39;</span><span class="p">,</span> <span class="s1">&#39;FA13&#39;</span><span class="p">,</span><span class="s1">&#39;FA11&#39;</span><span class="p">]</span> <span class="c1"># a list of particle types</span>
+<span class="n">np</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;2048&#39;</span><span class="p">,</span><span class="s1">&#39;512&#39;</span><span class="p">,</span> <span class="s1">&#39;256&#39;</span><span class="p">,</span><span class="s1">&#39;128&#39;</span><span class="p">]</span>      <span class="c1"># a list of the number of monomers</span>
+<span class="n">label</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;$D_f=1.9$&#39;</span><span class="p">,</span><span class="s1">&#39;$D_f=1.5$&#39;</span><span class="p">,</span><span class="s1">&#39;$D_f=1.3$&#39;</span><span class="p">,</span><span class="s1">&#39;$D_f=1.1$&#39;</span><span class="p">]</span> <span class="c1"># a list of labels for lenged</span>
+</pre></div>
+</div>
+</div>
+<p>Here we have assumed that the number of monomers gets smaller for a lower fractal dimension to approximately fix the aggregate radius. Then, let’s make a plot of the phase function for those models.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Phase function&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plots</span><span class="o">.</span><span class="n">set_ang_vs_phase</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pt</span><span class="p">)):</span>
+    <span class="n">a</span><span class="o">=</span><span class="n">dustmodel</span><span class="p">(</span><span class="n">partype</span><span class="o">=</span><span class="n">pt</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">size</span><span class="o">=</span><span class="n">np</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">amon</span><span class="o">=</span><span class="s1">&#39;100nm&#39;</span><span class="p">,</span><span class="n">comp</span><span class="o">=</span><span class="s1">&#39;amc&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Reading dust model ... &#39;</span><span class="p">,</span><span class="n">a</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;---&gt; wavelength=</span><span class="si">%5.2f</span><span class="s1"> (um)&#39;</span><span class="o">%</span><span class="k">a</span>.lmd[4], &#39;aggregate radius = %5.2f (um)&#39;%a.acmax)
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">scatang</span><span class="p">,</span><span class="n">a</span><span class="o">.</span><span class="n">z11</span><span class="p">[</span><span class="mi">4</span><span class="p">,:]</span><span class="o">/</span><span class="n">a</span><span class="o">.</span><span class="n">ksca</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Reading dust model ...  FA19_Nmax2048_100nm_amc.inp
+---&gt; wavelength= 1.63 (um) aggregate radius =  6.72 (um)
+Reading dust model ...  FA15_Nmax512_100nm_amc.inp
+---&gt; wavelength= 1.63 (um) aggregate radius =  6.60 (um)
+Reading dust model ...  FA13_Nmax256_100nm_amc.inp
+---&gt; wavelength= 1.63 (um) aggregate radius =  6.73 (um)
+Reading dust model ...  FA11_Nmax128_100nm_amc.inp
+---&gt; wavelength= 1.63 (um) aggregate radius =  6.56 (um)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.legend.Legend at 0x7f897702f8e0&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/examples_27_2.png" src="_images/examples_27_2.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Example-2:-Polarization-phase-function">
+<h2>Example 2: Polarization phase function<a class="headerlink" href="#Example-2:-Polarization-phase-function" title="Permalink to this heading"></a></h2>
+<p>Let’s give you one more example. In this example, we are going to see how the polarization phase function depends on aggregate radius and structure. Similar to the above example, we first make some lists:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;8&#39;</span><span class="p">,</span><span class="s1">&#39;16&#39;</span><span class="p">,</span><span class="s1">&#39;32&#39;</span><span class="p">,</span><span class="s1">&#39;64&#39;</span><span class="p">,</span><span class="s1">&#39;128&#39;</span><span class="p">,</span><span class="s1">&#39;256&#39;</span><span class="p">,</span><span class="s1">&#39;512&#39;</span><span class="p">,</span><span class="s1">&#39;1024&#39;</span><span class="p">,</span><span class="s1">&#39;2048&#39;</span><span class="p">,</span><span class="s1">&#39;4096&#39;</span><span class="p">]</span> <span class="c1"># a list of the number of monomers</span>
+<span class="n">label</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;N=8&#39;</span><span class="p">,</span><span class="s1">&#39;16&#39;</span><span class="p">,</span><span class="s1">&#39;32&#39;</span><span class="p">,</span><span class="s1">&#39;64&#39;</span><span class="p">,</span><span class="s1">&#39;128&#39;</span><span class="p">,</span><span class="s1">&#39;256&#39;</span><span class="p">,</span><span class="s1">&#39;512&#39;</span><span class="p">,</span><span class="s1">&#39;1024&#39;</span><span class="p">,</span><span class="s1">&#39;2048&#39;</span><span class="p">,</span><span class="s1">&#39;4096&#39;</span><span class="p">]</span> <span class="c1"># a list of labels for lenged</span>
+</pre></div>
+</div>
+</div>
+<p>Then, read and plot the dust models iteratively in the loop:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span><span class="n">ax2</span><span class="p">)</span> <span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plots</span><span class="o">.</span><span class="n">set_ang_vs_phase</span><span class="p">(</span><span class="n">ax1</span><span class="p">)</span>
+<span class="n">plots</span><span class="o">.</span><span class="n">set_ang_vs_phase</span><span class="p">(</span><span class="n">ax2</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Polarized phase function&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mf">2.0e-1</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Compact aggregates: CAHP&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Polarized phase function&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mf">2.0e-1</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Fractal aggregates: FA19&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="p">)):</span>
+    <span class="n">a1</span><span class="o">=</span><span class="n">dustmodel</span><span class="p">(</span><span class="n">partype</span><span class="o">=</span><span class="s1">&#39;CAHP&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="n">np</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">amon</span><span class="o">=</span><span class="s1">&#39;100nm&#39;</span><span class="p">,</span><span class="n">comp</span><span class="o">=</span><span class="s1">&#39;org&#39;</span><span class="p">)</span>
+    <span class="n">a2</span><span class="o">=</span><span class="n">dustmodel</span><span class="p">(</span><span class="n">partype</span><span class="o">=</span><span class="s1">&#39;FA19&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="n">np</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">amon</span><span class="o">=</span><span class="s1">&#39;100nm&#39;</span><span class="p">,</span><span class="n">comp</span><span class="o">=</span><span class="s1">&#39;org&#39;</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">a1</span><span class="o">.</span><span class="n">scatang</span><span class="p">,</span><span class="n">a1</span><span class="o">.</span><span class="n">z12</span><span class="p">[</span><span class="mi">4</span><span class="p">,:]</span><span class="o">/</span><span class="n">a1</span><span class="o">.</span><span class="n">z12</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">90</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">a2</span><span class="o">.</span><span class="n">scatang</span><span class="p">,</span><span class="n">a2</span><span class="o">.</span><span class="n">z12</span><span class="p">[</span><span class="mi">4</span><span class="p">,:]</span><span class="o">/</span><span class="n">a2</span><span class="o">.</span><span class="n">z12</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">90</span><span class="p">],</span><span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span><span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.legend.Legend at 0x7f8977591130&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/examples_31_1.png" src="_images/examples_31_1.png" />
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="struct.html" class="btn btn-neutral float-left" title="Get started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="dustmodels.html" class="btn btn-neutral float-right" title="Dust models" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Ryo Tazaki.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

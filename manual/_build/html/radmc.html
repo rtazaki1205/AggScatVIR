@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Application for RADMC-3D &mdash; AggScatVIR v0.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Appendix A: Definitions" href="app_def.html" />
+    <link rel="prev" title="Python Tools" href="examples.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> AggScatVIR
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="about.html">What’s AggScatVIR?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="struct.html">Get started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dustmodels.html">Dust models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Python Tools</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Application for RADMC-3D</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#step-by-step-guide-to-run-radmc-3d-with-aggscatvir">Step-by-step guide to run RADMC-3D with AggScatVIR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tips-for-radiative-transfer-simulations">Tips for radiative transfer simulations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="app_def.html">Appendix A: Definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app_gallery.html">Appendix B: Gallery of optical properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">Appendix C: Python modules</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">AggScatVIR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Application for RADMC-3D</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/radmc.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="application-for-radmc-3d">
+<h1>Application for RADMC-3D<a class="headerlink" href="#application-for-radmc-3d" title="Permalink to this heading"></a></h1>
+<p>One key application of <code class="docutils literal notranslate"><span class="pre">AggScatVIR</span></code> is observational modeling of (un)polarized scattered light from protoplanetary disks and debris disks. Our database has been designed so that users can easily carry out radiative transfer simulations with <a class="reference external" href="https://www.ita.uni-heidelberg.de/~dullemond/software/radmc-3d/">RADMC-3D</a>, which is a publicly available radiative transfer simulation code. Since our dust data files (<code class="docutils literal notranslate"><span class="pre">dustkapscatmat_XXX.inp</span></code>) have a data structure directly readable by RADMC-3D v2.0, one can run RADMC-3D without additional data processing. You need to pick up one of our dust models and put it into a directory that RADMC-3D will be running. You are ready to run RADMC-3D as long as the other necessary input files have been properly prepared (see below).</p>
+<div class="section" id="step-by-step-guide-to-run-radmc-3d-with-aggscatvir">
+<h2>Step-by-step guide to run RADMC-3D with AggScatVIR<a class="headerlink" href="#step-by-step-guide-to-run-radmc-3d-with-aggscatvir" title="Permalink to this heading"></a></h2>
+<p>Here is a step-by-step guide to run RADMC-3D with <code class="docutils literal notranslate"><span class="pre">AggScatVIR</span></code>.</p>
+<p>First, please make sure that RADMC-3D has been installed in your working environment. If not, please follow the instructions in <a class="reference external" href="https://www.ita.uni-heidelberg.de/~dullemond/software/radmc-3d/">the manual of RADMC-3D</a> to install it on your system.</p>
+<p>Suppose you’ve already installed RADMC-3D, then please go into a directory that you want to let RADMC-3D run. In other words, it is the directory where other necessary input files for RADMC-3D are located. Next, you need to choose one of our dust model files (<code class="docutils literal notranslate"><span class="pre">dustkapscatmat_XXX.inp</span></code>) and put it into your working directory.</p>
+<p>You will also need to modify (or prepare) two other input files of RADMC-3D (<code class="docutils literal notranslate"><span class="pre">radmc3d.inp</span></code> and <code class="docutils literal notranslate"><span class="pre">dustopac.inp</span></code>) so that the code can recognize our dust file. In <code class="docutils literal notranslate"><span class="pre">radmc3d.inp</span></code>, please make sure that the full polarization treatment is on. This can be done by inserting the following line in the file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">scattering_mode_max</span> <span class="o">=</span> <span class="mi">5</span>
+</pre></div>
+</div>
+<p>In <code class="docutils literal notranslate"><span class="pre">dustopac.inp</span></code>, please ensure that the <code class="docutils literal notranslate"><span class="pre">inputstype</span></code> and <code class="docutils literal notranslate"><span class="pre">file_name_extension</span></code> options are properly given. For example, this file can be like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">iformat</span>
+<span class="n">nspec</span>
+<span class="o">-----------------------------</span>
+<span class="n">inputstyle</span>                       <span class="o">&lt;===</span> <span class="n">Put</span> <span class="mi">10</span> <span class="n">to</span> <span class="n">use</span> <span class="n">full</span> <span class="n">scattering</span> <span class="n">matrix</span> <span class="n">elements</span>
+<span class="n">iquantum</span>
+<span class="n">file_name_extension</span>              <span class="o">&lt;===</span> <span class="n">Put</span> <span class="n">XXX</span> <span class="ow">in</span> <span class="n">dustkapscatmat_XXX</span><span class="o">.</span><span class="n">inp</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">XXX</span></code> should be read as your desired dust model name.</p>
+<p>Now it is ready. If you would like to make a scattered light image at a wavelength of 1.6 microns, you type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">radmc3d</span> <span class="n">image</span> <span class="p">(</span><span class="o">...</span> <span class="n">some</span> <span class="n">other</span> <span class="n">options</span><span class="o">...</span><span class="p">)</span> <span class="k">lambda</span> <span class="mf">1.6</span> <span class="n">stokes</span>
+</pre></div>
+</div>
+<p>The final option <code class="docutils literal notranslate"><span class="pre">stokes</span></code> is necessary if you would like to obtain an image with the full Stokes parameters.</p>
+</div>
+<div class="section" id="tips-for-radiative-transfer-simulations">
+<span id="radmctips"></span><h2>Tips for radiative transfer simulations<a class="headerlink" href="#tips-for-radiative-transfer-simulations" title="Permalink to this heading"></a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>Thermal Monte Carlo runs</strong>: If you try to run <code class="docutils literal notranslate"><span class="pre">mctherm</span></code> in RADMC-3D using a dust file in this package, you will see warnings regading the wavelength coverage. This is because our database only covers visible and near-IR wavelengths, and this is too narrow to determine radiation equilibrium temperature of a dust particle. <em>Therefore, the package is more suited for monochromatic radiative transfer simulations.</em></p>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><strong>Chopping forward scattering</strong>: Dust particles much larger than the wavelength may exhibit a strong forward scattering, which may cause some issures in your simulations. One approximate  way to mitigate this issue is to chop the forward scattering peak off. For this purpose, <code class="docutils literal notranslate"><span class="pre">AggScatVIR</span></code> offers the dustkapscatmat_XXX.inp file with two different chopping angles: 5 and 10 degrees. If you encounter the issue, please consider using those files instead of those from the <code class="docutils literal notranslate"><span class="pre">nochop</span></code> directory.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="examples.html" class="btn btn-neutral float-left" title="Python Tools" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="app_def.html" class="btn btn-neutral float-right" title="Appendix A: Definitions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Ryo Tazaki.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

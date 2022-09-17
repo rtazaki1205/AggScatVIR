@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What’s AggScatVIR? &mdash; AggScatVIR v0.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="#" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Get started" href="struct.html" />
+    <link rel="prev" title="Documentation for AggScatVIR" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> AggScatVIR
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">What’s AggScatVIR?</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#highlighted-features">Highlighted features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#assumptions-and-limitations">Assumptions and Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-cite">How to cite?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#acknowledgement">Acknowledgement</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="struct.html">Get started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Python Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dustmodels.html">Dust models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="radmc.html">Application for RADMC-3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app_def.html">Appendix A: Definitions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app_gallery.html">Appendix B: Gallery of optical properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">Appendix C: Python modules</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">AggScatVIR</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>What’s AggScatVIR?</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/about.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="what-s-aggscatvir">
+<h1>What’s AggScatVIR?<a class="headerlink" href="#what-s-aggscatvir" title="Permalink to this heading"></a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">AggScatVIR</span></code> provides the optical properties of protoplanetary dust analogs at visible and near-infrared wavelengths. One can freely download the scattering matrix and opacity of various dust particles studied in Tazaki &amp; Dominik (2022) and Tazaki, Ginski, and Dominik (in prep).</p>
+<blockquote>
+<div><img alt="_images/all.png" src="_images/all.png" />
+</div></blockquote>
+<div class="section" id="highlighted-features">
+<h2>Highlighted features<a class="headerlink" href="#highlighted-features" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Based on rigorous light scattering solvers</strong>: We have used rigorous numerical techniques to calculate the optical properties of complex-shaped particles, such as the T-matrix method (used for aggregates) and discrete dipole approximation (used for irregular grains).</p></li>
+<li><p><strong>A extensive parameter-space coverage</strong>: We have tried to cover a wide variety of dust morphology, such as aggregate radius, monomer radius, composition, porosity, and fractal dimension. The database consists of 360 different dust models; 20 irregular grain models (10 grain radii; 2 compositions), 126 different compact aggregate models (3 aggregation models; 2 compositions; 3 monomer radii; on average 7 aggregate radii), and 214 fractal aggregate models (4 different fractal dimensions, 2 compositions, 5 monomer radii; on average 5.35 aggregate radii).</p></li>
+<li><p><strong>Full compatibility with RADMC-3D v2.0</strong>: One key application of AggScatVIR is observational modeling of (un)polarized scattered light from protoplanetary disks and debris disks. For this purpose, each file provided in this database has a data structure directly readable by a public radiative transfer code <a class="reference external" href="https://www.ita.uni-heidelberg.de/~dullemond/software/radmc-3d/">RADMC-3D v2.0</a></p></li>
+</ul>
+</div>
+<div class="section" id="assumptions-and-limitations">
+<h2>Assumptions and Limitations<a class="headerlink" href="#assumptions-and-limitations" title="Permalink to this heading"></a></h2>
+<p>Since we adopt exact numerical techniques for solving the optical properties, the limitation is coming from simulation setups.</p>
+<ul class="simple">
+<li><p><strong>Randomly orientated particles</strong>: Since each dust particle is no longer spherically symmetric, we need to assume an orientation of a particle with respect to the incident and scattered light directions. We assume that the particles are randomly orientated, and then their optical properties are averaged over all possible orientations with an equal probability. In other words, we <em>do not</em> consider the situation where non-spherical particles get aligned. Because of this assumption, only six elements (out of 4x4=16 elements) of the scattering matrix are independent.</p></li>
+<li><p><strong>Monomers are homogeneous spheres with a single size</strong>: This assumption is mainly for computational convenience. However, the monomers of cometary aggregates in the Solar System have been suggested to have a log-normal size distribution with a mean value of a sub-micrometer size (Rietmeijer 1993). As long as aggregates are cometary-like, our optical properties would not be far too different from the actual optical properties.</p></li>
+</ul>
+</div>
+<div class="section" id="how-to-cite">
+<h2>How to cite?<a class="headerlink" href="#how-to-cite" title="Permalink to this heading"></a></h2>
+<p>If you would like to publish results generated by using this package, please cite both of the following papers.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2022A%26A...663A..57T">Tazaki and Dominik 2022, A&amp;A, 663, 57</a></p></li>
+<li><p>Tazaki, Ginski, and Dominik (in prep).</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="acknowledgement">
+<h2>Acknowledgement<a class="headerlink" href="#acknowledgement" title="Permalink to this heading"></a></h2>
+<p>We thank Daniel Mackowski, Maxim A. Yurkin, Cornelis Dullemond for making the MSTM, ADDA, RADMC-3D codes publicly available, respectively. We also thank Bruce Draine for the availability of particle position data of BA, BAM1, and BAM2 and Yasuhiko Okada for providing us a generation code for BCCA.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Documentation for AggScatVIR" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="struct.html" class="btn btn-neutral float-right" title="Get started" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Ryo Tazaki.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
