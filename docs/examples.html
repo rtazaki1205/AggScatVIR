@@ -559,9 +559,10 @@ Power-law index of size dist. = 3.50000e+00
 <div class="section" id="Example-1:-Comparing-different-models">
 <h2>Example 1: Comparing different models<a class="headerlink" href="#Example-1:-Comparing-different-models" title="Permalink to this heading"></a></h2>
 <p>Since an instance created by the <code class="docutils literal notranslate"><span class="pre">dustmodel</span></code> class directly stores the values of the physical and optical properties of a specific dust model, you can easily perform a more flexible analysis.</p>
-<p>For example, let’s examine how the phase function of aggregates changes with fractal dimension <span class="math notranslate nohighlight">\(D_\mathrm{f}=1.1\)</span>, <span class="math notranslate nohighlight">\(1.3\)</span>, <span class="math notranslate nohighlight">\(1.5\)</span>, and <span class="math notranslate nohighlight">\(1.9\)</span> at the <span class="math notranslate nohighlight">\(H\)</span> band wavelength (<span class="math notranslate nohighlight">\(\lambda=1.63~\mu\)</span>m). To do so, first create some lists:</p>
+<p>For example, let’s examine how the phase function of aggregates changes with fractal dimension at the <span class="math notranslate nohighlight">\(H\)</span> band wavelength (<span class="math notranslate nohighlight">\(\lambda=1.63~\mu\)</span>m). We consider a fractal dimension of <span class="math notranslate nohighlight">\(D_\mathrm{f}=1.1\)</span>, <span class="math notranslate nohighlight">\(1.3\)</span>, <span class="math notranslate nohighlight">\(1.5\)</span>, and <span class="math notranslate nohighlight">\(1.9\)</span>.</p>
+<p>To do so, first create some lists:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pt</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;FA19&#39;</span><span class="p">,</span><span class="s1">&#39;FA15&#39;</span><span class="p">,</span> <span class="s1">&#39;FA13&#39;</span><span class="p">,</span><span class="s1">&#39;FA11&#39;</span><span class="p">]</span> <span class="c1"># a list of particle types</span>
@@ -570,9 +571,31 @@ Power-law index of size dist. = 3.50000e+00
 </pre></div>
 </div>
 </div>
-<p>Here we have assumed that the number of monomers gets smaller for a lower fractal dimension to approximately fix the aggregate radius. Then, let’s make a plot of the phase function for those models.</p>
+<p>where we have assumed that smaller number of monomers for a lower fractal dimension to approximately fix the aggregate radius. To check the characteristic radius of an aggregate, you can use the <code class="docutils literal notranslate"><span class="pre">get_radius_and_porosity</span></code> function</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pt</span><span class="p">)):</span>
+    <span class="n">ac</span><span class="p">,</span><span class="n">por</span><span class="o">=</span><span class="n">get_radius_and_porosity</span><span class="p">(</span><span class="n">pt</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="s1">&#39;100nm&#39;</span><span class="p">,</span><span class="n">np</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Particle Type: </span><span class="si">%4s</span><span class="s1">&#39;</span><span class="o">%</span><span class="k">pt</span>[i],&#39; Number of monomers = %4s&#39;%np[i],&#39; agg radius = %5.2f um&#39;%ac)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Particle Type: FA19  Number of monomers = 2048  agg radius =  6.72 um
+Particle Type: FA15  Number of monomers =  512  agg radius =  6.60 um
+Particle Type: FA13  Number of monomers =  256  agg radius =  6.73 um
+Particle Type: FA11  Number of monomers =  128  agg radius =  6.56 um
+</pre></div></div>
+</div>
+<p>Now we’ve confirmed that the four aggregates have approximately the same characteristic radius: <span class="math notranslate nohighlight">\(a_\mathrm{c}=6.645\pm0.085~\mu\)</span>m. Then, let’s make a plot of the phase function for those models.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -604,19 +627,19 @@ Reading dust model ...  FA11_Nmax128_100nm_amc.inp
 </pre></div></div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.legend.Legend at 0x7f897702f8e0&gt;
+&lt;matplotlib.legend.Legend at 0x7f908ff67370&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/examples_27_2.png" src="_images/examples_27_2.png" />
+<img alt="_images/examples_29_2.png" src="_images/examples_29_2.png" />
 </div>
 </div>
 </div>
@@ -624,7 +647,7 @@ Reading dust model ...  FA11_Nmax128_100nm_amc.inp
 <h2>Example 2: Polarization phase function<a class="headerlink" href="#Example-2:-Polarization-phase-function" title="Permalink to this heading"></a></h2>
 <p>Let’s give you one more example. In this example, we are going to see how the polarization phase function depends on aggregate radius and structure. Similar to the above example, we first make some lists:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;8&#39;</span><span class="p">,</span><span class="s1">&#39;16&#39;</span><span class="p">,</span><span class="s1">&#39;32&#39;</span><span class="p">,</span><span class="s1">&#39;64&#39;</span><span class="p">,</span><span class="s1">&#39;128&#39;</span><span class="p">,</span><span class="s1">&#39;256&#39;</span><span class="p">,</span><span class="s1">&#39;512&#39;</span><span class="p">,</span><span class="s1">&#39;1024&#39;</span><span class="p">,</span><span class="s1">&#39;2048&#39;</span><span class="p">,</span><span class="s1">&#39;4096&#39;</span><span class="p">]</span> <span class="c1"># a list of the number of monomers</span>
@@ -661,14 +684,14 @@ Reading dust model ...  FA11_Nmax128_100nm_amc.inp
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.legend.Legend at 0x7f8977591130&gt;
+&lt;matplotlib.legend.Legend at 0x7f9090a07a30&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/examples_31_1.png" src="_images/examples_31_1.png" />
+<img alt="_images/examples_33_1.png" src="_images/examples_33_1.png" />
 </div>
 </div>
 </div>
