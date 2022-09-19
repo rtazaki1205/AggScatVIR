@@ -14,8 +14,32 @@ def get_sizelist(agg,amon=None):
         >>> print(get_nlist('grs'))
         ['0_2000', '0_2520', '0_3175', '0_4000', '0_5040', '0_6350', '0_8000', '1_0079', '1_2699', '1_6000']
     """
-    nlist=[]
     
+    #
+    # safety checks
+    #
+    if agg in ['CALP','CAMP','CAHP']:
+        amon_list=['100nm','200nm','400nm']
+    elif agg in ['FA11','FA13','FA15','FA19']:
+        amon_list=['100nm','150nm','200nm','300nm','400nm']
+    elif agg=='grs':
+        amon=None
+    else:
+        print('error in get_sizelist: incorrect partype type')
+        print(' inputted value     = ',agg)
+        print(" while available values are= 'FA11', 'FA13', 'FA15', 'FA19', 'CAHP', 'CAMP', 'CALP', 'grs'")
+        exit()
+
+    # check amon
+    if amon is not None and amon not in amon_list:
+        print('error in get_sizelist: incorrect monomer radius')
+        print(' inputted value     = ',amon)
+        print(' while available values are= ',amon_list)
+        exit()
+
+    #
+    #
+    nlist=[]
     if(agg=='FA11'):
         if(amon=='100nm'):
             nlist=['8','16','32','64','128','256']
@@ -96,7 +120,36 @@ def get_radius_and_porosity(partype,amon,np):
         porosity              = 86.47 %
     """
 
+    #
+    # safety checks
+    #
+    # check partype
+    partype_list=['CALP','CAMP','CAHP','FA19','FA15','FA13','FA11']
+    if partype not in partype_list:
+        print('error in get_radius_and_poroty: incorrect partype type')
+        print(' inputted value     = ',partype)
+        print(' while available values are= ',partype_list)
+        exit()
+
+    # check amon
+    amon_list=['100nm','150nm','200nm','300nm','400nm']
+    if amon not in amon_list:
+        print('error in get_radius_and_poroty: incorrect monomer radius')
+        print(' inputted value     = ',amon)
+        print(' while available values are= ',amon_list)
+        exit()
+
+    # check np
+    np_list=get_sizelist(partype,amon=amon)
+    if np not in np_list:
+        print('error in get_radius_and_poroty: incorrect number of monomers.')
+        print('        inputted value     = ',np)
+        print('        while available values are= ',np_list)
+        exit()
+
+    #
     # first store aggregate radius (normalized to amon=100 nm)
+    #
     if partype=='FA11':
         if np=='8':
             rc=0.51170114E+01
@@ -299,6 +352,7 @@ def get_radius_and_porosity(partype,amon,np):
             rc=0.23404664E+02
             po=68.05
 
+
     # convert str --> int
     a0=int(amon[0:3])/100
     
@@ -309,14 +363,13 @@ def get_radius_and_porosity(partype,amon,np):
 
 if __name__ == '__main__':
 
-    print(get_sizelist('FA19','100nm'))
-    print(get_sizelist('CAHP','400nm'))
+    print(get_sizelist('FA11','300nm'))
     print(get_sizelist('grs'))
 
     ac,por=get_radius_and_porosity('FA19','100nm','4096')
     print('%-21s'%"characteristic radius",'= %5.2f um'%ac)
     print('%-21s'%"porosity",'= %5.2f %%'%por)
-    
+   
     ac,por=get_radius_and_porosity('CAHP','400nm','64')
     print('%-21s'%"characteristic radius",'= %5.2f um'%ac)
     print('%-21s'%"porosity",'= %5.2f %%'%por)
