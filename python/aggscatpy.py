@@ -345,7 +345,7 @@ class dustmodel:
         fig,axes = plt.subplots(2,2,figsize=(15,12),gridspec_kw={'hspace':0.4})
 
         axes[0,0].set_title('Opacity',fontsize=20)
-        axes[1,0].set_title('Single scattering albedo $\omega$, $P_\mathrm{max}$, $g$',fontsize=20)
+        axes[1,0].set_title('Albedo, Max pol, asymmetry parameter',fontsize=20)
         axes[0,1].set_title('Phase function',fontsize=20)
         axes[1,1].set_title('Degree of polarization $-Z_\mathrm{12}/Z_\mathrm{11}$',fontsize=20)
         
