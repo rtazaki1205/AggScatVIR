@@ -6,7 +6,7 @@ Download
 
 ``AggScatVIR`` has been managed on a GitHub repository. You can freely download the latest version of ``AggScatVIR`` by typing a standard GitHub command::
 
-    git clone https://github.com/rtazaki1205/XXX.git
+    git clone https://github.com/rtazaki1205/AggScatVIR.git
 
 **Warnings: The main datasets have not yet been registered in the repository, and therefore it is not ready to use.**
 
