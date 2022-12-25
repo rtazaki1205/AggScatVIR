@@ -21,7 +21,7 @@ class plots:
 
     def set_lmd_vs_opc(self):
         """
-        set axis for a plot for the opacity againt wavelength.
+        set axis for a plot for the opacity vs wavelength.
         """
         self.set_ylim(1.e2,2.e5)
         self.set_xscale('log')
@@ -31,7 +31,21 @@ class plots:
         self.set_xlabel('Wavelength $(\mu\mathrm{m})$', fontsize=20)
         self.get_xaxis().set_major_formatter(matplotlib.ticker.ScalarFormatter())
         self.get_xaxis().set_minor_formatter(matplotlib.ticker.NullFormatter())
- 
+
+    def set_lmd_vs_cross(self):
+        """
+        set axis for a plot for the cross section vs wavelength.
+        """
+        #self.set_ylim(5.e-3,5.e1)
+        self.set_xscale('log')
+        self.set_yscale('log')
+        self.set_xlim(0.5,4)
+        self.set_xticks([0.5,1,2,4])
+        self.set_xlabel('Wavelength $(\mu\mathrm{m})$', fontsize=20)
+        self.get_xaxis().set_major_formatter(matplotlib.ticker.ScalarFormatter())
+        self.get_xaxis().set_minor_formatter(matplotlib.ticker.NullFormatter())
+
+
     def set_lmd_vs_albedo(self):
         """
         set axis for a plot for the albedo, pmax, asymmetry parameter  against wavelength.

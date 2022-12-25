@@ -1,20 +1,65 @@
-
+import numpy as np
 
 def get_sizelist(agg,amon=None):
     """
     Get a list of available ``size`` arguments, which is necessary to call the ``dustmodel`` class.
-    
+    If amon is None and agg is for dust aggregates, an available list of amon and size will be outputted.
+
     Examples:
-        >>> print(get_nlist('FA19','100nm'))
+        >>> print(get_nlist('FA19'))
+        Available amon and size for FA19
+        amon='100nm' | '8','16','32','64','128','256','512','1024','2048','4096'
+        amon='150nm' | '8','16','32','64','128','256','512'
+        amon='200nm' | '8','16','32','64','128','256','512'
+        amon='300nm' | '8','16','32','64','128','256'
+        amon='400nm' | '8','16','32','64','128'
+        
+        >>> print(get_nlist('FA19',amon='100nm'))
         ['8', '16', '32', '64', '128', '256', '512', '1024', '2048', '4096']
 
-        >>> print(get_nlist('CAHP','400nm'))
+        >>> print(get_nlist('CAHP',amon='400nm'))
         ['8', '16', '32', '64']
 
         >>> print(get_nlist('grs'))
         ['0_2000', '0_2520', '0_3175', '0_4000', '0_5040', '0_6350', '0_8000', '1_0079', '1_2699', '1_6000']
     """
     
+    #
+    # output all info
+    #
+    if agg != 'grs' and amon==None:
+        print(" Available amon and size for",agg)
+        if agg in ['CALP','CAMP','CAHP']:
+            print(" amon='100nm' | size='8','16','32','64','128','256','512','1024','2048','4096'")
+            print(" amon='200nm' | size='8','16','32','64','128','256','512'")
+            print(" amon='400nm' | size='8','16','32','64'")
+        elif agg=='FA19':
+            print(" amon='100nm' | '8','16','32','64','128','256','512','1024','2048','4096'")
+            print(" amon='150nm' | '8','16','32','64','128','256','512'")
+            print(" amon='200nm' | '8','16','32','64','128','256','512'")
+            print(" amon='300nm' | '8','16','32','64','128','256'")
+            print(" amon='400nm' | '8','16','32','64','128'")
+        elif agg=='FA15':
+            print(" amon='100nm' | '8','16','32','64','128','256','512','1024'")
+            print(" amon='150nm' | '8','16','32','64','128','256'")
+            print(" amon='200nm' | '8','16','32','64','128','256'")
+            print(" amon='300nm' | '8','16','32','64','128''")
+            print(" amon='400nm' | '8','16','32','64'")
+        elif agg=='FA13':
+            print(" amon='100nm' | '8','16','32','64','128','256','512'")
+            print(" amon='150nm' | '8','16','32','64','128'")
+            print(" amon='200nm' | '8','16','32','64','128'")
+            print(" amon='300nm' | '8','16','32','64'")
+            print(" amon='400nm' | '8','16','32'")
+        elif agg=='FA11':
+            print(" amon='100nm' | '8','16','32','64','128','256'")
+            print(" amon='150nm' | '8','16','32','64'")
+            print(" amon='200nm' | '8','16','32','64'")
+            print(" amon='300nm' | '8','16','32'")
+            print(" amon='400nm' | '8','16'")
+        #exit()
+        return
+
     #
     # safety checks
     #
@@ -26,79 +71,173 @@ def get_sizelist(agg,amon=None):
         amon=None
     else:
         print('error in get_sizelist: incorrect partype type')
-        print(' inputted value     = ',agg)
-        print(" while available values are= 'FA11', 'FA13', 'FA15', 'FA19', 'CAHP', 'CAMP', 'CALP', 'grs'")
+        print(' inputt value     = ',agg)
+        print(" while available values are = 'FA11', 'FA13', 'FA15', 'FA19', 'CAHP', 'CAMP', 'CALP', 'grs'")
         exit()
 
     # check amon
     if amon is not None and amon not in amon_list:
         print('error in get_sizelist: incorrect monomer radius')
-        print(' inputted value     = ',amon)
-        print(' while available values are= ',amon_list)
+        print(' input value     = ',amon)
+        print(' while available values are = ',amon_list)
         exit()
 
     #
     #
     nlist=[]
-    if(agg=='FA11'):
-        if(amon=='100nm'):
+    if agg=='FA11':
+        if amon=='100nm':
             nlist=['8','16','32','64','128','256']
-        elif(amon=='150nm'):
+        elif amon=='150nm':
             nlist=['8','16','32','64']
-        elif(amon=='200nm'):
+        elif amon=='200nm':
             nlist=['8','16','32','64']
-        elif(amon=='300nm'):
+        elif amon=='300nm':
             nlist=['8','16','32']
-        elif(amon=='400nm'):
+        elif amon=='400nm':
             nlist=['8','16']
-    elif(agg=='FA13'):
-        if(amon=='100nm'):
+    
+    elif agg=='FA13':
+        if amon=='100nm':
             nlist=['8','16','32','64','128','256','512']
-        elif(amon=='150nm'):
+        elif amon=='150nm':
             nlist=['8','16','32','64','128']
-        elif(amon=='200nm'):
+        elif amon=='200nm':
             nlist=['8','16','32','64','128']
-        elif(amon=='300nm'):
+        elif amon=='300nm':
             nlist=['8','16','32','64']
-        elif(amon=='400nm'):
+        elif amon=='400nm':
             nlist=['8','16','32']
 
-    elif(agg=='FA15'):
-        if(amon=='100nm'):
+    elif agg=='FA15':
+        if amon=='100nm':
             nlist=['8','16','32','64','128','256','512','1024']
-        elif(amon=='150nm'):
+        elif amon=='150nm':
             nlist=['8','16','32','64','128','256']
-        elif(amon=='200nm'):
+        elif amon=='200nm':
             nlist=['8','16','32','64','128','256']
-        elif(amon=='300nm'):
+        elif amon=='300nm':
             nlist=['8','16','32','64','128']
-        elif(amon=='400nm'):
+        elif amon=='400nm':
             nlist=['8','16','32','64']
 
-    elif(agg=='FA19'):
-        if(amon=='100nm'):
+    elif agg=='FA19':
+        if amon=='100nm':
             nlist=['8','16','32','64','128','256','512','1024','2048','4096']
-        elif(amon=='150nm'):
+        elif amon=='150nm':
             nlist=['8','16','32','64','128','256','512']
-        elif(amon=='200nm'):
+        elif amon=='200nm':
             nlist=['8','16','32','64','128','256','512']
-        elif(amon=='300nm'):
+        elif amon=='300nm':
             nlist=['8','16','32','64','128','256']
-        elif(amon=='400nm'):
+        elif amon=='400nm':
             nlist=['8','16','32','64','128']
 
-    elif(agg=='CAHP' or agg=='CAMP' or agg=='CALP'):
-        if(amon=='100nm'):
+    elif agg=='CAHP' or agg=='CAMP' or agg=='CALP':
+        if amon=='100nm':
             nlist=['8','16','32','64','128','256','512','1024','2048','4096']
-        elif(amon=='200nm'):
+        elif amon=='200nm':
             nlist=['8','16','32','64','128','256','512']
-        elif(amon=='400nm'):
+        elif amon=='400nm':
             nlist=['8','16','32','64']
 
-    elif(agg=='grs'):
+    elif agg=='grs':
         nlist=['0_2000','0_2520','0_3175','0_4000','0_5040','0_6350','0_8000','1_0079','1_2699','1_6000']
 
     return nlist
+
+
+# volume equivalent radius of grs particles in unit of microns
+def grs_voleq(sizename):
+    """
+    Get a volume-equivalent radius of grs particles.
+
+    Parameters
+    ----------
+    sizename : str
+               a string to specify the size of GRS particles    
+
+    Returns
+    ----------
+    av       : float
+               the grain radius in microns
+    """
+
+    if sizename=='0_2000':
+        av = 0.2000e0
+    elif sizename=='0_2520':
+        av = 0.2520e0
+    elif sizename=='0_3175':
+        av = 0.3175e0
+    elif sizename=='0_4000':
+        av = 0.4000e0
+    elif sizename=='0_5040':
+        av = 0.5040e0
+    elif sizename=='0_6350':
+        av = 0.6350e0
+    elif sizename=='0_8000':
+        av = 0.8000e0
+    elif sizename=='1_0079':
+        av = 1.0079e0
+    elif sizename=='1_2699':
+        av = 1.2699e0
+    elif sizename=='1_6000':
+        av = 1.6000e0
+    return av
+
+
+# calculate mass
+def calculate_dust_mass(self,qind,sizemin=None,sizemax=None):
+    """
+    Calculate a dust mass (or distribution-averaged value when the size distribution is present)..
+
+    Parameters
+    ----------
+    qind    : float
+              power-law index of the size distribution
+    sizemin : str (optional)
+              a string to specify the minimum dust particle
+    sizemax : str (optional)
+              a string to specify the maximum dust particle
+
+    Returns
+    ----------
+    mass     : float
+               dust mass in gram
+    """
+
+    # calculate (distribution-averaged) mass 
+    mic2cm=1.e-4
+    cm2mic=1.e4
+    if self.dist:
+        # power-law index of size distribution
+        #qind=3.5    # DO NOT CHANGE !!!
+        tot1 = 0.0
+        tot2 = 0.0
+        if self.aggop:
+            imin=int(np.log2(self.npmin))
+            imax=int(np.log2(self.npmax))
+            for i in range(imin,imax+1):
+                av = self.amon*2.0**(float(i)/3.0)
+                av = av * mic2cm
+                tot1 = tot1 + av ** (4.0 - qind)
+                tot2 = tot2 + av ** (1.0 - qind)
+        else:
+            grs_list=get_sizelist('grs')
+            imin=grs_list.index(sizemin)
+            imax=grs_list.index(sizemax)
+            for i in range(imin,imax+1):
+                av = grs_voleq(grs_list[i])
+                av = av * mic2cm
+                tot1 = tot1 + av ** (4.0 - qind)
+                tot2 = tot2 + av ** (1.0 - qind)
+        # calculate distribution-averaged mass
+        mass = 4.0*np.pi*self.rhomat*tot1/tot2/3.0
+    else:   
+        mass = 4.0*np.pi*self.rhomat*(self.av*mic2cm)**3.0/3.0
+
+    return mass
+
 
 
 # 
@@ -362,6 +501,8 @@ def get_radius_and_porosity(partype,amon,np):
     return rc,po
 
 if __name__ == '__main__':
+
+    print(get_sizelist('FA19'))
 
     print(get_sizelist('FA11','300nm'))
     print(get_sizelist('grs'))
