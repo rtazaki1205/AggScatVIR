@@ -31,6 +31,9 @@ where :math:`a_\mathrm{g}` is the radius of gyration defined by
 .. math::
     a_\mathrm{g} = \sqrt{\sum_{i=1}^{N} \frac{ \\|\vec{r_i}-\vec{r_M}\\|^2 }{N}}
 
+.. .. math::
+    a_\mathrm{g} = \sqrt{\sum_{i=1}^{N} \frac{ \|\vec{r_i}-\vec{r_M}\|^2 }{N}}
+
 .. _strucdef:
 
 Porosity and fractal dimension
@@ -66,9 +69,89 @@ By substituting this expression into the definition of the porosity, we obtain
 
 Therefore, the fractal prefactor is related to the porosity of an aggregate. 
 
-Optical properties
-################################
 
+.. _scatmatdefs:
+
+Definitions of scattering properties
+#####################################
+
+Notations
+**************
 The definition of the optical properties written in a file ``dustkapscatmat_XXX.inp`` follows the definitions of the ones used in RADMC-3D. See `the manual of RADMC-3D <https://www.ita.uni-heidelberg.de/~dullemond/software/radmc-3d/manual_radmc3d/dustradtrans.html#polarization-stokes-vectors-and-full-phase-functions>`_ for a detailed description.
 
+We are interested in scattered light from a collection of *identical* dust particles. Suppose the dust particles are randomly orientated with equal probability, the scattering matrix which relate incident and scattered Stokes parameters, will have 6 non-zero independent elements:
 
+.. math::
+    \begin{pmatrix}
+    I_\mathrm{sca} \\ 
+    Q_\mathrm{sca} \\
+    U_\mathrm{sca} \\
+    V_\mathrm{sca} \\
+    \end{pmatrix}
+    =
+    \frac{m_\mathrm{dust}}{d^2}
+    \begin{pmatrix}
+    Z_{11} & Z_{12} & 0 & 0 \\
+    Z_{12} & Z_{22} & 0 & 0 \\
+    0 & 0 & Z_{33} & Z_{34} \\
+    0 & 0 & -Z_{34} & Z_{44} \\
+    \end{pmatrix}
+    \begin{pmatrix}
+    I_\mathrm{inc} \\ 
+    Q_\mathrm{inc} \\
+    U_\mathrm{inc} \\
+    V_\mathrm{inc} \\
+    \end{pmatrix},
+
+where :math:`d` is the distance from a dust particle to the observer, :math:`m_\mathrm{dust}` is the mass of a dust particle, :math:`Z_{ij}` is scattering matrix elements. Since the dust particles that this package deals with are not spherically symemtric anymore, we have :math:`Z_{11}\neq Z_{22}` and :math:`Z_{33}\neq Z_{44}`.
+
+The scattering matrix elements :math:`Z_{ij}` (:math:`\mathrm{cm}^2/\mathrm{g}/\mathrm{str}`) are related to the traditional notation via: 
+
+.. math::
+    Z_{ij}=\frac{S_{ij}^\mathrm{BohrenHuffman}}{k^2m_\mathrm{dust}},
+
+where :math:`k` is the wave number (:math:`\mathrm{cm}^{-1}`) and :math:`S_{ij}` is the scattering matrix elements defined by `Bohren & Huffman (1983) <https://ui.adsabs.harvard.edu/abs/1983asls.book.....B>`_. 
+Note that RADMC-3D adopts the IAU 1974 definition for the Stokes vectors, and it is different from what Bohren & Huffman's book follows. As a result, we need a minus sign for the :math:`Z_{13}`, :math:`Z_{14}`, :math:`Z_{23}`, :math:`Z_{24}`, :math:`Z_{31}`, :math:`Z_{41}`, :math:`Z_{32}`, :math:`Z_{42}` elements because of the opposite :math:`U` and :math:`V` sign conventions (But, these elements are zero for our cases).
+
+The integration of :math:`Z_{11}` over the all solid angles gives the scattering opacity (:math:`\mathrm{cm}^2/\mathrm{g}`)
+
+.. math::
+    \kappa_\mathrm{sca}(\lambda)=\int_{4\pi} Z_{11}(\theta,\lambda)d\Omega.
+
+The definition of the *phase function* is the same as Bohren & Huffman's one (see Eq. 13.3):
+
+.. math::
+   p(\theta)\equiv\frac{1}{C_\mathrm{sca}}\frac{dC_\mathrm{sca}}{d\Omega}=\frac{1}{C_\mathrm{sca}/m_\mathrm{dust}}\frac{S_{11}}{k^2m_\mathrm{dust}}=\frac{Z_{11}(\theta)}{\kappa_\mathrm{sca}},
+
+where :math:`C_\mathrm{sca}` is the scattering cross section, and :math:`dC_\mathrm{sca}/d\Omega` is the differential scattering cross section. The phase function is therefore normalized such that :math:`\int_{4\pi} p(\theta)d\Omega=1`. The asymmetry parameter is defined by (p. 72, Section 3.4 in Bohren & Huffman's book):
+
+.. math::
+   g \equiv \int_{4\pi} p(\theta) \cos\theta d\Omega=\frac{2\pi}{\kappa_\mathrm{sca}}\int_{-1}^{+1} Z_{11}(\mu)\mu d\mu,
+
+where :math:`\mu=\cos\theta`; :math:`\theta` is the scattering angle (:math:`\theta=0^\circ` is the forward scattering direction). :math:`g` is non-dimensional quantity.
+
+Size distribution averaging
+****************************
+
+This package provides the optical properties averaged over a particle-size distribution. The size distribution is assumed to obey a power-law function:
+
+.. math::
+   n(a_\mathrm{V})da_\mathrm{V}\propto a_\mathrm{V}^{-q}da_\mathrm{V}~(a_\mathrm{min}\le a_\mathrm{V}\le a_\mathrm{max}),
+
+where :math:`a_\mathrm{V}` is the volume-equilvanet radius of a dust particle, and :math:`n(a_\mathrm{V})da_\mathrm{V}` is the number density of particles within [:math:`a_\mathrm{V},a_\mathrm{V}+da_\mathrm{V}`]. By default, we adopt :math:`q=3.5`.
+
+The average scattering matrix elements for a collection of various particle sizes can be expressed as the following integration:
+
+.. math::
+   Z_{ij,\mathrm{ave}}(\theta)=\frac{\int_{a_\mathrm{min}}^{a_\mathrm{max}}a_\mathrm{V}^{3-q}Z_{ij}(a_\mathrm{V},\theta) da_\mathrm{V}}{\int_{a_\mathrm{min}}^{a_\mathrm{max}} a_\mathrm{V}^{3-q}da_\mathrm{V}},
+
+where :math:`Z_{ij,\mathrm{ave}}` are the scattering matrix elements averaged over the size distribution (Remember that :math:`Z_{ij}` are quantities per unit mass). Similarly, the distribution-averaged absorption opacity is calculated by 
+
+.. math::
+    \kappa_\mathrm{abs,ave} = \frac{\int_{a_\mathrm{min}}^{a_\mathrm{max}}a_\mathrm{V}^{3-q}\kappa_\mathrm{abs}(a_\mathrm{V}) da_\mathrm{V}}{\int_{a_\mathrm{min}}^{a_\mathrm{max}} a_\mathrm{V}^{3-q}da_\mathrm{V}}.
+
+The averaged scattering opacity and asymmetry parameter are calculated from the averaged value of :math:`Z_{11,\mathrm{ave}}`:
+
+.. math::
+    \kappa_\mathrm{sca,ave}=2\pi \int_{-1}^{+1} Z_{11,\mathrm{ave}}(\mu)d\mu,\\
+   g_\mathrm{ave}=\frac{2\pi}{\kappa_\mathrm{sca,ave}}\int_{-1}^{+1} Z_{11,\mathrm{ave}}(\mu)\mu d\mu.

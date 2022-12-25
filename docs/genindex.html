@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Index &mdash; AggScatVIR v0.0.0 documentation</title>
+  <title>Index &mdash; AggScatVIR v0.1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -39,11 +39,10 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="about.html">What’s AggScatVIR?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">What is AggScatVIR?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="struct.html">Get started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Python Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dustmodels.html">Dust models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="radmc.html">Application for RADMC-3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="radmc3d.html">Running RADMC-3D with AggScatVIR</a></li>
 <li class="toctree-l1"><a class="reference internal" href="app_def.html">Appendix A: Definitions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="app_gallery.html">Appendix B: Gallery of optical properties</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">Appendix C: Python modules</a></li>
@@ -77,11 +76,13 @@
 
 <div class="genindex-jumpbox">
  <a href="#A"><strong>A</strong></a>
+ | <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
  | <a href="#G"><strong>G</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#P"><strong>P</strong></a>
  | <a href="#S"><strong>S</strong></a>
+ | <a href="#W"><strong>W</strong></a>
  
 </div>
 <h2 id="A">A</h2>
@@ -106,14 +107,26 @@
   </ul></td>
 </tr></table>
 
+<h2 id="C">C</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/agginfo.html#agginfo.calculate_dust_mass">calculate_dust_mass() (in module agginfo)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/aggscatpy.html#aggscatpy.distaverage">distaverage (class in aggscatpy)</a>
+</li>
       <li><a href="api/aggscatpy.html#aggscatpy.dustmodel">dustmodel (class in aggscatpy)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/aggscatpy.html#aggscatpy.dustmodel.dustspec">dustspec() (aggscatpy.dustmodel method)</a>
+      <li><a href="api/aggscatpy.html#aggscatpy.dustspec">dustspec() (in module aggscatpy)</a>
+</li>
+      <li><a href="api/aggscatpy.html#aggscatpy.dustspec_header">dustspec_header() (in module aggscatpy)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -126,6 +139,8 @@
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/agginfo.html#agginfo.get_sizelist">get_sizelist() (in module agginfo)</a>
+</li>
+      <li><a href="api/agginfo.html#agginfo.grs_voleq">grs_voleq() (in module agginfo)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -171,13 +186,27 @@
 </li>
       <li><a href="api/plots.html#plots.plots.set_ang_vs_pol">set_ang_vs_pol() (plots.plots method)</a>
 </li>
+      <li><a href="api/plots.html#plots.plots.set_lmd_vs_albedo">set_lmd_vs_albedo() (plots.plots method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/plots.html#plots.plots.set_lmd_vs_albedo">set_lmd_vs_albedo() (plots.plots method)</a>
+      <li><a href="api/plots.html#plots.plots.set_lmd_vs_cross">set_lmd_vs_cross() (plots.plots method)</a>
 </li>
       <li><a href="api/plots.html#plots.plots.set_lmd_vs_opc">set_lmd_vs_opc() (plots.plots method)</a>
 </li>
-      <li><a href="api/aggscatpy.html#aggscatpy.dustmodel.showmodel">showmodel() (aggscatpy.dustmodel method)</a>
+      <li><a href="api/aggscatpy.html#aggscatpy.showmodel">showmodel() (in module aggscatpy)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="W">W</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/aggscatpy.html#aggscatpy.write_data">write_data() (in module aggscatpy)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/aggscatpy.html#aggscatpy.distaverage.write_dustkapscatmat">write_dustkapscatmat() (aggscatpy.distaverage method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -191,7 +220,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Ryo Tazaki.</p>
+    <p>&#169; Copyright 2022-2023, Ryo Tazaki.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

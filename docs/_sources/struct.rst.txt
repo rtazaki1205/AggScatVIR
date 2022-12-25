@@ -13,7 +13,7 @@ Download
 Structure of this package
 ##########################
 
-The package consists of the following directories:
+The package has the following structure:
 ::
 
     aggscatvir
@@ -27,19 +27,272 @@ The package consists of the following directories:
     │        ├─── nochop
     │        ├─── chop5
     │        └─── chop10
-    ├── manual
+    ├── docs
     └── python
 
-The optical properties of various dust particles are located in the ``aggscatrt`` directory. This directory consists of two directories: ``single`` and ``distave``. The former and the latter contain the optical properties with/without a particle size distribution, respectively. The optical properties of various dust particles are located under the ``nochop`` directory. 
+In the ``aggscatrt`` directory, the dataset of the optical properties of various dust particles are located. In the ``docs`` and ``python`` directories, you will find a manual and a simple notebook on the usage of python tools.
 
-.. note::
-   You will also find the directories named chop5 and chop10. These directories are intended for those who have run into issues due to a strong forward scattering in radiative transfer calculations (see also :ref:`radmctips`). Therefore, those who have other purposes may ignore these directories. 
- 
+The ``aggscaatrt`` directory consists of two sub-directories: ``single`` and ``distave``. The former and the latter contain the optical properties with/without a particle size distribution, respectively. Each directory further consists of three sub-directories: ``nochop``, ``chop5``, and ``chop10``. The ``nochop`` directory contains the optical properties of various dust particles, while the other two contain the data processed with a special treatment that might be useful in radiative trasnfer simulations (see Note below). If this is your first time to look at this database, then ``nochop`` would be the one you should go first.
+
+
+In principle, each dust model has a single ascii file, which tabulates all the optical properties: the wavelength dependent opacity, scattering angle grids, scattering matrix element (11, 12, 22, 33, 34, 44) for each wavelength and scattering angle. The physical properties of a dust model, such as the number of monomers and porosity, is also described in its header part starting from '#'.
+
 If you go into the ``nochop`` directory, you will see a number of files named like::
     
     dustkapscatmat_XXX.inp
 
-where ``XXX`` represents a dust model name. In this file, you will find all optical properties, such as opacity and scattering matrix elements, for a given dust model of XXX. The structure of this file is the same as the one used in RADMC-3D. See `the manual of RADMC-3D <https://www.ita.uni-heidelberg.de/~dullemond/software/radmc-3d/manual_radmc3d/inputoutputfiles.html#the-dustkapscatmat-inp-files>`_ for a detailed description.
+where ``XXX`` represents a dust model name. Regarding the file structure, see :ref:`filestruct`.
+
+.. note::
+   The chop5 and chop10 directories are intended for those who have run into issues due to a strong forward scattering peak of each dust particle in radiative transfer calculations (see also :ref:`radmctips`). To ease such a situation, chop5 and chop10 directories provide the optical properties where a forward scattering peak is chopped at a scattering angle below 5 degrees or 10 degrees, respectively. 
+
+Rules for dust file names
+#########################
+
+For aggregates
+*******************
+
+The name of each aggregate model follows the following syntax::
+
+    dustkapscatmat_TYPE_AGGSIZE_MONOSIZE_MONOCOMP.inp
 
 
-In the ``python`` directory, you will find a simple notebook on the usage of python tools.
+where ``TYPE`` specifices a type of particle shape, ``AGGSIZE`` is the number of monomers (the aggregate size), ``MONOSIZE`` is the monomer radius in unit of nm, and ``MONOCOMP`` is the dust composition. 
+
+The available type for is as follows.
+
++------------+---------------------------------------------------+
+| cmd        | Meaning                                           |
++============+===================================================+
+| ``FA11``   | Fractal aggregates with                           |
+|            | :math:`D_\mathrm{f}=1.1,~k_\mathrm{f}=1.7`        |
++------------+---------------------------------------------------+
+| ``FA13``   | Fractal aggregates with                           |
+|            | :math:`D_\mathrm{f}=1.3,~k_\mathrm{f}=1.5`        |
++------------+---------------------------------------------------+
+| ``FA15``   | Fractal aggregates with                           |
+|            | :math:`D_\mathrm{f}=1.5,~k_\mathrm{f}=1.4`        |
++------------+---------------------------------------------------+
+| ``FA19``   | Fractal aggregates with  :math:`D_\mathrm{f}=1.9` |
+|            | (also known as BCCA)                              |
++------------+---------------------------------------------------+
+| ``CAHP``   | Compact aggregates with a high porosity           |
+|            | (also known as BPCA)                              |
++------------+---------------------------------------------------+
+| ``CAMP``   | Compact aggregates with a moderate porosity       |
+|            | (also known as BAM1)                              |
++------------+---------------------------------------------------+
+| ``CALP``   | Compact aggregates with a low porosity            |
+|            | (also known as BAM2)                              |
++------------+---------------------------------------------------+
+
+The the monomer radius, the following options are available.
+
++-----------+--------------------------------------------------------+
+| cmd       | monomer radius                                         |
++===========+========================================================+
+| ``100nm`` | 100 nm (0.1 micron)                                    |
++-----------+--------------------------------------------------------+
+| ``150nm`` | 150 nm (0.15 micron)  (only for FA11, FA13, FA15, FA19)|
++-----------+--------------------------------------------------------+
+| ``200nm`` | 200 nm (0.2 micron)                                    |
++-----------+--------------------------------------------------------+
+| ``300nm`` | 300 nm (0.3 micron)  (only for FA11, FA13, FA15, FA19) |
++-----------+--------------------------------------------------------+
+| ``400nm`` | 400 nm (0.4 micron)                                    |
++-----------+--------------------------------------------------------+
+
+For the dust composition, the following two options are available.
+
++---------+------------------------------------------------------------------+
+| cmd     | material ingredients                                             |
++=========+==================================================================+
+| ``org`` | pyroxene (Mg0.7Fe0.3SiO3), water ice, troilite, organics         |
++---------+------------------------------------------------------------------+
+| ``amc`` | pyroxene (Mg0.7Fe0.3SiO3), water ice, troilite, amorphous carbon |
++---------+------------------------------------------------------------------+
+
+The available number of monomers (``AGGSIZE``) depends on the aggregate type and the monomoer radius.
+
++------------+----------------------------------------+-------------------------+-------------------------+---------------------+----------------+
+|            | ``100nm``                              | ``150nm``               |  ``200nm``              | ``300nm``           | ``400nm``      |
++============+========================================+=========================+=========================+=====================+================+
+|  ``FA11``  |  8,16,32,64,128,256                    |  8,16,32,64             |  8,16,32,64             |  8,16,32            |  8,16          |
++------------+----------------------------------------+-------------------------+-------------------------+---------------------+----------------+
+|  ``FA13``  |  8,16,32,64,128,256,512                |  8,16,32,64,128         |  8,16,32,64,128         |  8,16,32,64         |  8,16,32       |
++------------+----------------------------------------+-------------------------+-------------------------+---------------------+----------------+
+|  ``FA15``  |  8,16,32,64,128,256,512,1024           |  8,16,32,64,128,256     |  8,16,32,64,128,256     |  8,16,32,64,128     |  8,16,32,64    |
++------------+----------------------------------------+-------------------------+-------------------------+---------------------+----------------+
+|  ``FA19``  |  8,16,32,64,128,256,512,1024,2048,4096 |  8,16,32,64,128,256,512 |  8,16,32,64,128,256,512 |  8,16,32,64,128,256 |  8,16,32,64,128|
++------------+----------------------------------------+-------------------------+-------------------------+---------------------+----------------+
+|  ``CAHP``  |  8,16,32,64,128,256,512,1024,2048,4096 |  ...                    |  8,16,32,64,128,256,512 |  ...                |  8,16,32,64    |
++------------+----------------------------------------+-------------------------+-------------------------+---------------------+----------------+
+|  ``CAMP``  |  8,16,32,64,128,256,512,1024,2048,4096 |  ...                    |  8,16,32,64,128,256,512 |  ...                |  8,16,32,64    |
++------------+----------------------------------------+-------------------------+-------------------------+---------------------+----------------+
+|  ``CALP``  |  8,16,32,64,128,256,512,1024,2048,4096 |  ...                    |  8,16,32,64,128,256,512 |  ...                |  8,16,32,64    |
++------------+----------------------------------------+-------------------------+-------------------------+---------------------+----------------+
+
+
+..  +-------------+-------------------+-------------------+-------------------+-------------------+---------------+
+    |             | ``100nm``         | ``150nm``         |  ``200nm``        | ``300nm``         | ``400nm``     |
+    +=============+===================+===================+===================+===================+===============+
+    | | ``FA11``  | | 8,16,32,64,128, | | 8,16,32,64      | | 8,16,32,64      | | 8,16,32         | | 8,16        |
+    | |           | | 256             | |                 | |                 | |                 | |             |
+    +-------------+-------------------+-------------------+-------------------+-------------------+---------------+
+    | | ``FA13``  | | 8,16,32,64,128, | | 8,16,32,64,128  | | 8,16,32,64,128  | | 8,16,32,64      | | 8,16,32     |
+    | |           | | 256,512         | |                 | |                 | |                 | |             |
+    +-------------+-------------------+-------------------+-------------------+-------------------+---------------+
+    | | ``FA15``  | | 8,16,32,64,128, | | 8,16,32,64,128, | | 8,16,32,64,128, | | 8,16,32,64,128  | | 8,16,32,64  |
+    | |           | | 256,512,1024    | | 256             | | 256             | |                 | |             |
+    +-------------+-------------------+-------------------+-------------------+-------------------+---------------+
+    | | ``FA19``  | | 8,16,32,64,128, | | 8,16,32,64,128, | | 8,16,32,64,128, | | 8,16,32,64,128, | | 8,16,32,64, |
+    | |           | | 256,512,1024,   | | 256,512         | | 256,512         | | 256             | | 128         |
+    | |           | | 2048,4096       | |                 | |                 | |                 | |             |
+    +-------------+-------------------+-------------------+-------------------+-------------------+---------------+
+    | | ``CAHP``  | | 8,16,32,64,128, | | ...             | | 8,16,32,64,128, | | ...             | | 8,16,32,64  |
+    | |           | | 256,512,1024,   | |                 | | 256,512         | |                 | |             |
+    | |           | | 2048,4096       | |                 | |                 | |                 | |             |
+    +-------------+-------------------+-------------------+-------------------+-------------------+---------------+
+    | | ``CAMP``  | | 8,16,32,64,128, | | ...             | | 8,16,32,64,128, | | ...             | | 8,16,32,64  |
+    | |           | | 256,512,1024,   | |                 | | 256,512         | |                 | |             |
+    | |           | | 2048,4096       | |                 | |                 | |                 | |             |
+    +-------------+-------------------+-------------------+-------------------+-------------------+---------------+
+    | | ``CALP``  | | 8,16,32,64,128, | | ...             | | 8,16,32,64,128, | | ...             | | 8,16,32,64  |
+    | |           | | 256,512,1024,   | |                 | | 256,512         | |                 | |             |
+    | |           | | 2048,4096       | |                 | |                 | |                 | |             |
+    +-------------+-------------------+-------------------+-------------------+-------------------+---------------+
+
+
+For example, if you would like to obtain a file for a single-sized fractal aggregate with :math:`D_\mathrm{f}=1.9` consisting of 4096 monomers; each monomer has a radius of 100 nm and the ``amc`` composition, the following is the right path to the file::
+
+    ./aggscatrt/single/nochop/dustkapscatmat_FA19_4096_100nm_amc.inp
+
+We also provide the optical properties averaged over an aggregate-size distribution obeying 
+
+.. math::
+   n(a_\mathrm{V})da_\mathrm{V}\propto a_\mathrm{V}^{-3.5}da_\mathrm{V}~(a_\mathrm{min}\le a_\mathrm{V}\le a_\mathrm{max}),
+
+where :math:`a_\mathrm{min}` and :math:`a_\mathrm{max}` represent the minimum and maximum volume-equivalent radii, respectively. For the aggregates, the minimum aggregate radius is always set as :math:`a_\mathrm{min}=2a_\mathrm{mon}`. The maximum aggregate radius is a parameter. If you would like to get the optical properties of the same dust model as the above example, but this time for the distribution averaged one instead of a single-sized aggregate, you need to insert **Nmax** right before the number of monomers. Therefore, the right path to the file for this case is as follows::
+
+    ./aggscatrt/distave/nochop/dustkapscatmat_FA19_Nmax4096_100nm_amc.inp
+
+Please remember to switch the directory into ``distave`` for this case. This file contains the optical properties averaged over aggregate size distribution; the maximum aggregate in the size distribution contains 4096 monomers and the minimum aggregate contains 8 monomers.
+
+
+For irregular grains
+**********************
+
+For irregular grains, the model name follows the following syntax::
+
+    dustkapscatmat_grs_rvSIZEum_comp.inp
+
+| where ``comp`` is the grain composition (either ``org`` or ``amc``) and ``SIZE`` is a volume-equivalent radius of irregular grains in unit of microns (The decial point should be replaced by the underscore). The available ``size`` options are as follows. 
+| ``SIZE`` = ``0_2000``, ``0_2520``, ``0_3175``, ``0_4000``, ``0_5040``, ``0_6350``, ``0_8000``, ``1_0079``, ``1_2699``, ``1_6000``
+
+For example, if you would like to obtain the optical properties of irregular grains with :math:`a_\mathrm{V}=1.6~\mu\mathrm{m}` with the ``amc`` composition, the right path to the file is::
+
+    ./aggscatrt/single/nochop/dustkapscatmat_grs_rv1_6000um_amc.inp
+
+As with the case of aggregates, if you would like to obtain the optical properties averaged over the size distribution, you need to insert **max** right before the size option. Thus, the model name for this case looks like::
+    
+    dustkapscatmat_grs_rvmaxSIZEum_comp.inp
+
+For example, the distribution-averaged counterpart of the above example has the path of::
+
+    ./aggscatrt/distave/nochop/dustkapscatmat_grs_rvmax1_6000um_amc.inp
+
+Refractive indices
+#########################
+
+The optical properties in this database are provided in optical/near-infrared wavelengths. A list of wavelengths and complex refractive indices of each monomer/irregular grain adopted in this database is as follows:
+
++--------------+--------------+-------------+
+| Wavelength   |     org      |   amc       |
+| (:math:`\mu  |              |             |
+| \mathrm{m}`) |              |             |
++==============+==============+=============+
+| 0.554        | 1.51+0.0138i | 1.59+0.472i |
++--------------+--------------+-------------+
+| 0.735        | 1.50+0.0119i | 1.70+0.468i |
++--------------+--------------+-------------+
+| 1.04         | 1.49+0.0108i | 1.81+0.434i |
++--------------+--------------+-------------+
+| 1.25         | 1.49+0.0104i | 1.86+0.420i |
++--------------+--------------+-------------+
+| 1.63         | 1.48+0.0138i | 1.92+0.404i |
++--------------+--------------+-------------+
+| 2.18         | 1.47+0.0134i | 1.98+0.385i |
++--------------+--------------+-------------+
+| 3.78         | 1.53+0.0219i | 2.13+0.393i |
++--------------+--------------+-------------+
+  
+The material density is 1.6487 g/cc and 1.7779 g/cc for the org and amc models, respectively.
+
+The refractive index is calculated by using the Bruggeman mixing rule for a four-component mixture: 
+water ice `(Warren & Brandt 2008) <https://ui.adsabs.harvard.edu/abs/2008JGRD..11314220W>`_, 
+proxene silicate Mg0.7Fe0.3SiO3 `(Dorschner et al. 1995) <https://ui.adsabs.harvard.edu/abs/1995A%26A...300..503D/abstract>`_,
+carbonaceous material, and toroilite `(Henning & Stognienko 1996) <https://ui.adsabs.harvard.edu/abs/1996A%26A...311..291H/abstract>`_.
+For carbonaceous material, we adopt refractory organics by `Henning & Stognienko (1996) <https://ui.adsabs.harvard.edu/abs/1996A%26A...311..291H/abstract>`_ for the org model and amorphous carbon by `Zubko et al. (1996) <https://ui.adsabs.harvard.edu/abs/1996MNRAS.282.1321Z/abstract>`_ for the amc model. The mass abundances for the four components are taken from the DSHARP model by `Birnstiel et al. (2018) <https://ui.adsabs.harvard.edu/abs/2018ApJ...869L..45B/abstract>`_.
+
+.. warning:: **Models with incomplete wavelength coverage**: The following models only have the wavelength coverage of 1.040-3.780 microns (missing the data at :math:`\lambda=0.554~\mu\mathrm{m}` and :math:`0.735~\mu\mathrm{m}`): 
+   ``FA19_(Nmax)4096_100nm_amc``,
+   ``FA19_(Nmax)4096_100nm_org``,
+   ``FA15_(Nmax)1024_100nm_amc``,
+   ``FA15_(Nmax)1024_100nm_org``,
+   ``FA13_(Nmax)512_100nm_amc``,
+   ``FA13_(Nmax)512_100nm_org``,
+   ``FA11_(Nmax)256_100nm_amc``,
+   ``FA11_(Nmax)256_100nm_org``. 
+
+.. _filestruct:
+
+Structure of each dust file
+############################
+
+We file format conveys the one adopted in a public radiative trasnfer code RADMC-3D v2.0. Each **dustkapscatmat_XXX.inp** follows the same format.
+
+::
+
+    #
+    # header information
+    #
+    1       <== (This line is for RADMC-3D v2.0)
+    nlmd    <== Number of wavelength grids
+    nang    <== Number of scattering angle grids
+
+    lambda[1] kappa_abs[1] kappa_sca[1] asymetry_parameter[1]
+    lambda[2] kappa_abs[2] kappa_sca[1] asymetry_parameter[2]
+    lambda[3] kappa_abs[3] kappa_sca[3] asymetry_parameter[3]
+    .
+    .
+    lambda[nlmd] kappa_abs[nlmd] kappa_sca[nlmd] asymetry_parameter[nlmd]
+
+    scattering_angle_in_degrees[1]
+    .
+    .
+    scattering_angle_in_degrees[nang]
+
+    Z_11  Z_12  Z_22  Z_33  Z_34  Z_44   [all for ilam=1 and iang=1]
+    Z_11  Z_12  Z_22  Z_33  Z_34  Z_44   [all for ilam=1 and iang=2]
+    Z_11  Z_12  Z_22  Z_33  Z_34  Z_44   [all for ilam=1 and iang=3]
+     .     .     .     .     .     .
+     .     .     .     .     .     .
+    Z_11  Z_12  Z_22  Z_33  Z_34  Z_44   [all for ilam=1 and iang=nang]
+    Z_11  Z_12  Z_22  Z_33  Z_34  Z_44   [all for ilam=2 and iang=1]
+     .     .     .     .     .     .
+     .     .     .     .     .     .
+    Z_11  Z_12  Z_22  Z_33  Z_34  Z_44   [all for ilam=2 and iang=nang]
+     .     .     .     .     .     .
+     .     .     .     .     .     .
+     .     .     .     .     .     .
+     .     .     .     .     .     .
+    Z_11  Z_12  Z_22  Z_33  Z_34  Z_44   [all for ilam=nlam and iang=1]
+     .     .     .     .     .     .
+     .     .     .     .     .     .
+    Z_11  Z_12  Z_22  Z_33  Z_34  Z_44   [all for ilam=nlam and iang=nang]
+
+The first block contains some header information (staring from #) and the number of grids for wavelength and scattering angle. The second block then contains wavelength (:math:`\mu\mathrm{m}`), the absorption and scattering opacities (:math:`\mathrm{cm}^2/\mathrm{g}`), and the asymmetry parameter. The third block is a list of scattering angles (:math:`^\circ`). The final block contains 6 scattering matrix elements (:math:`\mathrm{cm}^2/\mathrm{g}/\mathrm{str}`).
+
+Regarding the definition of the scattering matrix elements :math:`Z_{ij}`, please refer to :ref:`scatmatdefs`.
+
+.. (see also `the manual of RADMC-3D <https://www.ita.uni-heidelberg.de/~dullemond/software/radmc-3d/manual_radmc3d/inputoutputfiles.html#the-dustkapscatmat-inp-files>`_ for a detailed description for the file structure.

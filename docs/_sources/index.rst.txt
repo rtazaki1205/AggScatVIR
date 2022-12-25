@@ -13,8 +13,7 @@ Documentation for AggScatVIR
    about
    struct
    examples
-   dustmodels
-   radmc
+   radmc3d
    app_def
    app_gallery
    api

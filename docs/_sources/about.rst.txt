@@ -1,18 +1,18 @@
 
-What's AggScatVIR?
+What is AggScatVIR?
 =====================
 
-``AggScatVIR`` provides the optical properties of protoplanetary dust analogs at visible and near-infrared wavelengths. One can freely download the scattering matrix and opacity of various dust particles studied in Tazaki & Dominik (2022) and Tazaki, Ginski, and Dominik (in prep).
+``AggScatVIR`` stands for AGGregate Scattering at Visual and InfraRed wavelengths. This project provides the optical properties of complex shaped dust particles that can be used to interpret scattered light observations of circumstellar disks (protoplanetary disks and debris disks) at visible and near-infrared wavelengths. In other words, we can interpret disk observations without using the Mie theory. This database contains the scattering matrix and opacity of various dust particles studied in Tazaki & Dominik (2022) and Tazaki, Ginski, and Dominik (submitted).
 
     .. image:: ./imgs/all.png
 
 Highlighted features
 ######################
 
-* **Based on rigorous light scattering solvers**: We have used rigorous numerical techniques to calculate the optical properties of complex-shaped particles, such as the T-matrix method (used for aggregates) and discrete dipole approximation (used for irregular grains). 
-* **A extensive parameter-space coverage**: We have tried to cover a wide variety of dust morphology, such as aggregate radius, monomer radius, composition, porosity, and fractal dimension. The database consists of 360 different dust models; 20 irregular grain models (10 grain radii; 2 compositions), 126 different compact aggregate models (3 aggregation models; 2 compositions; 3 monomer radii; on average 7 aggregate radii), and 214 fractal aggregate models (4 different fractal dimensions, 2 compositions, 5 monomer radii; on average 5.35 aggregate radii).
+* **Based on rigorous light-scattering solvers**: We used rigorous numerical techniques to calculate the optical properties of complex-shaped particles, such as the T-matrix method (used for aggregates) and discrete dipole approximation (used for irregular grains). 
+* **An extensive parameter-space coverage**: We cover a wide range of parameter space, such as aggregate radius, monomer radius, composition, porosity, and fractal dimension. The database contains 360 different dust models; 20 irregular grain models (10 grain radii; 2 compositions), 126 different compact aggregate models (3 aggregation models; 2 compositions; 3 monomer radii; on average 7 aggregate radii), and 214 fractal aggregate models (4 different fractal dimensions, 2 compositions, 5 monomer radii; on average 5.35 aggregate radii).
 
-* **Full compatibility with RADMC-3D v2.0**: One key application of AggScatVIR is observational modeling of (un)polarized scattered light from protoplanetary disks and debris disks. For this purpose, each file provided in this database has a data structure directly readable by a public radiative transfer code `RADMC-3D v2.0 <https://www.ita.uni-heidelberg.de/~dullemond/software/radmc-3d/>`_
+* **Full compatibility with RADMC-3D v2.0**: One key application of ``AggScatVIR`` is to model observed scattered light images of protoplanetary disks and debris disks. For this purpose, each file provided in this database has a data structure that is directly readable by a public radiative transfer code `RADMC-3D v2.0 <https://www.ita.uni-heidelberg.de/~dullemond/software/radmc-3d/>`_
 
 .. We have tried to cover a wide variety of dust morphology, such as aggregate radius, monomer radius, composition, porosity, fractal dimension. The database consists of 360 different dust models; 20 irregular grain models (10 grain radii; 2 compositions), 126 different compact aggregate models (3 aggregation models; 2 compositions; 3 monomer radii; on average 7 aggregate radii), and 214 fractal aggregate models (4 different fractal dimensions, 2 compositions, 5 monomer radii; on average 5.35 aggregate radii).
 .. * **A full compatibility with RADMC-3D v2.0**: One key application of ``AggScatVIR`` is observational modeling of (un)polarized scattered light from protoplanetary disks and debris disks. For this purpose, each file provided in this database  (``dustkapscatmat_XXX.inp``) has a data structure that is directly readable by a public radiative transfer code `RADMC-3D v2.0 <https://www.ita.uni-heidelberg.de/~dullemond/software/radmc-3d/>`_.
@@ -23,18 +23,21 @@ Assumptions and Limitations
 Since we adopt exact numerical techniques for solving the optical properties, the limitation is coming from simulation setups.
 
 
-* **Randomly orientated particles**: Since each dust particle is no longer spherically symmetric, we need to assume an orientation of a particle with respect to the incident and scattered light directions. We assume that the particles are randomly orientated, and then their optical properties are averaged over all possible orientations with an equal probability. In other words, we *do not* consider the situation where non-spherical particles get aligned. Because of this assumption, only six elements (out of 4x4=16 elements) of the scattering matrix are independent.
+* **Randomly orientated particles**: Given that each dust particle is no longer symmetrical in shape, we must assume an orientation of the particle relative to the direction of incident and scattered light. We assume that the particles are randomly oriented, and their optical properties are averaged over all possible orientations with equal probability. In other words, we do not take into account the scenario in which non-spherical particles become aligned. This assumption allows only six elements of the scattering matrix to be independent.
+  
+* **Monomers are homogeneous spheres with a single size**: Dust aggregates consist of numerous small particles referred to as monomers. The optical properties of the aggregates contained in this database are all constructed from monodisperse monomers with a uniform composition for computational simplicity.
+  
+* **Limited wavelength coverage**: As the package name suggests, this database contains the optical properties of dust particles at a wavelength from :math:`0.554~\mu\mathrm{m}` to :math:`3.780~\mu\mathrm{m}`. Consequently, if you are seeking information on a wavelength outside of this range, the database will not be applicable.
 
-* **Monomers are homogeneous spheres with a single size**: This assumption is mainly for computational convenience. However, the monomers of cometary aggregates in the Solar System have been suggested to have a log-normal size distribution with a mean value of a sub-micrometer size (Rietmeijer 1993). As long as aggregates are cometary-like, our optical properties would not be far too different from the actual optical properties.
+.. However, the monomers of cometary aggregates in the Solar System have been suggested to have a log-normal size distribution with a mean value of a sub-micrometer size (Rietmeijer 1993). As long as aggregates are cometary-like, our optical properties would not be far too different from the actual optical properties.
 
 How to cite?
 ######################
 
-If you would like to publish results generated by using this package, please cite both of the following papers.
+If you would like to publish results generated by using this package, please cite the following papers.
 
  - `Tazaki and Dominik 2022, A&A, 663, 57 <https://ui.adsabs.harvard.edu/abs/2022A%26A...663A..57T>`_
- - Tazaki, Ginski, and Dominik (in prep).
-
+ - Tazaki, Ginski, and Dominik (submitted).
 
 Acknowledgement
 #################

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Documentation for AggScatVIR &mdash; AggScatVIR v0.0.0 documentation</title>
+  <title>Documentation for AggScatVIR &mdash; AggScatVIR v0.1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -20,7 +20,7 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="What’s AggScatVIR?" href="about.html" /> 
+    <link rel="next" title="What is AggScatVIR?" href="about.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -40,11 +40,10 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="about.html">What’s AggScatVIR?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">What is AggScatVIR?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="struct.html">Get started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Python Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dustmodels.html">Dust models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="radmc.html">Application for RADMC-3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="radmc3d.html">Running RADMC-3D with AggScatVIR</a></li>
 <li class="toctree-l1"><a class="reference internal" href="app_def.html">Appendix A: Definitions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="app_gallery.html">Appendix B: Gallery of optical properties</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">Appendix C: Python modules</a></li>
@@ -103,7 +102,7 @@
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="about.html">What’s AggScatVIR?</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="about.html">What is AggScatVIR?</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="about.html#highlighted-features">Highlighted features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="about.html#assumptions-and-limitations">Assumptions and Limitations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="about.html#how-to-cite">How to cite?</a></li>
@@ -113,28 +112,28 @@
 <li class="toctree-l1"><a class="reference internal" href="struct.html">Get started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="struct.html#download">Download</a></li>
 <li class="toctree-l2"><a class="reference internal" href="struct.html#structure-of-this-package">Structure of this package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="struct.html#rules-for-dust-file-names">Rules for dust file names</a></li>
+<li class="toctree-l2"><a class="reference internal" href="struct.html#refractive-indices">Refractive indices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="struct.html#structure-of-each-dust-file">Structure of each dust file</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Python Tools</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="examples.html#Basic-Usage">Basic Usage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="examples.html#Example-1:-Comparing-different-models">Example 1: Comparing different models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="examples.html#Example-2:-Polarization-phase-function">Example 2: Polarization phase function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#Reading-dust-files-in-the-database">Reading dust files in the database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#Scattering-matrix-in-Bohren-&amp;-Huffman’s-definition">Scattering matrix in Bohren &amp; Huffman’s definition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#Changing-the-size-distribution-and-the-chop-angle">Changing the size distribution and the chop angle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#Writing-files">Writing files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html#Example-analysis">Example analysis</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="dustmodels.html">Dust models</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="dustmodels.html#summary-of-dust-models-and-their-properties">Summary of dust models and their properties</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dustmodels.html#how-to-read-file-names">How to read file names?</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="radmc.html">Application for RADMC-3D</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="radmc.html#step-by-step-guide-to-run-radmc-3d-with-aggscatvir">Step-by-step guide to run RADMC-3D with AggScatVIR</a></li>
-<li class="toctree-l2"><a class="reference internal" href="radmc.html#tips-for-radiative-transfer-simulations">Tips for radiative transfer simulations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="radmc3d.html">Running RADMC-3D with AggScatVIR</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="radmc3d.html#Quick-demo-using-radmc3dPy">Quick demo using radmc3dPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="radmc3d.html#Preparation-of-input-files-and-caveats">Preparation of input files and caveats</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="app_def.html">Appendix A: Definitions</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="app_def.html#radius-definitions">Radius definitions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="app_def.html#porosity-and-fractal-dimension">Porosity and fractal dimension</a></li>
-<li class="toctree-l2"><a class="reference internal" href="app_def.html#optical-properties">Optical properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="app_def.html#definitions-of-scattering-properties">Definitions of scattering properties</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="app_gallery.html">Appendix B: Gallery of optical properties</a><ul>
@@ -170,13 +169,13 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="about.html" class="btn btn-neutral float-right" title="What’s AggScatVIR?" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="about.html" class="btn btn-neutral float-right" title="What is AggScatVIR?" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Ryo Tazaki.</p>
+    <p>&#169; Copyright 2022-2023, Ryo Tazaki.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

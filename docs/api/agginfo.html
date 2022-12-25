@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>agginfo module &mdash; AggScatVIR v0.0.0 documentation</title>
+  <title>agginfo module &mdash; AggScatVIR v0.1.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -41,11 +41,10 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../about.html">What’s AggScatVIR?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">What is AggScatVIR?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../struct.html">Get started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples.html">Python Tools</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../dustmodels.html">Dust models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../radmc.html">Application for RADMC-3D</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../radmc3d.html">Running RADMC-3D with AggScatVIR</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../app_def.html">Appendix A: Definitions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../app_gallery.html">Appendix B: Gallery of optical properties</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">Appendix C: Python modules</a><ul class="current">
@@ -108,6 +107,30 @@
 <div class="section" id="module-agginfo">
 <span id="agginfo-module"></span><h1>agginfo module<a class="headerlink" href="#module-agginfo" title="Permalink to this heading"></a></h1>
 <dl class="py function">
+<dt class="sig sig-object py" id="agginfo.calculate_dust_mass">
+<span class="sig-prename descclassname"><span class="pre">agginfo.</span></span><span class="sig-name descname"><span class="pre">calculate_dust_mass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qind</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sizemin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sizemax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#agginfo.calculate_dust_mass" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate a dust mass (or distribution-averaged value when the size distribution is present)..</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>qind</strong><span class="classifier">float</span></dt><dd><p>power-law index of the size distribution</p>
+</dd>
+<dt><strong>sizemin</strong><span class="classifier">str (optional)</span></dt><dd><p>a string to specify the minimum dust particle</p>
+</dd>
+<dt><strong>sizemax</strong><span class="classifier">str (optional)</span></dt><dd><p>a string to specify the maximum dust particle</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>mass</strong><span class="classifier">float</span></dt><dd><p>dust mass in gram</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="agginfo.get_radius_and_porosity">
 <span class="sig-prename descclassname"><span class="pre">agginfo.</span></span><span class="sig-name descname"><span class="pre">get_radius_and_porosity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">np</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#agginfo.get_radius_and_porosity" title="Permalink to this definition"></a></dt>
 <dd><p>Get the characteristic radius and porosity of an aggregate.</p>
@@ -133,13 +156,23 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="agginfo.get_sizelist">
 <span class="sig-prename descclassname"><span class="pre">agginfo.</span></span><span class="sig-name descname"><span class="pre">get_sizelist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">agg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#agginfo.get_sizelist" title="Permalink to this definition"></a></dt>
-<dd><p>Get a list of available <code class="docutils literal notranslate"><span class="pre">size</span></code> arguments, which is necessary to call the <code class="docutils literal notranslate"><span class="pre">dustmodel</span></code> class.</p>
+<dd><p>Get a list of available <code class="docutils literal notranslate"><span class="pre">size</span></code> arguments, which is necessary to call the <code class="docutils literal notranslate"><span class="pre">dustmodel</span></code> class.
+If amon is None and agg is for dust aggregates, an available list of amon and size will be outputted.</p>
 <dl>
-<dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">get_nlist</span><span class="p">(</span><span class="s1">&#39;FA19&#39;</span><span class="p">,</span><span class="s1">&#39;100nm&#39;</span><span class="p">))</span>
+<dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">get_nlist</span><span class="p">(</span><span class="s1">&#39;FA19&#39;</span><span class="p">))</span>
+<span class="go">Available amon and size for FA19</span>
+<span class="go">amon=&#39;100nm&#39; | &#39;8&#39;,&#39;16&#39;,&#39;32&#39;,&#39;64&#39;,&#39;128&#39;,&#39;256&#39;,&#39;512&#39;,&#39;1024&#39;,&#39;2048&#39;,&#39;4096&#39;</span>
+<span class="go">amon=&#39;150nm&#39; | &#39;8&#39;,&#39;16&#39;,&#39;32&#39;,&#39;64&#39;,&#39;128&#39;,&#39;256&#39;,&#39;512&#39;</span>
+<span class="go">amon=&#39;200nm&#39; | &#39;8&#39;,&#39;16&#39;,&#39;32&#39;,&#39;64&#39;,&#39;128&#39;,&#39;256&#39;,&#39;512&#39;</span>
+<span class="go">amon=&#39;300nm&#39; | &#39;8&#39;,&#39;16&#39;,&#39;32&#39;,&#39;64&#39;,&#39;128&#39;,&#39;256&#39;</span>
+<span class="go">amon=&#39;400nm&#39; | &#39;8&#39;,&#39;16&#39;,&#39;32&#39;,&#39;64&#39;,&#39;128&#39;</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">get_nlist</span><span class="p">(</span><span class="s1">&#39;FA19&#39;</span><span class="p">,</span><span class="n">amon</span><span class="o">=</span><span class="s1">&#39;100nm&#39;</span><span class="p">))</span>
 <span class="go">[&#39;8&#39;, &#39;16&#39;, &#39;32&#39;, &#39;64&#39;, &#39;128&#39;, &#39;256&#39;, &#39;512&#39;, &#39;1024&#39;, &#39;2048&#39;, &#39;4096&#39;]</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">get_nlist</span><span class="p">(</span><span class="s1">&#39;CAHP&#39;</span><span class="p">,</span><span class="s1">&#39;400nm&#39;</span><span class="p">))</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">get_nlist</span><span class="p">(</span><span class="s1">&#39;CAHP&#39;</span><span class="p">,</span><span class="n">amon</span><span class="o">=</span><span class="s1">&#39;400nm&#39;</span><span class="p">))</span>
 <span class="go">[&#39;8&#39;, &#39;16&#39;, &#39;32&#39;, &#39;64&#39;]</span>
 </pre></div>
 </div>
@@ -147,6 +180,26 @@
 <span class="go">[&#39;0_2000&#39;, &#39;0_2520&#39;, &#39;0_3175&#39;, &#39;0_4000&#39;, &#39;0_5040&#39;, &#39;0_6350&#39;, &#39;0_8000&#39;, &#39;1_0079&#39;, &#39;1_2699&#39;, &#39;1_6000&#39;]</span>
 </pre></div>
 </div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="agginfo.grs_voleq">
+<span class="sig-prename descclassname"><span class="pre">agginfo.</span></span><span class="sig-name descname"><span class="pre">grs_voleq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sizename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#agginfo.grs_voleq" title="Permalink to this definition"></a></dt>
+<dd><p>Get a volume-equivalent radius of grs particles.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>sizename</strong><span class="classifier">str</span></dt><dd><p>a string to specify the size of GRS particles</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>av</strong><span class="classifier">float</span></dt><dd><p>the grain radius in microns</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -164,7 +217,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Ryo Tazaki.</p>
+    <p>&#169; Copyright 2022-2023, Ryo Tazaki.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
