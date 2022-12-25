@@ -139,17 +139,16 @@
 └── python
 </pre></div>
 </div>
-<p>In the <code class="docutils literal notranslate"><span class="pre">aggscatrt</span></code> directory, the dataset of the optical properties of various dust particles are located. In the <code class="docutils literal notranslate"><span class="pre">docs</span></code> and <code class="docutils literal notranslate"><span class="pre">python</span></code> directories, you will find a manual and a simple notebook on the usage of python tools.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">aggscaatrt</span></code> directory consists of two sub-directories: <code class="docutils literal notranslate"><span class="pre">single</span></code> and <code class="docutils literal notranslate"><span class="pre">distave</span></code>. The former and the latter contain the optical properties with/without a particle size distribution, respectively. Each directory further consists of three sub-directories: <code class="docutils literal notranslate"><span class="pre">nochop</span></code>, <code class="docutils literal notranslate"><span class="pre">chop5</span></code>, and <code class="docutils literal notranslate"><span class="pre">chop10</span></code>. The <code class="docutils literal notranslate"><span class="pre">nochop</span></code> directory contains the optical properties of various dust particles, while the other two contain the data processed with a special treatment that might be useful in radiative trasnfer simulations (see Note below). If this is your first time to look at this database, then <code class="docutils literal notranslate"><span class="pre">nochop</span></code> would be the one you should go first.</p>
-<p>In principle, each dust model has a single ascii file, which tabulates all the optical properties: the wavelength dependent opacity, scattering angle grids, scattering matrix element (11, 12, 22, 33, 34, 44) for each wavelength and scattering angle. The physical properties of a dust model, such as the number of monomers and porosity, is also described in its header part starting from ‘#’.</p>
-<p>If you go into the <code class="docutils literal notranslate"><span class="pre">nochop</span></code> directory, you will see a number of files named like:</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">aggscatrt</span></code> directory contains the dataset of the optical properties of various dust particles. The <code class="docutils literal notranslate"><span class="pre">docs</span></code> and <code class="docutils literal notranslate"><span class="pre">python</span></code> directories contain a manual and two Jupyter notebooks on the usage of the python tools, respectively. The <code class="docutils literal notranslate"><span class="pre">aggscatrt</span></code> directory includes two sub-directories: <code class="docutils literal notranslate"><span class="pre">single</span></code> and <code class="docutils literal notranslate"><span class="pre">distave</span></code>. The former and the latter contain the optical properties with/without a particle size distribution, respectively. Each of these directories further includes three sub-directories: <code class="docutils literal notranslate"><span class="pre">nochop</span></code>, <code class="docutils literal notranslate"><span class="pre">chop5</span></code>, and <code class="docutils literal notranslate"><span class="pre">chop10</span></code>. The <code class="docutils literal notranslate"><span class="pre">nochop</span></code> directory contains the optical properties of various dust particles, while the other two contain data that has been processed with a special treatment that may be useful in radiative transfer simulations (see Note below). If you are new to this database, it is recommended to start with the <code class="docutils literal notranslate"><span class="pre">nochop</span></code> directory.</p>
+<p>In principle, each dust model has a single ASCII file that tabulates all of its optical properties: the wavelength-dependent opacity, scattering angle grids, and scattering matrix elements (11, 12, 22, 33, 34, 44) for each wavelength and scattering angle. The physical properties of a dust model, such as the number of monomers and porosity, are also described in the header section of each file starting with ‘#’.</p>
+<p>If you access the <code class="docutils literal notranslate"><span class="pre">nochop</span></code> directory, you will see a number of files with names like:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dustkapscatmat_XXX</span><span class="o">.</span><span class="n">inp</span>
 </pre></div>
 </div>
 <p>where <code class="docutils literal notranslate"><span class="pre">XXX</span></code> represents a dust model name. Regarding the file structure, see <a class="reference internal" href="#filestruct"><span class="std std-ref">Structure of each dust file</span></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The chop5 and chop10 directories are intended for those who have run into issues due to a strong forward scattering peak of each dust particle in radiative transfer calculations (see also <span class="xref std std-ref">radmctips</span>). To ease such a situation, chop5 and chop10 directories provide the optical properties where a forward scattering peak is chopped at a scattering angle below 5 degrees or 10 degrees, respectively.</p>
+<p>The chop5 and chop10 directories are intended for users who encounter problems due to the strong forward scattering peak of each dust particle in radiative transfer calculations. To alleviate this issue, the chop5 and chop10 directories provide the optical properties where the forward scattering peak is <em>chopped</em> at a scattering angle below 5 degrees or 10 degrees, respectively.</p>
 </div>
 </div>
 <div class="section" id="rules-for-dust-file-names">
@@ -157,11 +156,11 @@
 <div class="section" id="for-aggregates">
 <h3>For aggregates<a class="headerlink" href="#for-aggregates" title="Permalink to this heading"></a></h3>
 <p>The name of each aggregate model follows the following syntax:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dustkapscatmat_TYPE_AGGSIZE_MONOSIZE_MONOCOMP</span><span class="o">.</span><span class="n">inp</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dustkapscatmat_TYPE_AGGSIZE_MONOSIZE_COMP</span><span class="o">.</span><span class="n">inp</span>
 </pre></div>
 </div>
-<p>where <code class="docutils literal notranslate"><span class="pre">TYPE</span></code> specifices a type of particle shape, <code class="docutils literal notranslate"><span class="pre">AGGSIZE</span></code> is the number of monomers (the aggregate size), <code class="docutils literal notranslate"><span class="pre">MONOSIZE</span></code> is the monomer radius in unit of nm, and <code class="docutils literal notranslate"><span class="pre">MONOCOMP</span></code> is the dust composition.</p>
-<p>The available type for is as follows.</p>
+<p>where <code class="docutils literal notranslate"><span class="pre">TYPE</span></code> specifices a type of particle shape, <code class="docutils literal notranslate"><span class="pre">AGGSIZE</span></code> is the number of monomers (the aggregate size), <code class="docutils literal notranslate"><span class="pre">MONOSIZE</span></code> is the monomer radius in units of nanometer, and <code class="docutils literal notranslate"><span class="pre">COMP</span></code> is the dust composition.</p>
+<p>For <code class="docutils literal notranslate"><span class="pre">TYPE</span></code>, the following values are available.</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 19%" />
@@ -203,7 +202,7 @@
 </tr>
 </tbody>
 </table>
-<p>The the monomer radius, the following options are available.</p>
+<p>For <code class="docutils literal notranslate"><span class="pre">MONOSIZE</span></code>, the following values are available.</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 16%" />
@@ -232,7 +231,7 @@
 </tr>
 </tbody>
 </table>
-<p>For the dust composition, the following two options are available.</p>
+<p>For <code class="docutils literal notranslate"><span class="pre">COMP</span></code>, the following two options are available.</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 12%" />
@@ -323,27 +322,28 @@
 </tr>
 </tbody>
 </table>
-<p>For example, if you would like to obtain a file for a single-sized fractal aggregate with <span class="math notranslate nohighlight">\(D_\mathrm{f}=1.9\)</span> consisting of 4096 monomers; each monomer has a radius of 100 nm and the <code class="docutils literal notranslate"><span class="pre">amc</span></code> composition, the following is the right path to the file:</p>
+<p>For instance, if you wish to obtain a file for a single-sized fractal aggregate with <span class="math notranslate nohighlight">\(D_\mathrm{f}=1.9\)</span> consisting of 4096 monomers,
+each with a radius of 100 nm and the <code class="docutils literal notranslate"><span class="pre">amc</span></code> composition, the correct path to the file would be as follows:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">aggscatrt</span><span class="o">/</span><span class="n">single</span><span class="o">/</span><span class="n">nochop</span><span class="o">/</span><span class="n">dustkapscatmat_FA19_4096_100nm_amc</span><span class="o">.</span><span class="n">inp</span>
 </pre></div>
 </div>
 <p>We also provide the optical properties averaged over an aggregate-size distribution obeying</p>
 <div class="math notranslate nohighlight">
 \[n(a_\mathrm{V})da_\mathrm{V}\propto a_\mathrm{V}^{-3.5}da_\mathrm{V}~(a_\mathrm{min}\le a_\mathrm{V}\le a_\mathrm{max}),\]</div>
-<p>where <span class="math notranslate nohighlight">\(a_\mathrm{min}\)</span> and <span class="math notranslate nohighlight">\(a_\mathrm{max}\)</span> represent the minimum and maximum volume-equivalent radii, respectively. For the aggregates, the minimum aggregate radius is always set as <span class="math notranslate nohighlight">\(a_\mathrm{min}=2a_\mathrm{mon}\)</span>. The maximum aggregate radius is a parameter. If you would like to get the optical properties of the same dust model as the above example, but this time for the distribution averaged one instead of a single-sized aggregate, you need to insert <strong>Nmax</strong> right before the number of monomers. Therefore, the right path to the file for this case is as follows:</p>
+<p>where <span class="math notranslate nohighlight">\(a_\mathrm{min}\)</span> and <span class="math notranslate nohighlight">\(a_\mathrm{max}\)</span> represent the minimum and maximum volume-equivalent radii, respectively. For the aggregates, the minimum aggregate radius is always set as <span class="math notranslate nohighlight">\(a_\mathrm{min}=2a_\mathrm{mon}\)</span>. The maximum aggregate radius is a parameter. If you wish to obtain the optical properties of the same dust model as in the previous example, but for a size-distributed aggregate instead of a single-sized one, you need to insert <strong>Nmax</strong> before the number of monomers. The correct path to the file therefore becomes:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">aggscatrt</span><span class="o">/</span><span class="n">distave</span><span class="o">/</span><span class="n">nochop</span><span class="o">/</span><span class="n">dustkapscatmat_FA19_Nmax4096_100nm_amc</span><span class="o">.</span><span class="n">inp</span>
 </pre></div>
 </div>
-<p>Please remember to switch the directory into <code class="docutils literal notranslate"><span class="pre">distave</span></code> for this case. This file contains the optical properties averaged over aggregate size distribution; the maximum aggregate in the size distribution contains 4096 monomers and the minimum aggregate contains 8 monomers.</p>
+<p>Please remember to switch the directory into <code class="docutils literal notranslate"><span class="pre">distave</span></code> for this case. This file contains the optical properties averaged over aggregate-size distribution; the maximum aggregate in the size distribution contains 4096 monomers and the minimum aggregate contains 8 monomers.</p>
 </div>
 <div class="section" id="for-irregular-grains">
 <h3>For irregular grains<a class="headerlink" href="#for-irregular-grains" title="Permalink to this heading"></a></h3>
-<p>For irregular grains, the model name follows the following syntax:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dustkapscatmat_grs_rvSIZEum_comp</span><span class="o">.</span><span class="n">inp</span>
+<p>The name of each irregular-grain model follows the following syntax:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dustkapscatmat_grs_rvSIZEum_COMP</span><span class="o">.</span><span class="n">inp</span>
 </pre></div>
 </div>
 <div class="line-block">
-<div class="line">where <code class="docutils literal notranslate"><span class="pre">comp</span></code> is the grain composition (either <code class="docutils literal notranslate"><span class="pre">org</span></code> or <code class="docutils literal notranslate"><span class="pre">amc</span></code>) and <code class="docutils literal notranslate"><span class="pre">SIZE</span></code> is a volume-equivalent radius of irregular grains in unit of microns (The decial point should be replaced by the underscore). The available <code class="docutils literal notranslate"><span class="pre">size</span></code> options are as follows.</div>
+<div class="line">where <code class="docutils literal notranslate"><span class="pre">COMP</span></code> is the grain composition (either <code class="docutils literal notranslate"><span class="pre">org</span></code> or <code class="docutils literal notranslate"><span class="pre">amc</span></code>) and <code class="docutils literal notranslate"><span class="pre">SIZE</span></code> is a volume-equivalent radius of irregular grains in units of microns (The decial point should be replaced by the underscore). The available <code class="docutils literal notranslate"><span class="pre">size</span></code> options are as follows.</div>
 <div class="line"><code class="docutils literal notranslate"><span class="pre">SIZE</span></code> = <code class="docutils literal notranslate"><span class="pre">0_2000</span></code>, <code class="docutils literal notranslate"><span class="pre">0_2520</span></code>, <code class="docutils literal notranslate"><span class="pre">0_3175</span></code>, <code class="docutils literal notranslate"><span class="pre">0_4000</span></code>, <code class="docutils literal notranslate"><span class="pre">0_5040</span></code>, <code class="docutils literal notranslate"><span class="pre">0_6350</span></code>, <code class="docutils literal notranslate"><span class="pre">0_8000</span></code>, <code class="docutils literal notranslate"><span class="pre">1_0079</span></code>, <code class="docutils literal notranslate"><span class="pre">1_2699</span></code>, <code class="docutils literal notranslate"><span class="pre">1_6000</span></code></div>
 </div>
 <p>For example, if you would like to obtain the optical properties of irregular grains with <span class="math notranslate nohighlight">\(a_\mathrm{V}=1.6~\mu\mathrm{m}\)</span> with the <code class="docutils literal notranslate"><span class="pre">amc</span></code> composition, the right path to the file is:</p>
@@ -351,7 +351,7 @@
 </pre></div>
 </div>
 <p>As with the case of aggregates, if you would like to obtain the optical properties averaged over the size distribution, you need to insert <strong>max</strong> right before the size option. Thus, the model name for this case looks like:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dustkapscatmat_grs_rvmaxSIZEum_comp</span><span class="o">.</span><span class="n">inp</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dustkapscatmat_grs_rvmaxSIZEum_COMP</span><span class="o">.</span><span class="n">inp</span>
 </pre></div>
 </div>
 <p>For example, the distribution-averaged counterpart of the above example has the path of:</p>

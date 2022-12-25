@@ -30,21 +30,19 @@ The package has the following structure:
     ├── docs
     └── python
 
-In the ``aggscatrt`` directory, the dataset of the optical properties of various dust particles are located. In the ``docs`` and ``python`` directories, you will find a manual and a simple notebook on the usage of python tools.
 
-The ``aggscaatrt`` directory consists of two sub-directories: ``single`` and ``distave``. The former and the latter contain the optical properties with/without a particle size distribution, respectively. Each directory further consists of three sub-directories: ``nochop``, ``chop5``, and ``chop10``. The ``nochop`` directory contains the optical properties of various dust particles, while the other two contain the data processed with a special treatment that might be useful in radiative trasnfer simulations (see Note below). If this is your first time to look at this database, then ``nochop`` would be the one you should go first.
+The ``aggscatrt`` directory contains the dataset of the optical properties of various dust particles. The ``docs`` and ``python`` directories contain a manual and two Jupyter notebooks on the usage of the python tools, respectively. The ``aggscatrt`` directory includes two sub-directories: ``single`` and ``distave``. The former and the latter contain the optical properties with/without a particle size distribution, respectively. Each of these directories further includes three sub-directories: ``nochop``, ``chop5``, and ``chop10``. The ``nochop`` directory contains the optical properties of various dust particles, while the other two contain data that has been processed with a special treatment that may be useful in radiative transfer simulations (see Note below). If you are new to this database, it is recommended to start with the ``nochop`` directory.
 
+In principle, each dust model has a single ASCII file that tabulates all of its optical properties: the wavelength-dependent opacity, scattering angle grids, and scattering matrix elements (11, 12, 22, 33, 34, 44) for each wavelength and scattering angle. The physical properties of a dust model, such as the number of monomers and porosity, are also described in the header section of each file starting with '#'.
 
-In principle, each dust model has a single ascii file, which tabulates all the optical properties: the wavelength dependent opacity, scattering angle grids, scattering matrix element (11, 12, 22, 33, 34, 44) for each wavelength and scattering angle. The physical properties of a dust model, such as the number of monomers and porosity, is also described in its header part starting from '#'.
-
-If you go into the ``nochop`` directory, you will see a number of files named like::
+If you access the ``nochop`` directory, you will see a number of files with names like::
     
     dustkapscatmat_XXX.inp
 
 where ``XXX`` represents a dust model name. Regarding the file structure, see :ref:`filestruct`.
 
 .. note::
-   The chop5 and chop10 directories are intended for those who have run into issues due to a strong forward scattering peak of each dust particle in radiative transfer calculations (see also :ref:`radmctips`). To ease such a situation, chop5 and chop10 directories provide the optical properties where a forward scattering peak is chopped at a scattering angle below 5 degrees or 10 degrees, respectively. 
+   The chop5 and chop10 directories are intended for users who encounter problems due to the strong forward scattering peak of each dust particle in radiative transfer calculations. To alleviate this issue, the chop5 and chop10 directories provide the optical properties where the forward scattering peak is *chopped* at a scattering angle below 5 degrees or 10 degrees, respectively.
 
 Rules for dust file names
 #########################
@@ -54,12 +52,12 @@ For aggregates
 
 The name of each aggregate model follows the following syntax::
 
-    dustkapscatmat_TYPE_AGGSIZE_MONOSIZE_MONOCOMP.inp
+    dustkapscatmat_TYPE_AGGSIZE_MONOSIZE_COMP.inp
 
 
-where ``TYPE`` specifices a type of particle shape, ``AGGSIZE`` is the number of monomers (the aggregate size), ``MONOSIZE`` is the monomer radius in unit of nm, and ``MONOCOMP`` is the dust composition. 
+where ``TYPE`` specifices a type of particle shape, ``AGGSIZE`` is the number of monomers (the aggregate size), ``MONOSIZE`` is the monomer radius in units of nanometer, and ``COMP`` is the dust composition. 
 
-The available type for is as follows.
+For ``TYPE``, the following values are available.
 
 +------------+---------------------------------------------------+
 | cmd        | Meaning                                           |
@@ -86,7 +84,7 @@ The available type for is as follows.
 |            | (also known as BAM2)                              |
 +------------+---------------------------------------------------+
 
-The the monomer radius, the following options are available.
+For ``MONOSIZE``, the following values are available.
 
 +-----------+--------------------------------------------------------+
 | cmd       | monomer radius                                         |
@@ -102,7 +100,7 @@ The the monomer radius, the following options are available.
 | ``400nm`` | 400 nm (0.4 micron)                                    |
 +-----------+--------------------------------------------------------+
 
-For the dust composition, the following two options are available.
+For ``COMP``, the following two options are available.
 
 +---------+------------------------------------------------------------------+
 | cmd     | material ingredients                                             |
@@ -163,7 +161,8 @@ The available number of monomers (``AGGSIZE``) depends on the aggregate type and
     +-------------+-------------------+-------------------+-------------------+-------------------+---------------+
 
 
-For example, if you would like to obtain a file for a single-sized fractal aggregate with :math:`D_\mathrm{f}=1.9` consisting of 4096 monomers; each monomer has a radius of 100 nm and the ``amc`` composition, the following is the right path to the file::
+For instance, if you wish to obtain a file for a single-sized fractal aggregate with :math:`D_\mathrm{f}=1.9` consisting of 4096 monomers, 
+each with a radius of 100 nm and the ``amc`` composition, the correct path to the file would be as follows::
 
     ./aggscatrt/single/nochop/dustkapscatmat_FA19_4096_100nm_amc.inp
 
@@ -172,21 +171,21 @@ We also provide the optical properties averaged over an aggregate-size distribut
 .. math::
    n(a_\mathrm{V})da_\mathrm{V}\propto a_\mathrm{V}^{-3.5}da_\mathrm{V}~(a_\mathrm{min}\le a_\mathrm{V}\le a_\mathrm{max}),
 
-where :math:`a_\mathrm{min}` and :math:`a_\mathrm{max}` represent the minimum and maximum volume-equivalent radii, respectively. For the aggregates, the minimum aggregate radius is always set as :math:`a_\mathrm{min}=2a_\mathrm{mon}`. The maximum aggregate radius is a parameter. If you would like to get the optical properties of the same dust model as the above example, but this time for the distribution averaged one instead of a single-sized aggregate, you need to insert **Nmax** right before the number of monomers. Therefore, the right path to the file for this case is as follows::
+where :math:`a_\mathrm{min}` and :math:`a_\mathrm{max}` represent the minimum and maximum volume-equivalent radii, respectively. For the aggregates, the minimum aggregate radius is always set as :math:`a_\mathrm{min}=2a_\mathrm{mon}`. The maximum aggregate radius is a parameter. If you wish to obtain the optical properties of the same dust model as in the previous example, but for a size-distributed aggregate instead of a single-sized one, you need to insert **Nmax** before the number of monomers. The correct path to the file therefore becomes::
 
     ./aggscatrt/distave/nochop/dustkapscatmat_FA19_Nmax4096_100nm_amc.inp
 
-Please remember to switch the directory into ``distave`` for this case. This file contains the optical properties averaged over aggregate size distribution; the maximum aggregate in the size distribution contains 4096 monomers and the minimum aggregate contains 8 monomers.
+Please remember to switch the directory into ``distave`` for this case. This file contains the optical properties averaged over aggregate-size distribution; the maximum aggregate in the size distribution contains 4096 monomers and the minimum aggregate contains 8 monomers.
 
 
 For irregular grains
 **********************
 
-For irregular grains, the model name follows the following syntax::
+The name of each irregular-grain model follows the following syntax::
 
-    dustkapscatmat_grs_rvSIZEum_comp.inp
+    dustkapscatmat_grs_rvSIZEum_COMP.inp
 
-| where ``comp`` is the grain composition (either ``org`` or ``amc``) and ``SIZE`` is a volume-equivalent radius of irregular grains in unit of microns (The decial point should be replaced by the underscore). The available ``size`` options are as follows. 
+| where ``COMP`` is the grain composition (either ``org`` or ``amc``) and ``SIZE`` is a volume-equivalent radius of irregular grains in units of microns (The decial point should be replaced by the underscore). The available ``size`` options are as follows. 
 | ``SIZE`` = ``0_2000``, ``0_2520``, ``0_3175``, ``0_4000``, ``0_5040``, ``0_6350``, ``0_8000``, ``1_0079``, ``1_2699``, ``1_6000``
 
 For example, if you would like to obtain the optical properties of irregular grains with :math:`a_\mathrm{V}=1.6~\mu\mathrm{m}` with the ``amc`` composition, the right path to the file is::
@@ -195,7 +194,7 @@ For example, if you would like to obtain the optical properties of irregular gra
 
 As with the case of aggregates, if you would like to obtain the optical properties averaged over the size distribution, you need to insert **max** right before the size option. Thus, the model name for this case looks like::
     
-    dustkapscatmat_grs_rvmaxSIZEum_comp.inp
+    dustkapscatmat_grs_rvmaxSIZEum_COMP.inp
 
 For example, the distribution-averaged counterpart of the above example has the path of::
 
