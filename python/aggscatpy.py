@@ -1051,16 +1051,13 @@ def output_all_gallery_plot(partype,amon=None,dist=True):
         box = axes[1,i].get_position()
         axes[1,i].set_position([box.x0, box.y0 + box.height * 0.125 + yoff, box.width, box.height*0.875])
     
-    # read the bb size
+    # make legend
     bb = (fig.subplotpars.left, fig.subplotpars.bottom-0.065, 
       fig.subplotpars.right-fig.subplotpars.left,.1)
-
-    # make legend
     axes[0,3].legend(bbox_to_anchor=bb, mode="expand", loc="lower left",
                ncol=5, borderaxespad=0., bbox_transform=fig.transFigure,fontsize=20)
 
     plt.savefig(filename,transparent=False,facecolor='white')
-
 
     plt.close()
 

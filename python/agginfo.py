@@ -495,7 +495,7 @@ def get_radius_and_porosity(partype,amon,np):
     # convert str --> int
     a0=int(amon[0:3])/100
     
-    # 0.1 is to convert [nm] --> [um]
+    # 0.1 is to make rc in units of microns
     rc = rc * a0 * 0.1
 
     return rc,po
