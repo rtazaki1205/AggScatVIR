@@ -50,7 +50,7 @@ class plots:
         """
         set axis for a plot for the albedo, pmax, asymmetry parameter  against wavelength.
         """
-        self.set_ylim(0,1)
+        self.set_ylim(0,1.05)
         self.set_xscale('log')
         self.set_xlim(0.5,4)
         self.set_xticks([0.5,1,2,4])
@@ -76,3 +76,6 @@ class plots:
         self.set_xlabel('Scattering angle (degrees)',fontsize=20)
         self.xaxis.set_major_locator(MultipleLocator(30))
         self.xaxis.set_minor_locator(MultipleLocator(10))
+
+
+

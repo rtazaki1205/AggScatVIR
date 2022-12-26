@@ -6,7 +6,7 @@ def get_sizelist(agg,amon=None):
     If amon is None and agg is for dust aggregates, an available list of amon and size will be outputted.
 
     Examples:
-        >>> print(get_nlist('FA19'))
+        >>> print(get_sizelist('FA19'))
         Available amon and size for FA19
         amon='100nm' | '8','16','32','64','128','256','512','1024','2048','4096'
         amon='150nm' | '8','16','32','64','128','256','512'
@@ -14,13 +14,13 @@ def get_sizelist(agg,amon=None):
         amon='300nm' | '8','16','32','64','128','256'
         amon='400nm' | '8','16','32','64','128'
         
-        >>> print(get_nlist('FA19',amon='100nm'))
+        >>> print(get_sizelist('FA19',amon='100nm'))
         ['8', '16', '32', '64', '128', '256', '512', '1024', '2048', '4096']
 
-        >>> print(get_nlist('CAHP',amon='400nm'))
+        >>> print(get_sizelist('CAHP',amon='400nm'))
         ['8', '16', '32', '64']
 
-        >>> print(get_nlist('grs'))
+        >>> print(get_sizelist('grs'))
         ['0_2000', '0_2520', '0_3175', '0_4000', '0_5040', '0_6350', '0_8000', '1_0079', '1_2699', '1_6000']
     """
     

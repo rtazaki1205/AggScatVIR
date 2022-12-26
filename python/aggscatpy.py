@@ -945,7 +945,126 @@ def showmodel(self,opacity=True,savefig=False,fn=None):
         plt.savefig(str(fn),bbox_inches='tight', pad_inches=0.05)
 
 
-# data: all , integrated, smat
+def output_all_gallery_plot(partype,amon=None,dist=True):
+    """
+    Output plots for Appendix B (gallery of the optical properties)
+
+    Parameters
+    ----------
+    partype : str
+              Dust particle type:
+              ``'FA11'``, ``'FA13'``, ``'FA15'``, ``'FA19'``,
+              ``'CAHP'``, ``'CAMP'``, ``'CALP'``, ``'grs'``
+    amon    : str (optional)
+              Monomer radius (necessary if you call aggregate files).
+              **Available input values**:
+              ``'100nm'``, (``'150nm'``), ``'200nm'``, (``'300nm'``), ``'400nm'``
+              *Note*: 150nm and 300nm are only available for fractal aggregates.
+    dist : bool (optional)
+           With size distribution (default: dist=True).
+
+    """
+
+    fig,axes = plt.subplots(2,4,figsize=(20,10))
+
+    complist=['org','amc']
+
+    # get aggregate size
+    if partype=='grs':
+        if dist:
+            filename='./figs/'+partype+'_distave.png'
+        else:
+            filename='./figs/'+partype+'_single.png'
+
+        amon=None
+        nlist=get_sizelist(partype)
+    else:
+        if dist:
+            filename='./figs/'+partype+'_'+amon+'_distave.png'
+        else:
+            filename='./figs/'+partype+'_'+amon+'_single.png'
+
+        nlist=get_sizelist(partype,amon) 
+
+    print('generating plots of ',filename)
+    
+    axes[0,0].set_title('Opacity (cm$^2$/g)',fontsize=22)
+    axes[0,1].set_title('$\omega$, $P_\mathrm{max}$, Albedo',fontsize=22)
+    axes[0,2].set_title('Phase function ($\lambda=1.04~\mu$m)',fontsize=22)
+    axes[0,3].set_title('Degree of polarization ($\lambda=1.04~\mu$m)',fontsize=22)
+
+    for j,jcomp in enumerate(complist):
+        
+        plots.set_lmd_vs_opc(axes[j,0])
+        plots.set_lmd_vs_albedo(axes[j,1])
+        plots.set_ang_vs_phase(axes[j,2])
+        plots.set_ang_vs_pol(axes[j,3])
+
+        axes[j,3].set_ylim(-0.6,1.05)
+        axes[j,0].text(0.65,280,jcomp,fontsize=40)
+
+        for i,isize in enumerate(nlist):
+            #print(isize,j,jcomp)
+            apl=dustmodel(partype=partype,amon=amon,size=isize,comp=jcomp,dist=dist)
+
+            # opacity
+            axes[j,0].plot(apl.lmd,apl.kabs,c='C'+str(i),linestyle='--')
+            axes[j,0].plot(apl.lmd,apl.ksca,c='C'+str(i),linestyle='-')
+
+            # asym, pmax, and albedo
+            axes[j,1].plot(apl.lmd,apl.pmax,c='C'+str(i),linestyle='--')
+            axes[j,1].plot(apl.lmd,apl.asym,c='C'+str(i),linestyle=':')
+            axes[j,1].plot(apl.lmd,apl.albedo,c='C'+str(i),linestyle='-')
+
+            # wavelength index (at lambda = 1.04 um)
+            iww = 2 - ( 7 - apl.nlmd)
+            #print('wavelength for smat: ',apl.lmd[iww])
+            
+            # phase function
+            axes[j,2].plot(apl.scatang,\
+                    apl.phase[iww,:],c='C'+str(i),linestyle='-')
+
+            # degree of linear polarization
+            axes[j,3].plot(apl.scatang,-apl.\
+                    smat12[iww,:]/apl.smat11[iww,:],c='C'+str(i),\
+                    linestyle='-',label=apl.model[0:-4])
+    
+    # dummy plot for legend
+    axes[0,0].plot(-9999,-9999,linestyle='-',c='black',label='$\kappa_\mathrm{sca}$')
+    axes[0,0].plot(-9999,-9999,linestyle='--',c='black',label='$\kappa_\mathrm{abs}$')
+
+    axes[0,1].plot(-9999,-9999,linestyle='--',c='black',label='$P_\mathrm{max}$')
+    axes[0,1].plot(-9999,-9999,linestyle=':',c='black',label='$g$')
+    axes[0,1].plot(-9999,-9999,linestyle='-',c='black',label='$\omega$')
+    
+    axes[0,0].legend(fontsize=22)
+    axes[0,1].legend(fontsize=22)
+   
+    # cut margin
+    plt.tight_layout() 
+
+    # shrink the subplots to make a room for legend
+    for i in range(4):
+        box = axes[0,i].get_position()
+        yoff=box.height * 0.125
+        axes[0,i].set_position([box.x0, box.y0 + box.height * 0.125, box.width, box.height*0.875])
+        box = axes[1,i].get_position()
+        axes[1,i].set_position([box.x0, box.y0 + box.height * 0.125 + yoff, box.width, box.height*0.875])
+    
+    # read the bb size
+    bb = (fig.subplotpars.left, fig.subplotpars.bottom-0.065, 
+      fig.subplotpars.right-fig.subplotpars.left,.1)
+
+    # make legend
+    axes[0,3].legend(bbox_to_anchor=bb, mode="expand", loc="lower left",
+               ncol=5, borderaxespad=0., bbox_transform=fig.transFigure,fontsize=20)
+
+    plt.savefig(filename,transparent=False,facecolor='white')
+
+
+    plt.close()
+
+
 def write_data(self,fn=None,output='all',wlist=None):
     """
     Write optical properties of dust particles in various formats
@@ -1061,47 +1180,6 @@ def write_data(self,fn=None,output='all',wlist=None):
 
 if __name__ == '__main__':
 
-    #with open("randomfile.txt", "w") as external_file:
-    #add_text = "This text will be added to the file"
-    #print(add_text, file=None)
-    #    external_file.close()
-
-    #a=dustmodel(partype='FA11',size='16',amon='400nm',comp='amc',chop='chop5')
-    #a=dustmodel(partype='grs',size='0_8000',comp='amc',chop='chop10',dist=False)
-    #write_data(b,fn='debug6_read',output='all',wlist=[0.554])
-    #dustspec(a)
-    
-    #a=dustmodel(partype='grs',size='0_8000',comp='amc',chop='chop10',dist=False)
-
-    b=distaverage(partype='FA19',sizemin='8',sizemax='4096',comp='amc',amon='100nm',chopang=5)
-    b.write_dustkapscatmat(fn='hoge')
-    b=distaverage(partype='FA19',sizemin='8',sizemax='4096',comp='amc',amon='100nm',chopang=5,smatBH=True)
-    write_data(b,output='smat',wlist=[1.04],fn='hoge')
-
-    #print(b.dist)
-    #b=distaverage(partype='grs',sizemin='0_8000',sizemax='0_8000',comp='org',chopang=5.0,smatBH=True)
-    #print(b.phase)
-    #dustspec(b)
-
-    #a=dustmodel(partype='FA13',amon='150m')
-    #a=dustmodel(filename='./dustkapscatmat_optool.inp')
-    a=dustmodel(filename='./dustkapscatmat_hoge.inp',smatBH=True)
-    #dustspec(a)
-    write_data(a,output='smat',wlist=[1.04],fn='hoge2')
-
-    #print(a.kabs,b.kabs)
-    #print(a.ksca,b.ksca)
-    #print(a.asym,b.asym)
-    #print(a.pmax,b.pmax)
-    #b.write_dustkapscatmat()
-    #write_data(b,output='all')
-    
-    #dustspec(b)
-    #print(b.ksca)
-    
-    #print(b.ksca)
-    #b=distaverage(partype='grs',sizemin='0_2000',sizemax='1_6000',comp='org',chopang=10.0)
-    #print(b.ksca)
-    #b.write_dustkapscatmat(fn='debug')
-
-    #write_data(b,fn='debug4_generated',wlist=[0.554])
+    a=dustmodel(partype='CAHP',size='4096',amon='100nm',comp='amc')
+    a.path
+    dustapec(a)
