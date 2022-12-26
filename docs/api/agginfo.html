@@ -46,7 +46,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../examples.html">Python Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../radmc3d.html">Running RADMC-3D with AggScatVIR</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../app_def.html">Appendix A: Definitions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../app_gallery.html">Appendix B: Gallery of optical properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app_gallery.html">Appendix B: Gallery of the optical properties</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">Appendix C: Python modules</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">agginfo module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="aggscatpy.html">aggscatpy module</a></li>
@@ -159,7 +159,7 @@
 <dd><p>Get a list of available <code class="docutils literal notranslate"><span class="pre">size</span></code> arguments, which is necessary to call the <code class="docutils literal notranslate"><span class="pre">dustmodel</span></code> class.
 If amon is None and agg is for dust aggregates, an available list of amon and size will be outputted.</p>
 <dl>
-<dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">get_nlist</span><span class="p">(</span><span class="s1">&#39;FA19&#39;</span><span class="p">))</span>
+<dt>Examples:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">get_sizelist</span><span class="p">(</span><span class="s1">&#39;FA19&#39;</span><span class="p">))</span>
 <span class="go">Available amon and size for FA19</span>
 <span class="go">amon=&#39;100nm&#39; | &#39;8&#39;,&#39;16&#39;,&#39;32&#39;,&#39;64&#39;,&#39;128&#39;,&#39;256&#39;,&#39;512&#39;,&#39;1024&#39;,&#39;2048&#39;,&#39;4096&#39;</span>
 <span class="go">amon=&#39;150nm&#39; | &#39;8&#39;,&#39;16&#39;,&#39;32&#39;,&#39;64&#39;,&#39;128&#39;,&#39;256&#39;,&#39;512&#39;</span>
@@ -168,15 +168,15 @@ If amon is None and agg is for dust aggregates, an available list of amon and si
 <span class="go">amon=&#39;400nm&#39; | &#39;8&#39;,&#39;16&#39;,&#39;32&#39;,&#39;64&#39;,&#39;128&#39;</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">get_nlist</span><span class="p">(</span><span class="s1">&#39;FA19&#39;</span><span class="p">,</span><span class="n">amon</span><span class="o">=</span><span class="s1">&#39;100nm&#39;</span><span class="p">))</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">get_sizelist</span><span class="p">(</span><span class="s1">&#39;FA19&#39;</span><span class="p">,</span><span class="n">amon</span><span class="o">=</span><span class="s1">&#39;100nm&#39;</span><span class="p">))</span>
 <span class="go">[&#39;8&#39;, &#39;16&#39;, &#39;32&#39;, &#39;64&#39;, &#39;128&#39;, &#39;256&#39;, &#39;512&#39;, &#39;1024&#39;, &#39;2048&#39;, &#39;4096&#39;]</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">get_nlist</span><span class="p">(</span><span class="s1">&#39;CAHP&#39;</span><span class="p">,</span><span class="n">amon</span><span class="o">=</span><span class="s1">&#39;400nm&#39;</span><span class="p">))</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">get_sizelist</span><span class="p">(</span><span class="s1">&#39;CAHP&#39;</span><span class="p">,</span><span class="n">amon</span><span class="o">=</span><span class="s1">&#39;400nm&#39;</span><span class="p">))</span>
 <span class="go">[&#39;8&#39;, &#39;16&#39;, &#39;32&#39;, &#39;64&#39;]</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">get_nlist</span><span class="p">(</span><span class="s1">&#39;grs&#39;</span><span class="p">))</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">get_sizelist</span><span class="p">(</span><span class="s1">&#39;grs&#39;</span><span class="p">))</span>
 <span class="go">[&#39;0_2000&#39;, &#39;0_2520&#39;, &#39;0_3175&#39;, &#39;0_4000&#39;, &#39;0_5040&#39;, &#39;0_6350&#39;, &#39;0_8000&#39;, &#39;1_0079&#39;, &#39;1_2699&#39;, &#39;1_6000&#39;]</span>
 </pre></div>
 </div>

@@ -356,15 +356,16 @@
    "source": [
     ".. important:: **Thermal Monte Carlo runs**: As already mentioned in the above example, dust files provided in AggScatVIR have a wavelength coverage too narrow to determine radiation equillibrium temperature via thermal Monte Carlo calculations (``mctherm`` in RADMC-3D). *Therefore, it is recommended to use the package for monochromatic scattering Monte Carlo radiative transfer simulations.*\n",
     "\n",
-    ".. warning:: **Models with incomplete wavelength coverage**: The following models only have the wavelength coverage of 1.040-3.780 microns (missing the optical properties at wavelengths of 0.554 and 0.735 microns):\n",
+    ".. warning:: **Models with incomplete wavelength coverage**: The following models only have the wavelength coverage of 1.04-3.78 microns; therefore, the data sets at 0.554 and 0.735 microns are missing:\n",
     "   ``FA19_(Nmax)4096_100nm_amc``,\n",
     "   ``FA19_(Nmax)4096_100nm_org``,\n",
     "   ``FA15_(Nmax)1024_100nm_amc``,\n",
     "   ``FA15_(Nmax)1024_100nm_org``,\n",
     "   ``FA13_(Nmax)512_100nm_amc``,\n",
     "   ``FA13_(Nmax)512_100nm_org``,\n",
-    "   ``FA11_(Nmax)256_100nm_amc``,\n",
+    "   ``FA11_(Nmax)256_100nm_amc``, \n",
     "   ``FA11_(Nmax)256_100nm_org``.\n",
+    "\n",
     "\n",
     ".. seealso:: **Chopping forward scattering**: Dust particles much larger than the wavelength may exhibit a strong forward scattering, which may cause some issues in your simulations, such as poor image quality. One approximate  way to mitigate this issue is to chop the forward scattering peak off. For this purpose, ``AggScatVIR`` offers the dustkapscatmat_XXX.inp file with two different chopping angles: 5 and 10 degrees. When you encounter the issue, please consider using those files."
    ]

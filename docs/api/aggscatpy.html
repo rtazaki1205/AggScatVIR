@@ -46,7 +46,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../examples.html">Python Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../radmc3d.html">Running RADMC-3D with AggScatVIR</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../app_def.html">Appendix A: Definitions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../app_gallery.html">Appendix B: Gallery of optical properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../app_gallery.html">Appendix B: Gallery of the optical properties</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">Appendix C: Python modules</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="agginfo.html">agginfo module</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">aggscatpy module</a></li>
@@ -348,6 +348,29 @@ Number of monomers of the minimum aggregate in the size distribution</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>specoutput</strong><span class="classifier">str (optional)</span></dt><dd><p>To which the results are redirected</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aggscatpy.output_all_gallery_plot">
+<span class="sig-prename descclassname"><span class="pre">aggscatpy.</span></span><span class="sig-name descname"><span class="pre">output_all_gallery_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aggscatpy.output_all_gallery_plot" title="Permalink to this definition"></a></dt>
+<dd><p>Output plots for Appendix B (gallery of the optical properties)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>partype</strong><span class="classifier">str</span></dt><dd><p>Dust particle type:
+<code class="docutils literal notranslate"><span class="pre">'FA11'</span></code>, <code class="docutils literal notranslate"><span class="pre">'FA13'</span></code>, <code class="docutils literal notranslate"><span class="pre">'FA15'</span></code>, <code class="docutils literal notranslate"><span class="pre">'FA19'</span></code>,
+<code class="docutils literal notranslate"><span class="pre">'CAHP'</span></code>, <code class="docutils literal notranslate"><span class="pre">'CAMP'</span></code>, <code class="docutils literal notranslate"><span class="pre">'CALP'</span></code>, <code class="docutils literal notranslate"><span class="pre">'grs'</span></code></p>
+</dd>
+<dt><strong>amon</strong><span class="classifier">str (optional)</span></dt><dd><p>Monomer radius (necessary if you call aggregate files).
+<strong>Available input values</strong>:
+<code class="docutils literal notranslate"><span class="pre">'100nm'</span></code>, (<code class="docutils literal notranslate"><span class="pre">'150nm'</span></code>), <code class="docutils literal notranslate"><span class="pre">'200nm'</span></code>, (<code class="docutils literal notranslate"><span class="pre">'300nm'</span></code>), <code class="docutils literal notranslate"><span class="pre">'400nm'</span></code>
+<em>Note</em>: 150nm and 300nm are only available for fractal aggregates.</p>
+</dd>
+<dt><strong>dist</strong><span class="classifier">bool (optional)</span></dt><dd><p>With size distribution (default: dist=True).</p>
 </dd>
 </dl>
 </dd>

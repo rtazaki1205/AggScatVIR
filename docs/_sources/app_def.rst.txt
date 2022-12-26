@@ -8,9 +8,9 @@ Appendix A: Definitions
 Radius definitions
 ####################
 
-Because of its complex shapes, there are several ways to define the size of an aggregate. We will use two definitions: (i) the volume-equivalent radius :math:`a_\mathrm{V}` and (ii) the characteristic radius :math:`a_\mathrm{c}`. The former and latter definitions are, so-to-speak measuring the mass and the apparent size of an aggregate, respectively.
+Because of its complex shapes, there are several ways to define the size of an aggregate. We will use two definitions: (i) the volume-equivalent radius :math:`a_\mathrm{V}` and (ii) the characteristic radius :math:`a_\mathrm{c}`. The former and latter definitions are, so-to-speak, measuring the mass and the apparent size of an aggregate, respectively.
 
-The volume-equivalent radius is the radius of a sphere formed by squashing an aggregate into a spherical shape. Since the volume of the dust particle is the same before and after the squashing process, we have
+The volume-equivalent radius is the radius of a sphere formed by squashing an aggregate into a sphere with the same volume as the original aggregate. Since the volume of the dust particle is the same before and after the squashing process, we have
 
 .. math::
    \frac{4}{3}\pi a_\mathrm{V}^3=N \frac{4}{3}\pi a_\mathrm{mon}^3,
@@ -21,7 +21,7 @@ where :math:`a_\mathrm{mon}` is the radius of a monomer and :math:`N` is the num
    a_\mathrm{V}=a_\mathrm{mon}N^{1/3},
 
 
-The volume-equivalent radius may be regarded as a measure of the aggregate volume (or its mass). It is obvious however that an actual aggregate has a size much larger than the volume-equivalent radius, particularly when the porosity is high. Thus, we introduce the second definition for the aggregate radius: the characteristic radius :math:`a_\mathrm{c}` (Mukai et al. 1992, Kozasa et al. 1992):
+The volume-equivalent radius may be regarded as a measure of the aggregate volume (or its mass). It is obvious however that an actual aggregate could have a size much larger than the volume-equivalent radius, particularly when the porosity is high. Thus, we introduce the second definition for the aggregate radius: the characteristic radius :math:`a_\mathrm{c}` (Mukai et al. 1992, Kozasa et al. 1992):
 
 .. math::
    a_\mathrm{c} = \sqrt{\frac{5}{3}}a_\mathrm{g},
@@ -29,20 +29,22 @@ The volume-equivalent radius may be regarded as a measure of the aggregate volum
 where :math:`a_\mathrm{g}` is the radius of gyration defined by
 
 .. math::
-    a_\mathrm{g} = \sqrt{\sum_{i=1}^{N} \frac{ \\|\vec{r_i}-\vec{r_M}\\|^2 }{N}}
+    a_\mathrm{g} = \sqrt{\sum_{i=1}^{N} \frac{ \\|\vec{r_i}-\vec{r_\mathrm{M}}\\|^2 }{N}},
 
 .. .. math::
     a_\mathrm{g} = \sqrt{\sum_{i=1}^{N} \frac{ \|\vec{r_i}-\vec{r_M}\|^2 }{N}}
 
+where :math:`\vec{r_i}` is the position vector of :math:`i`-th monomer, and :math:`\vec{r_\mathrm{M}}` is the position vector of the center of mass of the aggregate. The radius of gyration therefore represents a standard deviation of a distance between each monomer and the center of mass.
+
 .. _strucdef:
 
-Porosity and fractal dimension
-################################
+Fractal dimension, prefactor, and porosity
+##########################################
 
 By using the above two radius definitions, we define the porosity of an aggregate by
 
 .. math::
-   \mathcal{P} = 1 - \left(\frac{a_\mathrm{V}}{a_\mathrm{c}}\right)^3
+   \mathcal{P} = 1 - \left(\frac{a_\mathrm{V}}{a_\mathrm{c}}\right)^3.
 
 Since both :math:`a_\mathrm{c}` and :math:`a_\mathrm{V}` are proportional to the monomoer radius, the porosity is independent of the monomer radius.
 
@@ -52,9 +54,10 @@ It is also useful to intorudce the fractal dimension :math:`D_\mathrm{f}` define
    N = k_\mathrm{f}\left(\frac{a_\mathrm{g}}{a_\mathrm{mon}}\right)^{D_\mathrm{f}},
 
 where :math:`k_\mathrm{f}` is the fractal prefactor. 
-The fractal dimension describes how the number of monomers, let say, the volume of an aggregate, goes up if we increase the radius of gyration of an aggregate. 
 
-For example, if :math:`D_\mathrm{f}=3`, the volume increases with the radius cubed, which is similar to the case of a single spherical particle. A fractal dimension may take a value lower than 3. For example, if all monomers are lined up to form a straight chain aggregate. In this case, the total volume is proportaional to the radius, and hence :math:`D_\mathrm{f}=1`. Therefore, the fractal dimension will take a value :math:`1\le D_\mathrm{f}\le 3`, and the lower this value is, the more open the aggregate structure becomes.
+
+The fractal dimension is a quantity that characterizes the geometric shape of an aggregate. 
+For example, an aggregate with a fractal dimension of 3 has monomers distributed in such a way that the aggregate's mass grows with the cube of its radius of gyration, similar to an elementary scaling for a single spherical particle. In this case, the aggregate tend to have compact structure. A fractal dimension may also be less than 3, with lower values corresponding to more open aggregate structures. For example, an aggregate consisting of monomers lined up in a straight chain would have a volume proportional to its radius, resulting in a fractal dimension of 1.
 
 The  fractal prefactor :math:`k_\mathrm{f}` may be regarded as related to a packing fraction in :math:`D_\mathrm{f}` dimensional space. Its meaning becomes clear if we consider the case of :math:`D_\mathrm{f}=3`. In this case, the above fractal scaling law gives 
 
@@ -69,7 +72,6 @@ By substituting this expression into the definition of the porosity, we obtain
 
 Therefore, the fractal prefactor is related to the porosity of an aggregate. 
 
-
 .. _scatmatdefs:
 
 Definitions of scattering properties
@@ -77,9 +79,9 @@ Definitions of scattering properties
 
 Notations
 **************
-The definition of the optical properties written in a file ``dustkapscatmat_XXX.inp`` follows the definitions of the ones used in RADMC-3D. See `the manual of RADMC-3D <https://www.ita.uni-heidelberg.de/~dullemond/software/radmc-3d/manual_radmc3d/dustradtrans.html#polarization-stokes-vectors-and-full-phase-functions>`_ for a detailed description.
+The definition of the optical properties written in a file ``dustkapscatmat_XXX.inp`` follows the definitions of the ones used in RADMC-3D (see also `the manual of RADMC-3D <https://www.ita.uni-heidelberg.de/~dullemond/software/radmc-3d/manual_radmc3d/dustradtrans.html#polarization-stokes-vectors-and-full-phase-functions>`_).
 
-We are interested in scattered light from a collection of *identical* dust particles. Suppose the dust particles are randomly orientated with equal probability, the scattering matrix which relate incident and scattered Stokes parameters, will have 6 non-zero independent elements:
+Suppose we observe scattered light from a collection of *identical* dust particles and the dust particles are randomly orientated with equal probability, then the scattering matrix, which relate incident and scattered Stokes parameters, will have 6 independent elements:
 
 .. math::
     \begin{pmatrix}
@@ -103,14 +105,14 @@ We are interested in scattered light from a collection of *identical* dust parti
     V_\mathrm{inc} \\
     \end{pmatrix},
 
-where :math:`d` is the distance from a dust particle to the observer, :math:`m_\mathrm{dust}` is the mass of a dust particle, :math:`Z_{ij}` is scattering matrix elements. Since the dust particles that this package deals with are not spherically symemtric anymore, we have :math:`Z_{11}\neq Z_{22}` and :math:`Z_{33}\neq Z_{44}`.
+where :math:`d` is the distance from a dust particle to the observer, :math:`m_\mathrm{dust}` is the mass of a dust particle (:math:`\mathrm{g}`), :math:`Z_{ij}` is scattering matrix elements. If each dust particle is not spherically symmetric, we have :math:`Z_{11}\neq Z_{22}` and :math:`Z_{33}\neq Z_{44}`.
 
 The scattering matrix elements :math:`Z_{ij}` (:math:`\mathrm{cm}^2/\mathrm{g}/\mathrm{str}`) are related to the traditional notation via: 
 
 .. math::
     Z_{ij}=\frac{S_{ij}^\mathrm{BohrenHuffman}}{k^2m_\mathrm{dust}},
 
-where :math:`k` is the wave number (:math:`\mathrm{cm}^{-1}`) and :math:`S_{ij}` is the scattering matrix elements defined by `Bohren & Huffman (1983) <https://ui.adsabs.harvard.edu/abs/1983asls.book.....B>`_. 
+where :math:`k` is the wave number (:math:`\mathrm{cm}^{-1}`), and :math:`S_{ij}` are the scattering matrix elements defined by `Bohren & Huffman (1983) <https://ui.adsabs.harvard.edu/abs/1983asls.book.....B>`_. 
 Note that RADMC-3D adopts the IAU 1974 definition for the Stokes vectors, and it is different from what Bohren & Huffman's book follows. As a result, we need a minus sign for the :math:`Z_{13}`, :math:`Z_{14}`, :math:`Z_{23}`, :math:`Z_{24}`, :math:`Z_{31}`, :math:`Z_{41}`, :math:`Z_{32}`, :math:`Z_{42}` elements because of the opposite :math:`U` and :math:`V` sign conventions (But, these elements are zero for our cases).
 
 The integration of :math:`Z_{11}` over the all solid angles gives the scattering opacity (:math:`\mathrm{cm}^2/\mathrm{g}`)
@@ -128,7 +130,7 @@ where :math:`C_\mathrm{sca}` is the scattering cross section, and :math:`dC_\mat
 .. math::
    g \equiv \int_{4\pi} p(\theta) \cos\theta d\Omega=\frac{2\pi}{\kappa_\mathrm{sca}}\int_{-1}^{+1} Z_{11}(\mu)\mu d\mu,
 
-where :math:`\mu=\cos\theta`; :math:`\theta` is the scattering angle (:math:`\theta=0^\circ` is the forward scattering direction). :math:`g` is non-dimensional quantity.
+where :math:`\mu=\cos\theta`; :math:`\theta` is the scattering angle (:math:`\theta=0^\circ` is the forward scattering direction). :math:`g` is a non-dimensional quantity.
 
 Size distribution averaging
 ****************************

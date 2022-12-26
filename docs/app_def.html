@@ -22,7 +22,7 @@
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Appendix B: Gallery of optical properties" href="app_gallery.html" />
+    <link rel="next" title="Appendix B: Gallery of the optical properties" href="app_gallery.html" />
     <link rel="prev" title="Running RADMC-3D with AggScatVIR" href="radmc3d.html" /> 
 </head>
 
@@ -49,7 +49,7 @@
 <li class="toctree-l1"><a class="reference internal" href="radmc3d.html">Running RADMC-3D with AggScatVIR</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Appendix A: Definitions</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#radius-definitions">Radius definitions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#porosity-and-fractal-dimension">Porosity and fractal dimension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fractal-dimension-prefactor-and-porosity">Fractal dimension, prefactor, and porosity</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#definitions-of-scattering-properties">Definitions of scattering properties</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#notations">Notations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#size-distribution-averaging">Size distribution averaging</a></li>
@@ -57,7 +57,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="app_gallery.html">Appendix B: Gallery of optical properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app_gallery.html">Appendix B: Gallery of the optical properties</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">Appendix C: Python modules</a></li>
 </ul>
 
@@ -113,32 +113,33 @@
 <span id="definition"></span><h1>Appendix A: Definitions<a class="headerlink" href="#appendix-a-definitions" title="Permalink to this heading"></a></h1>
 <div class="section" id="radius-definitions">
 <span id="radiusdef"></span><h2>Radius definitions<a class="headerlink" href="#radius-definitions" title="Permalink to this heading"></a></h2>
-<p>Because of its complex shapes, there are several ways to define the size of an aggregate. We will use two definitions: (i) the volume-equivalent radius <span class="math notranslate nohighlight">\(a_\mathrm{V}\)</span> and (ii) the characteristic radius <span class="math notranslate nohighlight">\(a_\mathrm{c}\)</span>. The former and latter definitions are, so-to-speak measuring the mass and the apparent size of an aggregate, respectively.</p>
-<p>The volume-equivalent radius is the radius of a sphere formed by squashing an aggregate into a spherical shape. Since the volume of the dust particle is the same before and after the squashing process, we have</p>
+<p>Because of its complex shapes, there are several ways to define the size of an aggregate. We will use two definitions: (i) the volume-equivalent radius <span class="math notranslate nohighlight">\(a_\mathrm{V}\)</span> and (ii) the characteristic radius <span class="math notranslate nohighlight">\(a_\mathrm{c}\)</span>. The former and latter definitions are, so-to-speak, measuring the mass and the apparent size of an aggregate, respectively.</p>
+<p>The volume-equivalent radius is the radius of a sphere formed by squashing an aggregate into a sphere with the same volume as the original aggregate. Since the volume of the dust particle is the same before and after the squashing process, we have</p>
 <div class="math notranslate nohighlight">
 \[\frac{4}{3}\pi a_\mathrm{V}^3=N \frac{4}{3}\pi a_\mathrm{mon}^3,\]</div>
 <p>where <span class="math notranslate nohighlight">\(a_\mathrm{mon}\)</span> is the radius of a monomer and <span class="math notranslate nohighlight">\(N\)</span> is the number of monomers. We have also assumed all monomers in the aggregate are idential and spherical. From this, we obtain</p>
 <div class="math notranslate nohighlight">
 \[a_\mathrm{V}=a_\mathrm{mon}N^{1/3},\]</div>
-<p>The volume-equivalent radius may be regarded as a measure of the aggregate volume (or its mass). It is obvious however that an actual aggregate has a size much larger than the volume-equivalent radius, particularly when the porosity is high. Thus, we introduce the second definition for the aggregate radius: the characteristic radius <span class="math notranslate nohighlight">\(a_\mathrm{c}\)</span> (Mukai et al. 1992, Kozasa et al. 1992):</p>
+<p>The volume-equivalent radius may be regarded as a measure of the aggregate volume (or its mass). It is obvious however that an actual aggregate could have a size much larger than the volume-equivalent radius, particularly when the porosity is high. Thus, we introduce the second definition for the aggregate radius: the characteristic radius <span class="math notranslate nohighlight">\(a_\mathrm{c}\)</span> (Mukai et al. 1992, Kozasa et al. 1992):</p>
 <div class="math notranslate nohighlight">
 \[a_\mathrm{c} = \sqrt{\frac{5}{3}}a_\mathrm{g},\]</div>
 <p>where <span class="math notranslate nohighlight">\(a_\mathrm{g}\)</span> is the radius of gyration defined by</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}a_\mathrm{g} = \sqrt{\sum_{i=1}^{N} \frac{ \\|\vec{r_i}-\vec{r_M}\\|^2 }{N}}\end{split}\]</div>
+\[\begin{split}a_\mathrm{g} = \sqrt{\sum_{i=1}^{N} \frac{ \\|\vec{r_i}-\vec{r_\mathrm{M}}\\|^2 }{N}},\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\vec{r_i}\)</span> is the position vector of <span class="math notranslate nohighlight">\(i\)</span>-th monomer, and <span class="math notranslate nohighlight">\(\vec{r_\mathrm{M}}\)</span> is the position vector of the center of mass of the aggregate. The radius of gyration therefore represents a standard deviation of a distance between each monomer and the center of mass.</p>
 </div>
-<div class="section" id="porosity-and-fractal-dimension">
-<span id="strucdef"></span><h2>Porosity and fractal dimension<a class="headerlink" href="#porosity-and-fractal-dimension" title="Permalink to this heading"></a></h2>
+<div class="section" id="fractal-dimension-prefactor-and-porosity">
+<span id="strucdef"></span><h2>Fractal dimension, prefactor, and porosity<a class="headerlink" href="#fractal-dimension-prefactor-and-porosity" title="Permalink to this heading"></a></h2>
 <p>By using the above two radius definitions, we define the porosity of an aggregate by</p>
 <div class="math notranslate nohighlight">
-\[\mathcal{P} = 1 - \left(\frac{a_\mathrm{V}}{a_\mathrm{c}}\right)^3\]</div>
+\[\mathcal{P} = 1 - \left(\frac{a_\mathrm{V}}{a_\mathrm{c}}\right)^3.\]</div>
 <p>Since both <span class="math notranslate nohighlight">\(a_\mathrm{c}\)</span> and <span class="math notranslate nohighlight">\(a_\mathrm{V}\)</span> are proportional to the monomoer radius, the porosity is independent of the monomer radius.</p>
 <p>It is also useful to intorudce the fractal dimension <span class="math notranslate nohighlight">\(D_\mathrm{f}\)</span> defined as follows:</p>
 <div class="math notranslate nohighlight">
 \[N = k_\mathrm{f}\left(\frac{a_\mathrm{g}}{a_\mathrm{mon}}\right)^{D_\mathrm{f}},\]</div>
-<p>where <span class="math notranslate nohighlight">\(k_\mathrm{f}\)</span> is the fractal prefactor.
-The fractal dimension describes how the number of monomers, let say, the volume of an aggregate, goes up if we increase the radius of gyration of an aggregate.</p>
-<p>For example, if <span class="math notranslate nohighlight">\(D_\mathrm{f}=3\)</span>, the volume increases with the radius cubed, which is similar to the case of a single spherical particle. A fractal dimension may take a value lower than 3. For example, if all monomers are lined up to form a straight chain aggregate. In this case, the total volume is proportaional to the radius, and hence <span class="math notranslate nohighlight">\(D_\mathrm{f}=1\)</span>. Therefore, the fractal dimension will take a value <span class="math notranslate nohighlight">\(1\le D_\mathrm{f}\le 3\)</span>, and the lower this value is, the more open the aggregate structure becomes.</p>
+<p>where <span class="math notranslate nohighlight">\(k_\mathrm{f}\)</span> is the fractal prefactor.</p>
+<p>The fractal dimension is a quantity that characterizes the geometric shape of an aggregate.
+For example, an aggregate with a fractal dimension of 3 has monomers distributed in such a way that the aggregate’s mass grows with the cube of its radius of gyration, similar to an elementary scaling for a single spherical particle. In this case, the aggregate tend to have compact structure. A fractal dimension may also be less than 3, with lower values corresponding to more open aggregate structures. For example, an aggregate consisting of monomers lined up in a straight chain would have a volume proportional to its radius, resulting in a fractal dimension of 1.</p>
 <p>The  fractal prefactor <span class="math notranslate nohighlight">\(k_\mathrm{f}\)</span> may be regarded as related to a packing fraction in <span class="math notranslate nohighlight">\(D_\mathrm{f}\)</span> dimensional space. Its meaning becomes clear if we consider the case of <span class="math notranslate nohighlight">\(D_\mathrm{f}=3\)</span>. In this case, the above fractal scaling law gives</p>
 <div class="math notranslate nohighlight">
 \[\left(\frac{a_\mathrm{V}}{a_\mathrm{c}}\right)^3=\left(\frac{3}{5}\right)^{3/2}k_\mathrm{f}\approx0.465 k_\mathrm{f} ~~(D_\mathrm{f}=3)\]</div>
@@ -151,8 +152,8 @@ The fractal dimension describes how the number of monomers, let say, the volume 
 <span id="scatmatdefs"></span><h2>Definitions of scattering properties<a class="headerlink" href="#definitions-of-scattering-properties" title="Permalink to this heading"></a></h2>
 <div class="section" id="notations">
 <h3>Notations<a class="headerlink" href="#notations" title="Permalink to this heading"></a></h3>
-<p>The definition of the optical properties written in a file <code class="docutils literal notranslate"><span class="pre">dustkapscatmat_XXX.inp</span></code> follows the definitions of the ones used in RADMC-3D. See <a class="reference external" href="https://www.ita.uni-heidelberg.de/~dullemond/software/radmc-3d/manual_radmc3d/dustradtrans.html#polarization-stokes-vectors-and-full-phase-functions">the manual of RADMC-3D</a> for a detailed description.</p>
-<p>We are interested in scattered light from a collection of <em>identical</em> dust particles. Suppose the dust particles are randomly orientated with equal probability, the scattering matrix which relate incident and scattered Stokes parameters, will have 6 non-zero independent elements:</p>
+<p>The definition of the optical properties written in a file <code class="docutils literal notranslate"><span class="pre">dustkapscatmat_XXX.inp</span></code> follows the definitions of the ones used in RADMC-3D (see also <a class="reference external" href="https://www.ita.uni-heidelberg.de/~dullemond/software/radmc-3d/manual_radmc3d/dustradtrans.html#polarization-stokes-vectors-and-full-phase-functions">the manual of RADMC-3D</a>).</p>
+<p>Suppose we observe scattered light from a collection of <em>identical</em> dust particles and the dust particles are randomly orientated with equal probability, then the scattering matrix, which relate incident and scattered Stokes parameters, will have 6 independent elements:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{pmatrix}
 I_\mathrm{sca} \\
@@ -174,11 +175,11 @@ Q_\mathrm{inc} \\
 U_\mathrm{inc} \\
 V_\mathrm{inc} \\
 \end{pmatrix},\end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(d\)</span> is the distance from a dust particle to the observer, <span class="math notranslate nohighlight">\(m_\mathrm{dust}\)</span> is the mass of a dust particle, <span class="math notranslate nohighlight">\(Z_{ij}\)</span> is scattering matrix elements. Since the dust particles that this package deals with are not spherically symemtric anymore, we have <span class="math notranslate nohighlight">\(Z_{11}\neq Z_{22}\)</span> and <span class="math notranslate nohighlight">\(Z_{33}\neq Z_{44}\)</span>.</p>
+<p>where <span class="math notranslate nohighlight">\(d\)</span> is the distance from a dust particle to the observer, <span class="math notranslate nohighlight">\(m_\mathrm{dust}\)</span> is the mass of a dust particle (<span class="math notranslate nohighlight">\(\mathrm{g}\)</span>), <span class="math notranslate nohighlight">\(Z_{ij}\)</span> is scattering matrix elements. If each dust particle is not spherically symmetric, we have <span class="math notranslate nohighlight">\(Z_{11}\neq Z_{22}\)</span> and <span class="math notranslate nohighlight">\(Z_{33}\neq Z_{44}\)</span>.</p>
 <p>The scattering matrix elements <span class="math notranslate nohighlight">\(Z_{ij}\)</span> (<span class="math notranslate nohighlight">\(\mathrm{cm}^2/\mathrm{g}/\mathrm{str}\)</span>) are related to the traditional notation via:</p>
 <div class="math notranslate nohighlight">
 \[Z_{ij}=\frac{S_{ij}^\mathrm{BohrenHuffman}}{k^2m_\mathrm{dust}},\]</div>
-<p>where <span class="math notranslate nohighlight">\(k\)</span> is the wave number (<span class="math notranslate nohighlight">\(\mathrm{cm}^{-1}\)</span>) and <span class="math notranslate nohighlight">\(S_{ij}\)</span> is the scattering matrix elements defined by <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/1983asls.book.....B">Bohren &amp; Huffman (1983)</a>.
+<p>where <span class="math notranslate nohighlight">\(k\)</span> is the wave number (<span class="math notranslate nohighlight">\(\mathrm{cm}^{-1}\)</span>), and <span class="math notranslate nohighlight">\(S_{ij}\)</span> are the scattering matrix elements defined by <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/1983asls.book.....B">Bohren &amp; Huffman (1983)</a>.
 Note that RADMC-3D adopts the IAU 1974 definition for the Stokes vectors, and it is different from what Bohren &amp; Huffman’s book follows. As a result, we need a minus sign for the <span class="math notranslate nohighlight">\(Z_{13}\)</span>, <span class="math notranslate nohighlight">\(Z_{14}\)</span>, <span class="math notranslate nohighlight">\(Z_{23}\)</span>, <span class="math notranslate nohighlight">\(Z_{24}\)</span>, <span class="math notranslate nohighlight">\(Z_{31}\)</span>, <span class="math notranslate nohighlight">\(Z_{41}\)</span>, <span class="math notranslate nohighlight">\(Z_{32}\)</span>, <span class="math notranslate nohighlight">\(Z_{42}\)</span> elements because of the opposite <span class="math notranslate nohighlight">\(U\)</span> and <span class="math notranslate nohighlight">\(V\)</span> sign conventions (But, these elements are zero for our cases).</p>
 <p>The integration of <span class="math notranslate nohighlight">\(Z_{11}\)</span> over the all solid angles gives the scattering opacity (<span class="math notranslate nohighlight">\(\mathrm{cm}^2/\mathrm{g}\)</span>)</p>
 <div class="math notranslate nohighlight">
@@ -189,7 +190,7 @@ Note that RADMC-3D adopts the IAU 1974 definition for the Stokes vectors, and it
 <p>where <span class="math notranslate nohighlight">\(C_\mathrm{sca}\)</span> is the scattering cross section, and <span class="math notranslate nohighlight">\(dC_\mathrm{sca}/d\Omega\)</span> is the differential scattering cross section. The phase function is therefore normalized such that <span class="math notranslate nohighlight">\(\int_{4\pi} p(\theta)d\Omega=1\)</span>. The asymmetry parameter is defined by (p. 72, Section 3.4 in Bohren &amp; Huffman’s book):</p>
 <div class="math notranslate nohighlight">
 \[g \equiv \int_{4\pi} p(\theta) \cos\theta d\Omega=\frac{2\pi}{\kappa_\mathrm{sca}}\int_{-1}^{+1} Z_{11}(\mu)\mu d\mu,\]</div>
-<p>where <span class="math notranslate nohighlight">\(\mu=\cos\theta\)</span>; <span class="math notranslate nohighlight">\(\theta\)</span> is the scattering angle (<span class="math notranslate nohighlight">\(\theta=0^\circ\)</span> is the forward scattering direction). <span class="math notranslate nohighlight">\(g\)</span> is non-dimensional quantity.</p>
+<p>where <span class="math notranslate nohighlight">\(\mu=\cos\theta\)</span>; <span class="math notranslate nohighlight">\(\theta\)</span> is the scattering angle (<span class="math notranslate nohighlight">\(\theta=0^\circ\)</span> is the forward scattering direction). <span class="math notranslate nohighlight">\(g\)</span> is a non-dimensional quantity.</p>
 </div>
 <div class="section" id="size-distribution-averaging">
 <h3>Size distribution averaging<a class="headerlink" href="#size-distribution-averaging" title="Permalink to this heading"></a></h3>
@@ -216,7 +217,7 @@ g_\mathrm{ave}=\frac{2\pi}{\kappa_\mathrm{sca,ave}}\int_{-1}^{+1} Z_{11,\mathrm{
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="radmc3d.html" class="btn btn-neutral float-left" title="Running RADMC-3D with AggScatVIR" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="app_gallery.html" class="btn btn-neutral float-right" title="Appendix B: Gallery of optical properties" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="app_gallery.html" class="btn btn-neutral float-right" title="Appendix B: Gallery of the optical properties" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

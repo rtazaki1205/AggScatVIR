@@ -54,7 +54,7 @@
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Python Tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="radmc3d.html">Running RADMC-3D with AggScatVIR</a></li>
 <li class="toctree-l1"><a class="reference internal" href="app_def.html">Appendix A: Definitions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="app_gallery.html">Appendix B: Gallery of optical properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app_gallery.html">Appendix B: Gallery of the optical properties</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">Appendix C: Python modules</a></li>
 </ul>
 
@@ -108,7 +108,7 @@
 </style>
 <div class="section" id="what-is-aggscatvir">
 <h1>What is AggScatVIR?<a class="headerlink" href="#what-is-aggscatvir" title="Permalink to this heading"></a></h1>
-<p><code class="docutils literal notranslate"><span class="pre">AggScatVIR</span></code> stands for AGGregate Scattering at Visual and InfraRed wavelengths. This project provides the optical properties of complex shaped dust particles that can be used to interpret scattered light observations of circumstellar disks (protoplanetary disks and debris disks) at visible and near-infrared wavelengths. In other words, we can interpret disk observations without using the Mie theory. This database contains the scattering matrix and opacity of various dust particles studied in Tazaki &amp; Dominik (2022) and Tazaki, Ginski, and Dominik (submitted).</p>
+<p><code class="docutils literal notranslate"><span class="pre">AggScatVIR</span></code> stands for AGGregate SCATtering at Visual and InfraRed wavelengths. This project provides the optical properties of complex-shaped dust particles that can be used to interpret scattered light observations of circumstellar disks (such as protoplanetary disks and debris disks) at visible and near-infrared wavelengths. This allows us to interpret disk observations without relying on the Mie theory. The database consists of the scattering matrix and opacity of various dust particles studied in Tazaki &amp; Dominik (2022) and Tazaki, Ginski, and Dominik (submitted).</p>
 <blockquote>
 <div><img alt="_images/all.png" src="_images/all.png" />
 </div></blockquote>
@@ -124,9 +124,9 @@
 <h2>Assumptions and Limitations<a class="headerlink" href="#assumptions-and-limitations" title="Permalink to this heading"></a></h2>
 <p>Since we adopt exact numerical techniques for solving the optical properties, the limitation is coming from simulation setups.</p>
 <ul class="simple">
-<li><p><strong>Randomly orientated particles</strong>: Given that each dust particle is no longer symmetrical in shape, we must assume an orientation of the particle relative to the direction of incident and scattered light. We assume that the particles are randomly oriented, and their optical properties are averaged over all possible orientations with equal probability. In other words, we do not take into account the scenario in which non-spherical particles become aligned. This assumption allows only six elements of the scattering matrix to be independent.</p></li>
+<li><p><strong>Randomly orientated particles</strong>: Given that each dust particle is no longer symmetrical in shape, we must assume an orientation of the particle relative to the direction of incident and scattered light. We assume that the particles are randomly orientated, and their optical properties are averaged over all possible orientations with equal probability. In other words, we do not take into account the scenario in which non-spherical particles become aligned. This assumption results in only six elements of the scattering matrix being independent.</p></li>
 <li><p><strong>Monomers are homogeneous spheres with a single size</strong>: Dust aggregates consist of numerous small particles referred to as monomers. The optical properties of the aggregates contained in this database are all constructed from monodisperse monomers with a uniform composition for computational simplicity.</p></li>
-<li><p><strong>Limited wavelength coverage</strong>: As the package name suggests, this database contains the optical properties of dust particles at a wavelength from <span class="math notranslate nohighlight">\(0.554~\mu\mathrm{m}\)</span> to <span class="math notranslate nohighlight">\(3.780~\mu\mathrm{m}\)</span>. Consequently, if you are seeking information on a wavelength outside of this range, the database will not be applicable.</p></li>
+<li><p><strong>Limited wavelength coverage</strong>: As the package name suggests, this database contains the optical properties of dust particles at visible/near-infrared wavelengths in the range of <span class="math notranslate nohighlight">\(0.554~\mu\mathrm{m}\)</span> to <span class="math notranslate nohighlight">\(3.780~\mu\mathrm{m}\)</span>. Consequently, if you are seeking information on a wavelength outside of this range, the database will not be applicable.</p></li>
 </ul>
 </div>
 <div class="section" id="how-to-cite">
@@ -141,7 +141,7 @@
 </div>
 <div class="section" id="acknowledgement">
 <h2>Acknowledgement<a class="headerlink" href="#acknowledgement" title="Permalink to this heading"></a></h2>
-<p>We thank Daniel Mackowski, Maxim A. Yurkin, Cornelis Dullemond for making the MSTM, ADDA, RADMC-3D codes publicly available, respectively. We also thank Bruce Draine for the availability of particle position data of BA, BAM1, and BAM2 and Yasuhiko Okada for providing us a generation code for BCCA.</p>
+<p>We thank Daniel Mackowski and Maxim A. Yurkin for making the MSTM and ADDA codes publicly available, respectively. We also thank Bruce Draine for the availability of particle position data of BA, BAM1, and BAM2; N. Moteki for the availability of the aggregate_gen code; Yasuhiko Okada for providing us a generation code for BCCA.</p>
 </div>
 </div>
 
