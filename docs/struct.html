@@ -52,7 +52,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#for-irregular-grains">For irregular grains</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#refractive-indices">Refractive indices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dust-composition-and-refractive-indices">Dust composition and Refractive indices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#structure-of-each-dust-file">Structure of each dust file</a></li>
 </ul>
 </li>
@@ -231,7 +231,7 @@
 </tr>
 </tbody>
 </table>
-<p>For <code class="docutils literal notranslate"><span class="pre">COMP</span></code>, the following two options are available.</p>
+<p>For <code class="docutils literal notranslate"><span class="pre">COMP</span></code>, the following two options are available (see <a class="reference internal" href="#dustcomp"><span class="std std-ref">Dust composition and Refractive indices</span></a> for more details).</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 12%" />
@@ -360,9 +360,56 @@ each with a radius of 100 nm and the <code class="docutils literal notranslate">
 </div>
 </div>
 </div>
-<div class="section" id="refractive-indices">
-<h2>Refractive indices<a class="headerlink" href="#refractive-indices" title="Permalink to this heading"></a></h2>
-<p>The optical properties in this database are provided in optical/near-infrared wavelengths. A list of wavelengths and complex refractive indices of each monomer/irregular grain adopted in this database is as follows:</p>
+<div class="section" id="dust-composition-and-refractive-indices">
+<span id="dustcomp"></span><h2>Dust composition and Refractive indices<a class="headerlink" href="#dust-composition-and-refractive-indices" title="Permalink to this heading"></a></h2>
+<p>In order to calculate the optical properties, we need to assume a complex refractive index, which depends on dust composition.
+We consider refractive indices of four materials: water ice <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2008JGRD..11314220W">(Warren &amp; Brandt 2008)</a>,
+proxene silicate Mg0.7Fe0.3SiO3 <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/1995A%26A...300..503D/abstract">(Dorschner et al. 1995)</a>,
+carbonaceous material, and troilite <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/1996A%26A...311..291H/abstract">(Henning &amp; Stognienko 1996)</a>.
+For carbonaceous material, we adopt refractory organics by <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/1996A%26A...311..291H/abstract">Henning &amp; Stognienko (1996)</a> for the org model and amorphous carbon by <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/1996MNRAS.282.1321Z/abstract">Zubko et al. (1996)</a> for the amc model. The mass abundances for the four components are taken from <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2001ApJ...553..321D/abstract">D’Alessio et al. (2001)</a> by reducing the water-ice mass abundance down to 20%, as done in the DSHARP model by <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2018ApJ...869L..45B/abstract">Birnstiel et al. (2018)</a>. The material density and the resultant mass (volume) fractions are as follows.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 26%" />
+<col style="width: 26%" />
+<col style="width: 26%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>material</p></th>
+<th class="head"><p>density (g/cc)</p></th>
+<th class="head"><p>org</p></th>
+<th class="head"><p>amc</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>water ice</p></td>
+<td><p>0.92</p></td>
+<td><p>20.0% (35.84%)</p></td>
+<td><p>20.0% (38.65%)</p></td>
+</tr>
+<tr class="row-odd"><td><p>silicate</p></td>
+<td><p>3.01</p></td>
+<td><p>32.9% (18.02%)</p></td>
+<td><p>32.9% (19.43%)</p></td>
+</tr>
+<tr class="row-even"><td><p>organics</p></td>
+<td><p>1.5</p></td>
+<td><p>39.7% (43.60%)</p></td>
+<td><p>—</p></td>
+</tr>
+<tr class="row-odd"><td><p>amo carbon</p></td>
+<td><p>1.8</p></td>
+<td><p>—</p></td>
+<td><p>39.7% (39.18%)</p></td>
+</tr>
+<tr class="row-even"><td><p>troilite</p></td>
+<td><p>4.83</p></td>
+<td><p>7.4% (2.54%)</p></td>
+<td><p>7.4% (2.74%)</p></td>
+</tr>
+</tbody>
+</table>
+<p>The refractive indices of the mixtures were then calculated by using the Bruggeman mixing rule. A list of wavelengths and complex refractive indices of each monomer/irregular grain adopted in this database is as follows:</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 34%" />
@@ -409,11 +456,6 @@ each with a radius of 100 nm and the <code class="docutils literal notranslate">
 </tbody>
 </table>
 <p>The material density is 1.6487 g/cc and 1.7779 g/cc for the org and amc models, respectively.</p>
-<p>The refractive index is calculated by using the Bruggeman mixing rule for a four-component mixture:
-water ice <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2008JGRD..11314220W">(Warren &amp; Brandt 2008)</a>,
-proxene silicate Mg0.7Fe0.3SiO3 <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/1995A%26A...300..503D/abstract">(Dorschner et al. 1995)</a>,
-carbonaceous material, and toroilite <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/1996A%26A...311..291H/abstract">(Henning &amp; Stognienko 1996)</a>.
-For carbonaceous material, we adopt refractory organics by <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/1996A%26A...311..291H/abstract">Henning &amp; Stognienko (1996)</a> for the org model and amorphous carbon by <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/1996MNRAS.282.1321Z/abstract">Zubko et al. (1996)</a> for the amc model. The mass abundances for the four components are taken from the DSHARP model by <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2018ApJ...869L..45B/abstract">Birnstiel et al. (2018)</a>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p><strong>Models with incomplete wavelength coverage</strong>: The following models only have the wavelength coverage of <span class="math notranslate nohighlight">\(1.040\)</span>–<span class="math notranslate nohighlight">\(3.780~\mu\mathrm{m}\)</span>; therefore, the data sets at <span class="math notranslate nohighlight">\(\lambda=0.554~\mu\mathrm{m}\)</span> and <span class="math notranslate nohighlight">\(0.735~\mu\mathrm{m}\)</span> are missing:
