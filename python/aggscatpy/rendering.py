@@ -24,7 +24,7 @@ from aggscatpy.agginfo import check_particle_size
 
 def particle_rendering(partype,size,ireal,amon=None,xcamera=3.5,rotx=0.0,roty=0.0,rotz=0.0,\
         particle_color='rgb<0.15,0.15,0.15>',\
-        background=True,bg_color='White',\
+        background=False,bg_color='White',\
         reference=True,ref_length=None,ref_dist=1.7,ref_posang=240.0,ref_color=None,\
         ref_fontsize=1.0,fn=None,path=None):
 
@@ -109,7 +109,7 @@ def particle_rendering(partype,size,ireal,amon=None,xcamera=3.5,rotx=0.0,roty=0.
         ref_color='rgbt<0,0,0,1>'
 
     # make background transparent
-    if background:
+    if background==False:
         bg_color='rgbt<0,0,0,1>' # for transparent
 
     if partype=='grs':
@@ -209,10 +209,10 @@ def particle_rendering(partype,size,ireal,amon=None,xcamera=3.5,rotx=0.0,roty=0.
         # run povray
         if background:
             os.system('povray irregular.pov +H1200 +W1200 +A0.1\
-                    +FN +UA Output_File_Name='+output_file_name)
+                    Output_File_Name='+output_file_name)
         else:
             os.system('povray irregular.pov +H1200 +W1200 +A0.1\
-                    Output_File_Name='+output_file_name)
+                    +FN +UA Output_File_Name='+output_file_name)
 
     else:
 
@@ -308,10 +308,11 @@ def particle_rendering(partype,size,ireal,amon=None,xcamera=3.5,rotx=0.0,roty=0.
         # run povray
         if background:
             os.system('povray aggregate.pov +H1200 +W1200 +A0.1\
-                    +FN +UA Output_File_Name='+output_file_name)
+                    Output_File_Name='+output_file_name)
         else:
             os.system('povray aggregate.pov +H1200 +W1200 +A0.1\
-                    Output_File_Name='+output_file_name)
+                    +FN +UA Output_File_Name='+output_file_name)
+
 
 def view_particle(partype,size,ireal=None,amon=None):
     """
