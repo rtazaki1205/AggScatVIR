@@ -1,3 +1,8 @@
+
+# Caveat!
+*THIS PACKAGE IS STILL UNDER TESTING. PLEASE WAIT FOR AN OFFICIAL RELEASE*
+
+
 # *AggScatVIR*
 
 *AggScatVIR* stands for AGGregate SCATtering at Visual and InfraRed wavelengths. This project provides the optical properties of complex-shaped dust particles that can be used to interpret scattered light observations of circumstellar disks (such as protoplanetary disks and debris disks) at visible and near-infrared wavelengths. The database consists of the scattering matrix and opacity of various dust particles studied in Tazaki & Dominik (2022) and Tazaki, Ginski, and Dominik (submitted).
