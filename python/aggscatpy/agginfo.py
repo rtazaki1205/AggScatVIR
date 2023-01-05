@@ -1,11 +1,26 @@
-import numpy as np
 
-def get_sizelist(agg,amon=None):
+try:
+    import numpy as np
+except ImportError:
+    print('Failed to import numpy')
+    traceback.format_exc()
+
+
+def get_sizelist(partype,amon=None):
     """
     Get a list of available ``size`` arguments, which is necessary to call the ``dustmodel`` class.
-    If amon is None and agg is for dust aggregates, an available list of amon and size will be outputted.
+    If amon is None and partype is for dust aggregates, an available list of amon and size will be outputted.
 
-    Examples:
+    Parameters
+    ----------
+    partype : str
+
+    Returns
+    ----------
+    nlist   : list of size arguments
+
+    Examples
+    ----------
         >>> print(get_sizelist('FA19'))
         Available amon and size for FA19
         amon='100nm' | '8','16','32','64','128','256','512','1024','2048','4096'
@@ -27,31 +42,31 @@ def get_sizelist(agg,amon=None):
     #
     # output all info
     #
-    if agg != 'grs' and amon==None:
-        print(" Available amon and size for",agg)
-        if agg in ['CALP','CAMP','CAHP']:
+    if partype != 'grs' and amon==None:
+        print(" Available amon and size for",partype)
+        if partype in ['CALP','CAMP','CAHP']:
             print(" amon='100nm' | size='8','16','32','64','128','256','512','1024','2048','4096'")
             print(" amon='200nm' | size='8','16','32','64','128','256','512'")
             print(" amon='400nm' | size='8','16','32','64'")
-        elif agg=='FA19':
+        elif partype=='FA19':
             print(" amon='100nm' | '8','16','32','64','128','256','512','1024','2048','4096'")
             print(" amon='150nm' | '8','16','32','64','128','256','512'")
             print(" amon='200nm' | '8','16','32','64','128','256','512'")
             print(" amon='300nm' | '8','16','32','64','128','256'")
             print(" amon='400nm' | '8','16','32','64','128'")
-        elif agg=='FA15':
+        elif partype=='FA15':
             print(" amon='100nm' | '8','16','32','64','128','256','512','1024'")
             print(" amon='150nm' | '8','16','32','64','128','256'")
             print(" amon='200nm' | '8','16','32','64','128','256'")
             print(" amon='300nm' | '8','16','32','64','128''")
             print(" amon='400nm' | '8','16','32','64'")
-        elif agg=='FA13':
+        elif partype=='FA13':
             print(" amon='100nm' | '8','16','32','64','128','256','512'")
             print(" amon='150nm' | '8','16','32','64','128'")
             print(" amon='200nm' | '8','16','32','64','128'")
             print(" amon='300nm' | '8','16','32','64'")
             print(" amon='400nm' | '8','16','32'")
-        elif agg=='FA11':
+        elif partype=='FA11':
             print(" amon='100nm' | '8','16','32','64','128','256'")
             print(" amon='150nm' | '8','16','32','64'")
             print(" amon='200nm' | '8','16','32','64'")
@@ -63,15 +78,15 @@ def get_sizelist(agg,amon=None):
     #
     # safety checks
     #
-    if agg in ['CALP','CAMP','CAHP']:
+    if partype in ['CALP','CAMP','CAHP']:
         amon_list=['100nm','200nm','400nm']
-    elif agg in ['FA11','FA13','FA15','FA19']:
+    elif partype in ['FA11','FA13','FA15','FA19']:
         amon_list=['100nm','150nm','200nm','300nm','400nm']
-    elif agg=='grs':
+    elif partype=='grs':
         amon=None
     else:
         print('error in get_sizelist: incorrect partype type')
-        print(' inputt value     = ',agg)
+        print(' inputt value     = ',partype)
         print(" while available values are = 'FA11', 'FA13', 'FA15', 'FA19', 'CAHP', 'CAMP', 'CALP', 'grs'")
         exit()
 
@@ -85,7 +100,7 @@ def get_sizelist(agg,amon=None):
     #
     #
     nlist=[]
-    if agg=='FA11':
+    if partype=='FA11':
         if amon=='100nm':
             nlist=['8','16','32','64','128','256']
         elif amon=='150nm':
@@ -97,7 +112,7 @@ def get_sizelist(agg,amon=None):
         elif amon=='400nm':
             nlist=['8','16']
     
-    elif agg=='FA13':
+    elif partype=='FA13':
         if amon=='100nm':
             nlist=['8','16','32','64','128','256','512']
         elif amon=='150nm':
@@ -109,7 +124,7 @@ def get_sizelist(agg,amon=None):
         elif amon=='400nm':
             nlist=['8','16','32']
 
-    elif agg=='FA15':
+    elif partype=='FA15':
         if amon=='100nm':
             nlist=['8','16','32','64','128','256','512','1024']
         elif amon=='150nm':
@@ -121,7 +136,7 @@ def get_sizelist(agg,amon=None):
         elif amon=='400nm':
             nlist=['8','16','32','64']
 
-    elif agg=='FA19':
+    elif partype=='FA19':
         if amon=='100nm':
             nlist=['8','16','32','64','128','256','512','1024','2048','4096']
         elif amon=='150nm':
@@ -133,7 +148,7 @@ def get_sizelist(agg,amon=None):
         elif amon=='400nm':
             nlist=['8','16','32','64','128']
 
-    elif agg=='CAHP' or agg=='CAMP' or agg=='CALP':
+    elif partype=='CAHP' or partype=='CAMP' or partype=='CALP':
         if amon=='100nm':
             nlist=['8','16','32','64','128','256','512','1024','2048','4096']
         elif amon=='200nm':
@@ -141,10 +156,66 @@ def get_sizelist(agg,amon=None):
         elif amon=='400nm':
             nlist=['8','16','32','64']
 
-    elif agg=='grs':
+    elif partype=='grs':
         nlist=['0_2000','0_2520','0_3175','0_4000','0_5040','0_6350','0_8000','1_0079','1_2699','1_6000']
 
     return nlist
+
+
+def check_particle_type(partype):
+    """
+    Check if the input particle type is correctly formatted
+
+    Parameters
+    ----------
+    partype : str
+    """
+    
+    if partype not in ['grs','CALP','CAMP','CAHP','FA19','FA15','FA13','FA11']:
+        msg='Incorrect particle type. The input value is '+partype+', while available values are '\
+                "['grs','CALP','CAMP','CAHP','FA19','FA15','FA13','FA11']"
+        raise ValueError(msg)
+
+
+def check_particle_size(partype,amon,size):
+    """
+    Check if the input particle size is correctly formatted
+
+    Parameters
+    ----------
+    partype : str
+    amon    : str (optional)
+    size    : str
+    """
+
+    nl=get_sizelist(partype,amon=amon)
+    # check consistency between monomer radius and number of monomers
+    if size not in nl:
+        msg='Incorrect particle size. The particle model that was attempted to be read is '+partype
+        if partype != 'grs':
+            msg=msg+' with the monomer radius of '+amon+'.'
+
+        if not nl:
+            msg=msg+'---> The input monomer radius is not available.'
+        else:
+            msg=msg+' Input size option is '+size+\
+                    ', while available size options for this particle model is '+str(nl)
+        
+        raise ValueError(msg)
+
+def check_particle_composition(comp):
+    """
+    Check if the input particle composition is correctly formatted
+
+    Parameters
+    ----------
+    comp : str
+    """
+
+    if comp not in ['org','amc']:
+        msg='Incorrect particle composition. The input composition option is '+comp+\
+                ", while available values are 'org' or 'amc'"
+        raise ValueError(msg)
 
 
 # volume equivalent radius of grs particles in unit of microns
@@ -160,7 +231,7 @@ def grs_voleq(sizename):
     Returns
     ----------
     av       : float
-               the grain radius in microns
+               the grain radius in units of microns
     """
 
     if sizename=='0_2000':
@@ -187,23 +258,23 @@ def grs_voleq(sizename):
 
 
 # calculate mass
-def calculate_dust_mass(self,qind,sizemin=None,sizemax=None):
+def calculate_dust_mass(self):
     """
-    Calculate a dust mass (or distribution-averaged value when the size distribution is present)..
+    Calculate a dust mass (or distribution-averaged value when the size distribution is present).
 
     Parameters
     ----------
     qind    : float
               power-law index of the size distribution
     sizemin : str (optional)
-              a string to specify the minimum dust particle
+              a string for specifying the minimum dust particle
     sizemax : str (optional)
-              a string to specify the maximum dust particle
+              a string for specifying the maximum dust particle
 
     Returns
     ----------
     mass     : float
-               dust mass in gram
+               dust mass in units of gram
     """
 
     # calculate (distribution-averaged) mass 
@@ -220,17 +291,24 @@ def calculate_dust_mass(self,qind,sizemin=None,sizemax=None):
             for i in range(imin,imax+1):
                 av = self.amon*2.0**(float(i)/3.0)
                 av = av * mic2cm
-                tot1 = tot1 + av ** (4.0 - qind)
-                tot2 = tot2 + av ** (1.0 - qind)
+                #tot1 = tot1 + av ** (4.0 - qind)
+                #tot2 = tot2 + av ** (1.0 - qind)
+                tot1 = tot1 + av ** (4.0 - self.pow)
+                tot2 = tot2 + av ** (1.0 - self.pow)
         else:
             grs_list=get_sizelist('grs')
-            imin=grs_list.index(sizemin)
-            imax=grs_list.index(sizemax)
+            #imin=grs_list.index(sizemin)
+            #imax=grs_list.index(sizemax)
+            imin=int(3*np.log2(self.avmin/0.2))
+            imax=int(3*np.log2(self.avmax/0.2))
             for i in range(imin,imax+1):
                 av = grs_voleq(grs_list[i])
                 av = av * mic2cm
-                tot1 = tot1 + av ** (4.0 - qind)
-                tot2 = tot2 + av ** (1.0 - qind)
+                #tot1 = tot1 + av ** (4.0 - qind)
+                #tot2 = tot2 + av ** (1.0 - qind)
+                tot1 = tot1 + av ** (4.0 - self.pow)
+                tot2 = tot2 + av ** (1.0 - self.pow)
+
         # calculate distribution-averaged mass
         mass = 4.0*np.pi*self.rhomat*tot1/tot2/3.0
     else:   
@@ -239,13 +317,13 @@ def calculate_dust_mass(self,qind,sizemin=None,sizemax=None):
     return mass
 
 
-
 # 
 def get_radius_and_porosity(partype,amon,np):
     """
-    Get the characteristic radius and porosity of an aggregate.
+    Get the characteristic radius and porosity of an aggregate
     
-    Examples:
+    Examples
+    ---------
         >>> ac,por=get_radius_and_porosity('FA19','100nm','4096')
         >>> print('%-21s'%"characteristic radius",'= %5.3f um'%ac)
         >>> print('%-21s'%"porosity",'= %5.2f %%'%por)

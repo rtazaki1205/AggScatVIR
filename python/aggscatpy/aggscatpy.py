@@ -1,14 +1,39 @@
-import numpy as np
-from plots import *
-from agginfo import *
-
 import sys
 import os.path
+import traceback
+from pathlib import Path
 
-import matplotlib
-import matplotlib.pyplot as plt
-import matplotlib.ticker as ticker
-from matplotlib.ticker import MultipleLocator, FormatStrFormatter
+try:
+    import numpy as np
+except ImportError:
+    print('Failed to import numpy')
+    traceback.format_exc()
+
+try:
+    import matplotlib
+    import matplotlib.pyplot as plt
+    import matplotlib.ticker as ticker
+    from matplotlib.ticker import MultipleLocator, FormatStrFormatter
+except ImportError:
+    print('Failed to import matplotlib')
+    traceback.format_exc()
+
+#from aggscatpy.plots import *
+#from aggscatpy.agginfo import *
+#from aggscatpy.rendering import * 
+
+from aggscatpy.agginfo import get_sizelist
+from aggscatpy.agginfo import check_particle_type
+from aggscatpy.agginfo import check_particle_size
+from aggscatpy.agginfo import check_particle_composition
+from aggscatpy.agginfo import grs_voleq
+from aggscatpy.agginfo import calculate_dust_mass
+from aggscatpy.agginfo import get_radius_and_porosity
+#from aggscatpy.plots import plots
+
+from aggscatpy.rendering import particle_rendering 
+#from aggscatpy.rendering import render_all
+from aggscatpy.rendering import view_particle
 
 
 class dustmodel:
@@ -115,15 +140,15 @@ class dustmodel:
 
         self.dist=dist
 
+        # read one of default data files
         if filename==None:
             read_default_file=True
 
             # generate file name
             if chop not in ['nochop', 'chop5', 'chop10']:
-                print('error: incorrect chop option')
-                print('input value = ',chop)
-                print('available options are' ,['nochop', 'chop5', 'chop10'])
-                exit()
+                msg='Incorrect chop option. The input value is '+chop+', while available values are '\
+                        "['nochop', 'chop5', 'chop10']"
+                raise ValueError(msg)
             
             if chop=='nochop':
                 self.chopang=0.0
@@ -132,43 +157,25 @@ class dustmodel:
             elif chop=='chop10':
                 self.chopang=10.0
 
-            # check partype
-            if partype not in ['grs','CALP','CAMP','CAHP','FA19','FA15','FA13','FA11']:
-                print('error: incorrect particle type')
-                print('input value = ',partype)
-                print('available options are ',['grs','CALP','CAMP','CAHP','FA19','FA15','FA13','FA11'])
-                exit()
+            # check particle type
+            check_particle_type(partype)
 
             # if grs, reset monomer radius option
             if partype == 'grs':
                 amon=None
 
-            # get a list of particle size
-            nl=get_sizelist(partype,amon=amon)
-            
-            # check consistency between monomer radius and number of monomers
-            if size not in nl:
-                print('Incorrect particle size')
-                print('input particle type =',partype)
-                if partype != 'grs':
-                    print('input monomer radius =',amon)
-                if not nl:
-                    print('--> this monomer radius is not available')
-                else:
-                    print('available size option is ',nl)
-                exit()
+            # check particle size
+            check_particle_size(partype,amon,size)
 
             # check composition
-            if comp not in ['org','amc']:
-                print("unknown dust composition")
-                print("Set either comp='org' or 'amc'")
-                exit()
+            check_particle_composition(comp)
 
             # set modelname and filename
             if partype=='grs':
                 self.aggop=False
                 if dist:
-                    filename='../aggscatrt/distave/'
+                    #filename='../aggscatrt/distave/'
+                    filename='aggscatrt/distave/'
                     if chop=='nochop':
                         modelname=partype+'_rvmax'+size+'um_'+comp
                     elif chop=='chop5':
@@ -176,7 +183,8 @@ class dustmodel:
                     elif chop=='chop10':
                         modelname=partype+'_rvmax'+size+'um_'+comp+'_chop10'
                 else:
-                    filename='../aggscatrt/single/'
+                    #filename='../aggscatrt/single/'
+                    filename='aggscatrt/single/'
                     if chop=='nochop':
                         modelname=partype+'_rv'+size+'um_'+comp
                     elif chop=='chop5':
@@ -190,7 +198,8 @@ class dustmodel:
 
                 self.aggop=True
                 if dist:
-                    filename='../aggscatrt/distave/'
+                    #filename='../aggscatrt/distave/'
+                    filename='aggscatrt/distave/'
                     if chop=='nochop':
                         modelname=partype+'_Nmax'+size+'_'+amon+'_'+comp
                     elif chop=='chop5':
@@ -198,7 +207,8 @@ class dustmodel:
                     elif chop=='chop10':
                         modelname=partype+'_Nmax'+size+'_'+amon+'_'+comp+'_chop10'
                 else:
-                    filename='../aggscatrt/single/'
+                    #filename='../aggscatrt/single/'
+                    filename='aggscatrt/single/'
                     if chop=='nochop':
                         modelname=partype+'_'+size+'_'+amon+'_'+comp
                     elif chop=='chop5':
@@ -206,37 +216,41 @@ class dustmodel:
                     elif chop=='chop10':
                         modelname=partype+'_'+size+'_'+amon+'_'+comp+'_chop10'
             else:
-                print('error: filename generation was not done correctly.')
-                print('strange!')
-                exit()
+                msg='Filename generation failed... Strange!'
+                raise ValueError(msg)
 
             filename=filename+chop+'/dustkapscatmat_'+modelname+'.inp'
-        
+
+            # construct path. Is there a better way to do this?
+            filename=Path(__file__).resolve().parents[2].joinpath(filename)
+
+        # read dustkapscatmat_XXX.inp generated by this database
         else:
             read_default_file=False
 
+            # check if the file exists
             if os.path.isfile(filename)==False:
-                print('Error! No such file found :',filename)
-                exit()
+                msg='Fail to find a file: '+filename
+                raise FileNotFoundError(msg)
+
             else:
                 print('...reading ',filename)
-                if '.inp' not in filename:
-                    print('   Error! The file name does not follow dustkapscatmat_XXX.inp' )
-                    print('          Please make sure if this file is given in the RADMC-3D format.')
-                    exit()
-                if 'dustkapscatmat_' not in filename:
-                    print('   Error! The file name does not follow dustkapscatmat_XXX.inp' )
-                    print('          Please make sure if this file is given in the RADMC-3D format.')
-                    exit()
+                
+                # check if the file name is properly given
+                #if '.inp' not in filename or 'dustkapscatmat_' not in filename:
+                #if 'dustkapscatmat_' not in filename:
+                #    msg='The file name does not follow dustkapscatmat_XXX.inp.'
+                #    raise ValueError(msg)
 
+                # open the file and read some lines for some inspections
                 with open(filename,'r') as f:
                     dum=f.readline()
                     dum=f.readline()
                     dum=f.readline()
                     modelname=dum.split()[-1]
 
+                # set particle type bool
                 self.dist=True
-                self.aggop=True
                 if 'grs' in modelname:
                     self.aggop=False
                 elif 'FA11' in modelname:
@@ -254,14 +268,17 @@ class dustmodel:
                 elif 'CALP' in modelname:
                     self.aggop=True
                 else:
-                    print('   Error! this file does not contain the information of aggregate/irregular grain.')
-                    print('          Currently this class can only read files generated by AggScatVIR.      ')
-                    exit()
+                    msg='This file does not contain the information of a particle type. '+\
+                        'Currently this class can only read files provided/generated by this database.'
+                    raise ValueError(msg)
 
         #
         self.model=modelname
         self.path=filename
         
+        reading_in_BHsmat=False # DO NOT CHANGE
+        reading_in_opacity=True # DO NOT CHANGE
+
         # start reading dustkapscatmat.inp
         header=''
         with open(filename,'r') as f:
@@ -295,10 +312,16 @@ class dustmodel:
                             self.mass=float(dum.split()[-1])
                         if 'forward scattering chop angle' in dum:
                             self.chopang=float(dum.split()[-1])
-                        if 'Scattering matrix definition: Bohren&Huffman' in dum:
-                            print("Error! The scattering matrix definition is Bohren & Huffman's one.")
-                            print("       The input file must be given in RADMC-3D's definition.     ")
-                            exit()
+                        if 'Scattering matrix definition: Bohren & Huffman' in dum:
+                            reading_in_BHsmat=True
+                        if 'Definition for total absorption and scattering: cross section' in dum:
+                            reading_in_opacity=False
+                        if 'file format: only integrated values' in dum:
+                            msg="This file does not seem to contain all the data (opacities and scattering matrix elements)."
+                            raise ValueError(msg)
+                        if 'file format: only scattering matrix' in dum:
+                            msg="This file does not seem to contain all the data (opacities and scattering matrix elements)."
+                            raise ValueError(msg)
                     else:
                         if 'material density' in dum:
                             self.rhomat=float(dum.split()[-1])
@@ -320,10 +343,16 @@ class dustmodel:
                             self.mass=float(dum.split()[-1])
                         if 'forward scattering chop angle' in dum:
                             self.chopang=float(dum.split()[-1])
-                        if 'Scattering matrix definition: Bohren&Huffman' in dum:
-                            print("Error! The scattering matrix definition is Bohren & Huffman's one.")
-                            print("       The input file must be given in RADMC-3D's definition.     ")
-                            exit()
+                        if 'Scattering matrix definition: Bohren & Huffman' in dum:
+                            reading_in_BHsmat=True
+                        if 'Definition for total absorption and scattering: cross section' in dum:
+                            reading_in_opacity=False
+                        if 'file format: only integrated values' in dum:
+                            msg="This file does not seem to contain all the data (opacities and scattering matrix elements)."
+                            raise ValueError(msg)
+                        if 'file format: only scattering matrix' in dum:
+                            msg="This file does not seem to contain all the data (opacities and scattering matrix elements)."
+                            raise ValueError(msg)
                     else:
                         if 'material density' in dum:
                             self.rhomat=float(dum.split()[-1])
@@ -356,13 +385,22 @@ class dustmodel:
             self.smat44=np.zeros([self.nlmd,self.nang])
 
             dum=f.readline() # skip empty line
-            for iwl in range(self.nlmd):
-                dum=f.readline().split()
-                self.lmd[iwl]=float(dum[0])
-                self.kabs[iwl]=float(dum[1])
-                self.ksca[iwl]=float(dum[2])
-                self.asym[iwl]=float(dum[3])
-                self.albedo[iwl]=self.ksca[iwl]/(self.kabs[iwl]+self.ksca[iwl])
+            if reading_in_opacity:
+                for iwl in range(self.nlmd):
+                    dum=f.readline().split()
+                    self.lmd[iwl]=float(dum[0])
+                    self.kabs[iwl]=float(dum[1])
+                    self.ksca[iwl]=float(dum[2])
+                    self.asym[iwl]=float(dum[3])
+                    self.albedo[iwl]=self.ksca[iwl]/(self.kabs[iwl]+self.ksca[iwl])
+            else:
+                for iwl in range(self.nlmd):
+                    dum=f.readline().split()
+                    self.lmd[iwl]=float(dum[0])
+                    self.cabs[iwl]=float(dum[1])
+                    self.csca[iwl]=float(dum[2])
+                    self.asym[iwl]=float(dum[3])
+                    self.albedo[iwl]=self.csca[iwl]/(self.cabs[iwl]+self.csca[iwl])
 
             dum=f.readline() # skip empty line
             for iang in range(self.nang):
@@ -381,10 +419,6 @@ class dustmodel:
                     self.smat44[iwl,iang]=float(dum[5])
                 self.pmax[iwl]=max(-self.smat12[iwl,:]/self.smat11[iwl,:])
 
-        # scattering phase function
-        for iwl in range(self.nlmd):
-            for iang in range(self.nang):
-                self.phase[iwl,iang]=self.smat11[iwl,iang]/self.ksca[iwl]
 
         if read_default_file:
             # get radius, porosity of aggregates
@@ -400,19 +434,55 @@ class dustmodel:
             if partype=='grs' and self.dist==False:
                 self.av=grs_voleq(size)
 
-            # calculate (distribution-averaged) mass [the last two arguments are not used when self.aggop=True]
-            self.mass=calculate_dust_mass(self,3.5,sizemin='0_2000',sizemax=size)
+            # calculate (distribution-averaged) mass [the last two arguments will not be used when self.aggop=True]
+            #self.mass=calculate_dust_mass(self,3.5,sizemin='0_2000',sizemax=size)
+
+        # calculate (distribution-averaged) mass
+        self.mass=calculate_dust_mass(self)
 
         mic2cm=1.e-4
         cm2mic=1.e4
-        # opacity (cm^2/g) ---> cross sectiosn (um^2)
-        self.csca=self.ksca*self.mass*cm2mic*cm2mic
-        self.cabs=self.kabs*self.mass*cm2mic*cm2mic
+
+        if reading_in_opacity:
+            # opacity (cm^2/g)    ---> cross sectiosn (um^2)
+            self.csca=self.ksca*self.mass*cm2mic*cm2mic
+            self.cabs=self.kabs*self.mass*cm2mic*cm2mic
+        else:
+            # cross section (um^2) ---> opacity (cm^2/g)
+            self.kabs=self.cabs*mic2cm*mic2cm/mass
+            self.ksca=self.csca*mic2cm*mic2cm/mass
+
+        # scattering phase function
+        if reading_in_BHsmat:
+            for iwl in range(self.nlmd):
+                wavno=2.0*np.pi/self.lmd[iwl]   # wavno [1/um]
+                                                # Csca is in [um^2]
+                for iang in range(self.nang):
+                    self.phase[iwl,iang]=self.smat11[iwl,iang]/(self.csca[iwl]*wavno*wavno)
+        else:
+            for iwl in range(self.nlmd):
+                for iang in range(self.nang):
+                    self.phase[iwl,iang]=self.smat11[iwl,iang]/self.ksca[iwl]
 
         # scattering matrix definition
-        self.smatdef='radmc3d'
-        if smatBH:
+#        self.smatdef='radmc3d'
+#        if smatBH:
+#            self.smatdef='Bohren&Huffman'
+#            for iwl in range(self.nlmd):
+#                wavno=2.0*np.pi/(self.lmd[iwl]*mic2cm)
+#                self.smat11[iwl,:] = self.smat11[iwl,:] * self.mass * wavno * wavno
+#                self.smat12[iwl,:] = self.smat12[iwl,:] * self.mass * wavno * wavno
+#                self.smat22[iwl,:] = self.smat22[iwl,:] * self.mass * wavno * wavno
+#                self.smat33[iwl,:] = self.smat33[iwl,:] * self.mass * wavno * wavno
+#                self.smat34[iwl,:] = self.smat34[iwl,:] * self.mass * wavno * wavno
+#                self.smat44[iwl,:] = self.smat44[iwl,:] * self.mass * wavno * wavno
+
+        if smatBH==True and reading_in_BHsmat==True:
+            # S_ij ---> S_ij
             self.smatdef='Bohren&Huffman'
+        elif smatBH==True and reading_in_BHsmat==False:
+            self.smatdef='Bohren&Huffman'
+            # Z_ij ---> S_ij (= Z_ij * m_grain * (2*pi/lambda)^2 )
             for iwl in range(self.nlmd):
                 wavno=2.0*np.pi/(self.lmd[iwl]*mic2cm)
                 self.smat11[iwl,:] = self.smat11[iwl,:] * self.mass * wavno * wavno
@@ -421,6 +491,20 @@ class dustmodel:
                 self.smat33[iwl,:] = self.smat33[iwl,:] * self.mass * wavno * wavno
                 self.smat34[iwl,:] = self.smat34[iwl,:] * self.mass * wavno * wavno
                 self.smat44[iwl,:] = self.smat44[iwl,:] * self.mass * wavno * wavno
+        elif smatBH==False and reading_in_BHsmat==True:
+            self.smatdef='radmc3d'
+            # S_ij ---> Z_ij ( = S_ij / (m_grain * (2*pi/lambda)^2) )
+            for iwl in range(self.nlmd):
+                wavno=2.0*np.pi/(self.lmd[iwl]*mic2cm)
+                self.smat11[iwl,:] = self.smat11[iwl,:] / (self.mass * wavno * wavno)
+                self.smat12[iwl,:] = self.smat12[iwl,:] / (self.mass * wavno * wavno)
+                self.smat22[iwl,:] = self.smat22[iwl,:] / (self.mass * wavno * wavno)
+                self.smat33[iwl,:] = self.smat33[iwl,:] / (self.mass * wavno * wavno)
+                self.smat34[iwl,:] = self.smat34[iwl,:] / (self.mass * wavno * wavno)
+                self.smat44[iwl,:] = self.smat44[iwl,:] / (self.mass * wavno * wavno)
+        elif smatBH==False and reading_in_BHsmat==False:
+            # Z_ij ---> Z_ij
+            self.smatdef='radmc3d'
 
 
 class distaverage:
@@ -455,8 +539,6 @@ class distaverage:
     ----------
     model : str
             dust model name 
-    path  : str
-            A relative path to the file
     dist  : bool
             True when the size distribution is on (always True in this mode)
     aggop : bool
@@ -501,27 +583,21 @@ class distaverage:
     pormin,pormax : float (*only when* ``partype!='grs'``)
             Porosity of the minimum and maximum aggregates in the size distribution
 
-    Methods
-    -------
-    write_dustkapscatmat:
-        Output the optical properties in a format directly readable by RADMC-3D.
-        
     """
     def __init__(self,partype,sizemin,sizemax,comp,amon=None,powind=3.5,chopang=0.0,smatBH=False):
 
         # check chop angle 
         if chopang < 0.0 or chopang>180.0:
-            print('error: chop angle is outside the scattering angle range')
-            print('input value = ',chopang)
-            exit()
+            msg='Chop angle is outside the scattering angle range (0 <= chopang <= 180). input value (deg) = '+str(chopang)
+            raise ValueError(msg)
+
+        if powind < 0.0:
+            print(' WARNING: Negative value for powind. powind=-3 means n(a)da~a^(+3)da')
+
         self.chopang=chopang
 
-        # check partype
-        if partype not in ['grs','CALP','CAMP','CAHP','FA19','FA15','FA13','FA11']:
-            print('error: incorrect particle type')
-            print('input value = ',partype)
-            print('available options are ',['grs','CALP','CAMP','CAHP','FA19','FA15','FA13','FA11'])
-            exit()
+        # check particle type
+        check_particle_type(partype)
 
         # if grs, reset monomer radius option
         if partype == 'grs':
@@ -530,21 +606,13 @@ class distaverage:
         else:
             self.aggop=True
  
-        # get a list of particle size
-        nl=get_sizelist(partype,amon=amon)
-        
-        # check consistency between monomer radius and number of monomers
-        if sizemin not in nl or sizemax not in nl:
-            print('Incorrect particle size')
-            print('input particle type =',partype)
-            if partype != 'grs':
-                print('input monomer radius =',amon)
-            if not nl:
-                print('--> this monomer radius is not available')
-            else:
-                print('available size option is ',nl)
-            exit()
-        
+        # check particle sizes
+        check_particle_size(partype,amon,sizemin)
+        check_particle_size(partype,amon,sizemax)
+
+        # check composition
+        check_particle_composition(comp)
+
         if self.aggop:
             imin=int(np.log2(int(sizemin)))
             imax=int(np.log2(int(sizemax)))
@@ -571,17 +639,17 @@ class distaverage:
             self.rhomat=ssmax.rhomat
 
         if imax<imin:
-            print('ERROR: minimum size must be smaller than the maximum size')
-            print('       stop.')
-            exit()
+            msg='Minimum size must be smaller than the maximum size.'
+            raise ValueError(msg)
     
         #
         self.partype=partype
+        self.path=None
 
         # copy the wavelength grid of the largest particle size
         self.nlmd=ssmax.nlmd   
         self.lmd=ssmax.lmd
-        nlmd_max=7          # DO NOT CHANGE
+        nlmd_max=7                 # DO NOT CHANGE
         self.nang=ssmin.nang
         self.scatang=ssmin.scatang
         self.pow=powind
@@ -726,7 +794,8 @@ class distaverage:
 
         # calculate the distribution-averaged mass 
         self.dist=True
-        self.mass=calculate_dust_mass(self,powind,sizemin=sizemin,sizemax=sizemax)
+        #self.mass=calculate_dust_mass(self,powind,sizemin=sizemin,sizemax=sizemax)
+        self.mass=calculate_dust_mass(self)
 
         cm2mic=1.e4
         mic2cm=1.e-4
@@ -748,50 +817,8 @@ class distaverage:
                 self.smat34[iwl,:] = self.smat34[iwl,:] * self.mass * wavno * wavno
                 self.smat44[iwl,:] = self.smat44[iwl,:] * self.mass * wavno * wavno
 
-    def write_dustkapscatmat(self,fn=None):
-        """
-        Output dustkapscatmat_XXX.inp
 
-        Parameters
-        ----------
-        fn : str (optional)
-             Filename for the ouput file
-        """
-      
-        if fn==None:
-            fn=self.model
-
-        if self.smatdef=='Bohren&Huffman':
-            print("Error! The scattering matrix definition is not RADMC-3D's definition.")
-            print("       Set smatBH=False when creating an instance.")
-            exit()
-
-        filename='dustkapscatmat_'+fn+'.inp'
-        print('writing ...',filename)
-
-        with open(filename,'w') as fout:
-            dustspec_header(self,specoutput=fout)
-            fout.write("%12d\n"%(1))
-            fout.write("%12d\n"%(self.nlmd))
-            fout.write("%12d\n"%(self.nang))
-            fout.write("\n")
-            for iwl in range(self.nlmd):
-                fout.write("%18.8e %18.8e %18.8e %18.8e\n"\
-                        %(self.lmd[iwl],self.kabs[iwl],self.ksca[iwl],self.asym[iwl]))
-            fout.write("\n")
-            for iang in range(self.nang):
-                fout.write("%18.8e\n"%(self.scatang[iang]))
-                   
-            fout.write("\n")
-
-            for iwl in range(self.nlmd):
-                for iang in range(self.nang):
-                    fout.write("%18.8e %18.8e %18.8e %18.8e %18.8e %18.8e\n"\
-                                          %(self.smat11[iwl,iang],self.smat12[iwl,iang],\
-                                           self.smat22[iwl,iang],self.smat33[iwl,iang],\
-                                           self.smat34[iwl,iang],self.smat44[iwl,iang]))
-
-def dustspec_header(self,specoutput=None):
+def dustspec_header(self,specoutput=None,outfmt=None,opacity=None):
     """
     Header information about dust properties
 
@@ -799,32 +826,109 @@ def dustspec_header(self,specoutput=None):
     ----------
     specoutput  :  str (optional)
                    To which the results are redirected
-
+    outfmt      :  str
+                   Output file format
     """
-    print('#==========================================================', file=specoutput)
+    
+    print('#============================================================================',file=specoutput)
     print('# Generated by AggScatVIR database               ',   file=specoutput)
     print('# dust model = %-s'%self.model,                       file=specoutput)
-    print('# file format    : RADMC-3D v2.0 dustkapscatmat.inp', file=specoutput)
-    print('# normalizations : RADMC-3D conventions',file=specoutput)
     if self.aggop:
-        print('# Monomer radius (um)                   = %-8.5f'%self.amon,   file=specoutput)
-        print('# material density (g/cc)               = %-7.4f'%self.rhomat, file=specoutput)
-        print('# Minimum number of monomers            = %-5i'%self.npmin,    file=specoutput)
-        print('# Minimum volume-equivalent radius (um) = %-8.5e'%self.avmin,  file=specoutput)
-        print('# Minimum characteristic radius    (um) = %-8.5e'%self.acmin,  file=specoutput)
-        print('# Minimum porosity (%%)                  = %-7.2f'%self.pormin,file=specoutput)
-        print('# Maximum number of monomers            = %-5i'%self.npmax,    file=specoutput)
-        print('# Maximum volume-equivalent radius (um) = %-8.5e'%self.avmax,  file=specoutput)
-        print('# Maximum characteristic radius    (um) = %-8.5e'%self.acmax,  file=specoutput)
-        print('# Maximum porosity (%%)                  = %-7.2f'%self.pormax,file=specoutput)
+        if self.dist:
+            print('# Monomer radius (um)                   = %-8.5f'%self.amon,   file=specoutput)
+            print('# material density (g/cc)               = %-7.4f'%self.rhomat, file=specoutput)
+            print('# Minimum number of monomers            = %-5i'%self.npmin,    file=specoutput)
+            print('# Minimum volume-equivalent radius (um) = %-8.5e'%self.avmin,  file=specoutput)
+            print('# Minimum characteristic radius    (um) = %-8.5e'%self.acmin,  file=specoutput)
+            print('# Minimum porosity (%%)                  = %-7.2f'%self.pormin,file=specoutput)
+            print('# Maximum number of monomers            = %-5i'%self.npmax,    file=specoutput)
+            print('# Maximum volume-equivalent radius (um) = %-8.5e'%self.avmax,  file=specoutput)
+            print('# Maximum characteristic radius    (um) = %-8.5e'%self.acmax,  file=specoutput)
+            print('# Maximum porosity (%%)                  = %-7.2f'%self.pormax,file=specoutput)
+            print('# Power-law index of size dist.         = %-8.5e'%self.pow,    file=specoutput)
+        else:
+            print('# Monomer radius (um)                   = %-8.5f'%self.amon,   file=specoutput)
+            print('# material density (g/cc)               = %-7.4f'%self.rhomat, file=specoutput)
+            print('# Number of monomers                    = %-5i'%self.np,       file=specoutput)
+            print('# Volume-equivalent radius (um) = %-8.5e'%self.av,             file=specoutput)
+            print('# Characteristic radius    (um) = %-8.5e'%self.ac,             file=specoutput)
+            print('# Porosity (%%)                  = %-7.2f'%self.por,           file=specoutput)
     else:
-        print('# material density (g/cc)               = %-7.4f'%self.rhomat, file=specoutput)
-        print('# Minimum volume-equivalent radius (um) = %-8.5e'%self.avmin,  file=specoutput)
-        print('# Maximum volume-equivalent radius (um) = %-8.5e'%self.avmax,  file=specoutput)
-    print('# Distribution averaged mass (g)        = %-13.8e'%self.mass,      file=specoutput)
-    print('# Power-law index of size dist.         = %-8.5e'%self.pow,        file=specoutput)
+        if self.dist:
+            print('# material density (g/cc)               = %-7.4f'%self.rhomat, file=specoutput)
+            print('# Minimum volume-equivalent radius (um) = %-8.5e'%self.avmin,  file=specoutput)
+            print('# Maximum volume-equivalent radius (um) = %-8.5e'%self.avmax,  file=specoutput)
+            print('# Power-law index of size dist.         = %-8.5e'%self.pow,    file=specoutput)
+        else:
+            print('# material density (g/cc)               = %-7.4f'%self.rhomat, file=specoutput)
+            print('# Volume-equivalent radius (um) = %-8.5e'%self.av,             file=specoutput)
+
     print('# forward scattering chop angle (deg)   = %-8.5e'%self.chopang,    file=specoutput)
-    print('#=========================================================',       file=specoutput)
+    print('#============================================================================',file=specoutput)
+
+    if outfmt=='all' or outfmt=='smat':
+        if self.smatdef=='radmc3d':
+            print("# Scattering matrix definition: %s"%('RADMC-3D (cm^2/g/str)'), file=specoutput)
+        else:
+            print("# Scattering matrix definition: %s"%('Bohren & Huffman (1/str)'), file=specoutput)
+    if opacity:
+        print("# Definition for total absorption and scattering: %s"%('opacity (cm^2/g)'),file=specoutput)
+    else:
+        print("# Definition for total absorption and scattering: %s"%('cross section (um^2)'),file=specoutput)
+
+    if outfmt=='all':
+        print('# file structure                                                            ', file=specoutput)
+        print('#   iformat                                    ! format number              ', file=specoutput)
+        print('#   nlmd                                       ! number of wavelengths      ', file=specoutput)
+        print('#   nang                                       ! number of scattering angles', file=specoutput)
+        print('#                                                                           ', file=specoutput)
+        if opacity:
+            print('#   lam(1), kabs(1), ksca(1), g(1)             ! um cm^2/g cm^2/g none  ', file=specoutput)
+            print('#   ...                                                                 ', file=specoutput)
+            print('#   lam(nlmd), kabs(nlmd), ksca(nlmd), g(nlmd)                          ', file=specoutput)
+        else:
+            print('#   lam(1), Cabs(1), Csca(1), g(1)             ! um um^2 um^2 none      ', file=specoutput)
+            print('#   ...                                                                 ', file=specoutput)
+            print('#   lam(nlmd), Cabs(nlmd), Csca(nlmd), g(nlmd)                          ', file=specoutput)
+        print('#                                                                           ', file=specoutput)
+        print('#   ang(1)                                     ! scattering angle (deg)     ', file=specoutput)
+        print('#   ...                                                                     ', file=specoutput)
+        print('#   ang(nang)                                  !                            ', file=specoutput)
+        print('#                                                                           ', file=specoutput)
+        if self.smatdef=='radmc3d':
+            print('#   Z11 Z12 Z22 Z33 Z34 Z44                    ! (ilam=1,    iang=1)    ', file=specoutput)
+            print('#   ...                                                                 ', file=specoutput)
+            print('#   Z11 Z12 Z22 Z33 Z34 Z44                    ! (ilam=1,    iang=nang) ', file=specoutput)
+            print('#   Z11 Z12 Z22 Z33 Z34 Z44                    ! (ilam=2,    iang=1)    ', file=specoutput)
+            print('#   ...                                                                 ', file=specoutput)
+            print('#   Z11 Z12 Z22 Z33 Z34 Z44                    ! (ilam=2,    iang=nang) ', file=specoutput)
+            print('#   ...                                                                 ', file=specoutput)
+            print('#   Z11 Z12 Z22 Z33 Z34 Z44                    ! (ilam=nlmd, iang=nang) ', file=specoutput)
+        else:
+            print('#   S11 S12 S22 S33 S34 S44                    ! (ilam=1,    iang=1)    ', file=specoutput)
+            print('#   ...                                                                 ', file=specoutput)
+            print('#   S11 S12 S22 S33 S34 S44                    ! (ilam=1,    iang=nang) ', file=specoutput)
+            print('#   S11 S12 S22 S33 S34 S44                    ! (ilam=2,    iang=1)    ', file=specoutput)
+            print('#   ...                                                                 ', file=specoutput)
+            print('#   S11 S12 S22 S33 S34 S44                    ! (ilam=2,    iang=nang) ', file=specoutput)
+            print('#   ...                                                                 ', file=specoutput)
+            print('#   S11 S12 S22 S33 S34 S44                    ! (ilam=nlmd, iang=nang) ', file=specoutput)
+    elif outfmt=='dustkappa':
+        print('# file format: only integrated values                                       ', file=specoutput)
+        print('#   iformat                                                                 ', file=specoutput)
+        print('#   nlambda                                                                 ', file=specoutput)
+        if opacity:
+            print('#   lambda (um)  kabs (cm^2/g)  ksca (cm^2/)  asymmetry param           ',file=specoutput)
+        else:
+            print('#   lambda (um)  Cabs (um^2)  Csca (um^2)  asymmetry param              ',file=specoutput)
+    elif outfmt=='smat':
+        print('# file format: only scattering matrix at a single wavelength                ',  file=specoutput)
+        print('#   nang                                                                    ', file=specoutput)
+        if self.smatdef=='radmc3d':
+            print('#   angle (deg) phase function Z11 Z12 Z22 Z33 Z34 Z44              ',file=specoutput)
+        else:
+            print('#   angle (deg) phase function S11 S12 S22 S33 S34 S44              ',file=specoutput)
+    print('#============================================================================',file=specoutput)
 
 
 def dustspec(self,specoutput=None):
@@ -885,6 +989,80 @@ def dustspec(self,specoutput=None):
             print(' chop angle (deg)              = %-8.5e'%self.chopang,file=specoutput)
             print('================================================',    file=specoutput)
 
+
+class plots:
+    """
+    A class to set some axes.
+
+    Methods
+    --------
+    set_lmd_vs_opc:
+        set axis for a plot for the opacity againt wavelength.
+    set_lmd_vs_albedo:
+        set axis for a plot for the albedo, pmax, asymmetry parameter  against wavelength.
+    set_ang_vs_phase:
+        set axis for a plot for the phase function against scattering angle.
+    set_lmd_vs_opc: 
+        set axis for a plot for the degree of polarization against scattering angle.
+    """
+
+    def set_lmd_vs_opc(self):
+        """
+        set axis for a plot for the opacity vs wavelength.
+        """
+        self.set_ylim(1.e2,2.e5)
+        self.set_xscale('log')
+        self.set_yscale('log')
+        self.set_xlim(0.5,4)
+        self.set_xticks([0.5,1,2,4])
+        self.set_xlabel('Wavelength $(\mu\mathrm{m})$', fontsize=20)
+        self.get_xaxis().set_major_formatter(matplotlib.ticker.ScalarFormatter())
+        self.get_xaxis().set_minor_formatter(matplotlib.ticker.NullFormatter())
+
+    def set_lmd_vs_cross(self):
+        """
+        set axis for a plot for the cross section vs wavelength.
+        """
+        #self.set_ylim(5.e-3,5.e1)
+        self.set_xscale('log')
+        self.set_yscale('log')
+        self.set_xlim(0.5,4)
+        self.set_xticks([0.5,1,2,4])
+        self.set_xlabel('Wavelength $(\mu\mathrm{m})$', fontsize=20)
+        self.get_xaxis().set_major_formatter(matplotlib.ticker.ScalarFormatter())
+        self.get_xaxis().set_minor_formatter(matplotlib.ticker.NullFormatter())
+
+
+    def set_lmd_vs_albedo(self):
+        """
+        set axis for a plot for the albedo, pmax, asymmetry parameter  against wavelength.
+        """
+        self.set_ylim(0,1.05)
+        self.set_xscale('log')
+        self.set_xlim(0.5,4)
+        self.set_xticks([0.5,1,2,4])
+        self.set_xlabel('Wavelength $(\mu\mathrm{m})$', fontsize=20)
+        self.get_xaxis().set_major_formatter(matplotlib.ticker.ScalarFormatter())
+        self.get_xaxis().set_minor_formatter(matplotlib.ticker.NullFormatter())
+
+    def set_ang_vs_phase(self):
+        """
+        set axis for a plot for the phase function against scattering angle.
+        """
+        self.set_yscale('log')
+        self.set_xlim(0,180)
+        self.set_xlabel('Scattering angle (degrees)',fontsize=20)
+        self.xaxis.set_major_locator(MultipleLocator(30))
+        self.xaxis.set_minor_locator(MultipleLocator(10))
+
+    def set_ang_vs_pol(self):
+        """
+        set axis for a plot for the degree of polarization against scattering angle.
+        """
+        self.set_xlim(0,180)
+        self.set_xlabel('Scattering angle (degrees)',fontsize=20)
+        self.xaxis.set_major_locator(MultipleLocator(30))
+        self.xaxis.set_minor_locator(MultipleLocator(10))
 
 
 def showmodel(self,opacity=True,savefig=False,fn=None):
@@ -1062,57 +1240,53 @@ def output_all_gallery_plot(partype,amon=None,dist=True):
     plt.close()
 
 
-def write_data(self,fn=None,output='all',wlist=None):
+def write_data(self,fn=None,output='all',opacity=True,wlist=None):
     """
     Write optical properties of dust particles in various formats
 
     Parameters
     ----------
     output  :  str (optional)
-               Determines what kind of optical properties will be outputted ('all', 'integrated', 'smat').
+               Determines what kind of optical properties will be outputted ('all', 'dustkappa', 'smat').
     wlist   :  list of float (optional)
                Determines which wavelength data will be outputted.
-    fn       :  str (optional)
+    fn      :  str (optional)
                Filename for the ouput file
+    opacity   :  bool (optional)
+               If True (default), absorption and scattering opacities (cm^2/g) will be written, \
+                       while when False, absorption and scattering cross sections will be written.
     """
 
     if fn==None:
         fn=self.model
 
     if output=='all':
-        filename='dustkapscatmat_'+fn+'.out'
+        if self.smatdef=='radmc3d' and opacity==True:
+            filename='dustkapscatmat_'+fn+'.inp'
+        else:
+            filename='dustkapscatmat_'+fn+'.out'
+
         print('writing ...',filename)
         with open(filename,'w') as fout:
-            dustspec_header(self,specoutput=fout)
-            fout.write("# Scattering matrix definition: %s\n"%(self.smatdef))
+            dustspec_header(self,specoutput=fout,outfmt=output,opacity=opacity)
+            fout.write("%12d\n"%(1))
             fout.write("%12d\n"%(self.nlmd))
             fout.write("%12d\n"%(self.nang))
             fout.write("\n")
-            fout.write("#%17s %18s %18s %18s %18s %18s\n"\
-                     %("wavel (um)","kabs (cm^2/g)","ksca (cm^2/g)",\
-                       "Cabs (um^2)","Csca (um^2)","asymmetry param"))
-            for iwl in range(self.nlmd):
-                fout.write("%18.8e %18.8e %18.8e %18.8e %18.8e %18.8e\n"\
-                        %(self.lmd[iwl],self.kabs[iwl],self.ksca[iwl],\
-                        self.cabs[iwl],self.csca[iwl],self.asym[iwl]))
+            if opacity:
+                for iwl in range(self.nlmd):
+                    fout.write("%18.8e %18.8e %18.8e %18.8e\n"\
+                            %(self.lmd[iwl],self.kabs[iwl],self.ksca[iwl],self.asym[iwl]))
+            else:
+                for iwl in range(self.nlmd):
+                    fout.write("%18.8e %18.8e %18.8e %18.8e\n"\
+                            %(self.lmd[iwl],self.cabs[iwl],self.csca[iwl],self.asym[iwl]))
 
             fout.write("\n")
             for iang in range(self.nang):
                 fout.write("%18.8e\n"%(self.scatang[iang]))
                    
             fout.write("\n")
-            
-            if self.smatdef=='radmc3d':
-                fout.write("#%17s %18s %18s %18s %18s %18s\n"\
-                         %("Z11","Z12","Z22","Z33","Z34","Z44"))
-            elif self.smatdef=='Bohren&Huffman':
-                fout.write("#%17s %18s %18s %18s %18s %18s\n"\
-                         %("S11","S12","S22","S33","S34","S44"))
-            else:
-                print('ERROR: unknown definition of the scattering matrix.')
-                print('       something went wrong. STOP')
-                exit()
-
             for iwl in range(self.nlmd):
                 for iang in range(self.nang):
                     fout.write("%18.8e %18.8e %18.8e %18.8e %18.8e %18.8e\n"\
@@ -1120,18 +1294,21 @@ def write_data(self,fn=None,output='all',wlist=None):
                                 self.smat22[iwl,iang],self.smat33[iwl,iang],\
                                 self.smat34[iwl,iang],self.smat44[iwl,iang]))
 
-    elif output=='integrated':
-        filename='integrated_'+fn+'.out'
+    elif output=='dustkappa':
+        filename='dustkappa_'+fn+'.out'
         print('writing ...',filename)
         with open(filename,'w') as fout:
-            dustspec_header(self,specoutput=fout)
-            fout.write("#%17s %18s %18s %18s %18s %18s\n"\
-                    %("wavel (um)","kabs (cm^2/g)","ksca (cm^2/g)",\
-                      "Cabs (um^2)","Csca (um^2)","asymmetry param"))
-            for iwl in range(self.nlmd):
-                fout.write("%18.8e %18.8e %18.8e %18.8e %18.8e %18.8e\n"\
-                        %(self.lmd[iwl],self.kabs[iwl],self.ksca[iwl],\
-                        self.cabs[iwl],self.csca[iwl],self.asym[iwl]))
+            dustspec_header(self,specoutput=fout,outfmt=output,opacity=opacity)
+            fout.write("%12d\n"%(3))
+            fout.write("%12d\n"%(self.nlmd))
+            if opacity:
+                for iwl in range(self.nlmd):
+                    fout.write("%18.8e %18.8e %18.8e %18.8e\n"\
+                            %(self.lmd[iwl],self.kabs[iwl],self.ksca[iwl],self.asym[iwl]))
+            else:
+                for iwl in range(self.nlmd):
+                    fout.write("%18.8e %18.8e %18.8e %18.8e\n"\
+                            %(self.lmd[iwl],self.cabs[iwl],self.csca[iwl],self.asym[iwl]))
 
     elif output=='smat':
         if wlist==None:
@@ -1141,42 +1318,45 @@ def write_data(self,fn=None,output='all',wlist=None):
                 wlist=[1.04,1.25,1.63,2.18,3.78]
 
         for iwlname in wlist:
-            try:
-                iwl=self.lmd.tolist().index(iwlname)
-            except ValueError:
-                print('error : available wavelength :',self.lmd.tolist())
-                print('        STOP')
+            #iwl=self.lmd.tolist().index(iwlname)
+            #print(iwl)
+            #try:
+            #    iwl=self.lmd.tolist().index(iwlname)
+            #except ValueError:
+            #    msg='Input wavelength is not in the wavelength grids. Wavelength grids are '+str(self.lmd.tolist())
+            #    raise UnboundLocalError(msg)
 
+            if iwlname not in self.lmd.tolist():
+                #print(str(iwlname)+' is not in list')
+                msg='Input wavelength is not in the wavelength grids. Wavelength grids are '+str(self.lmd.tolist())
+                raise ValueError(msg)
+
+            iwl=self.lmd.tolist().index(iwlname)
             filename='scatmat_'+fn+'_lmd'+str(iwlname)+'um.out'
             print('writing ...',filename)
             with open(filename,'w') as fout:
-                dustspec_header(self,specoutput=fout)
-                fout.write("# Scattering matrix definition: %s\n"%(self.smatdef))
-                fout.write("# wavelength = %6.3f um\n"%(self.lmd[iwl]))
-                fout.write("# absorption opacity (cm^2/g) and cross section (um^2) = %18.8e %18.8e\n"\
-                        %(self.kabs[iwl],self.cabs[iwl]))
-                fout.write("# scattering opacity (cm^2/g) and cross section (um^2) = %18.8e %18.8e\n"\
-                        %(self.ksca[iwl],self.csca[iwl]))
-                fout.write("# asymmetry parameter = %18.8e\n"%(self.asym[iwl]))
-                if self.smatdef=='radmc3d':
-                    fout.write("#%17s %18s %18s %18s %18s %18s %18s %18s\n"\
-                            %("angle (deg)","phase func","Z11","Z12","Z22","Z33","Z34","Z44"))
-                elif self.smatdef=='Bohren&Huffman':
-                    fout.write("#%17s %18s %18s %18s %18s %18s %18s %18s\n"\
-                            %("angle (deg)","phase func","S11","S12","S22","S33","S34","S44"))
+                dustspec_header(self,specoutput=fout,outfmt=output,opacity=opacity)
+                fout.write("# wavelength         (um)     = %18.3f\n"%(self.lmd[iwl]))
+                if opacity:
+                    fout.write("# absorption opacity (cm^2/g) = %18.8e\n"%(self.kabs[iwl]))
+                    fout.write("# scattering opacity (cm^2/g) = %18.8e\n"%(self.ksca[iwl]))
+                else:
+                    fout.write("# abs cross section (um^2)    = %18.8e\n"%(self.kabs[iwl]))
+                    fout.write("# sca cross section (um^2)    = %18.8e\n"%(self.ksca[iwl]))
+
+                fout.write("# asymmetry parameter         = %18.8e\n"%(self.asym[iwl]))
+                fout.write("%12d\n"%(self.nang))
                 for iang in range(self.nang):
-                    fout.write("%18.3f %18.8e %18.8e %18.8e %18.8e %18.8e %18.8e %18.8e \n"\
+                    fout.write("%12.3f %18.8e %18.8e %18.8e %18.8e %18.8e %18.8e %18.8e \n"\
                                           %(self.scatang[iang],self.phase[iwl,iang],\
                                           self.smat11[iwl,iang],self.smat12[iwl,iang],\
                                           self.smat22[iwl,iang],self.smat33[iwl,iang],\
                                           self.smat34[iwl,iang],self.smat44[iwl,iang]))
-
     else:
-        print('ERROR: output data option is incorrent. STOP')
-        exit()
+        msg="Incorrect output option. Output data option must be either 'all', 'dustkappa', or 'smat'"
+        raise ValueError(msg)
 
 if __name__ == '__main__':
 
     a=dustmodel(partype='CAHP',size='4096',amon='100nm',comp='amc')
-    a.path
-    dustapec(a)
+    dustspec(a)
