@@ -1,8 +1,8 @@
 Get started
 =====================
 
-Download
-##############
+Download and Install
+######################
 
 ``AggScatVIR`` has been managed on a GitHub repository. You can freely download the latest version of ``AggScatVIR`` by typing a standard GitHub command::
 
@@ -16,6 +16,11 @@ To install the python package ``aggscatpy``::
 To check if the python package has been successfully installed in your system::
 
     pip show aggscatpy
+
+
+*Note:* If multiple versions of python are installed in your environment (such as python2 and python3) and if the pip and python commands point to different versions, please try the following command for installation of the python package::
+
+    python3 -m pip install -e .
 
 Structure of this package
 ##########################
@@ -45,7 +50,7 @@ The package has the following structure:
          ├── povray
          └── setup.py
 
-The ``aggscatrt`` directory contains the dataset of the optical properties of various dust particles. The ``docs`` and ``python`` directories contain a manual and two Jupyter notebooks on the usage of the python tools, respectively. The ``particles`` directory contains the particle shape data, such as the position data of monomers in an aggregate (in ``/particles/aggregate``) as well as polygon surface model for irregular grains (in ``particles/irregular``). All particle images are also provided in ``particles/images``.
+The ``aggscatrt`` directory contains the dataset of the optical properties of various dust particles. The ``python`` directory contains a python package that helps to analyze the data (*aggscatpy*) and some Jupyter Notebooks to demonstrate its usage. The ``particles`` directory contains the particle shape data, such as the position data of monomers in an aggregate (in ``/particles/aggregate``) as well as polygon surface model for irregular grains (in ``particles/irregular``). All particle images are also provided in ``particles/images``.
 
 
 The ``aggscatrt`` directory includes two sub-directories: ``single`` and ``distave``. The former and the latter contain the optical properties without/with a particle size distribution, respectively. Each of these directories further includes three sub-directories: ``nochop``, ``chop5``, and ``chop10``. The ``nochop`` directory contains the optical properties of various dust particles, while the other two contain data that has been processed with a special treatment that may be useful in radiative transfer simulations (see Note below). If you are new to this database, it is recommended to start with the ``nochop`` directory.

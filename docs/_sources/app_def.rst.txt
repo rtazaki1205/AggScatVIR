@@ -120,7 +120,7 @@ The integration of :math:`Z_{11}` over the all solid angles gives the scattering
 .. math::
     \kappa_\mathrm{sca}(\lambda)=\int_{4\pi} Z_{11}(\theta,\lambda)d\Omega.
 
-The definition of the *phase function* is the same as Bohren & Huffman's one (see Eq. 13.3):
+The definition of the *phase function* is the same as Bohren & Huffman's one (see Eq. 13.3 in Chapter 13):
 
 .. math::
    p(\theta)\equiv\frac{1}{C_\mathrm{sca}}\frac{dC_\mathrm{sca}}{d\Omega}=\frac{1}{C_\mathrm{sca}/m_\mathrm{dust}}\frac{S_{11}}{k^2m_\mathrm{dust}}=\frac{Z_{11}(\theta)}{\kappa_\mathrm{sca}},

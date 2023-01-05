@@ -23,7 +23,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Running RADMC-3D with AggScatVIR" href="radmc3d.html" />
-    <link rel="prev" title="Python Tools" href="examples.html" /> 
+    <link rel="prev" title="Python package: aggscatpy" href="examples.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,7 +45,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="about.html">What is AggScatVIR?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="struct.html">Get started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Python Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Python package: aggscatpy</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Visualization of Particles</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#Setups">Setups</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Basic-usage">Basic usage</a></li>
@@ -364,7 +364,7 @@ div.rendered_html tbody tr:hover {
 </style>
 <div class="section" id="Visualization-of-Particles">
 <h1>Visualization of Particles<a class="headerlink" href="#Visualization-of-Particles" title="Permalink to this heading"></a></h1>
-<p>This database already contains visualization images of particles rendered using POV-RAY. However, you may wish to change rendering parameters, such as particle and background colors, reference scale, particle orientation … etc. To do so, the <code class="docutils literal notranslate"><span class="pre">aggscatpy</span></code> package contains a simple function that can be used to run POV-RAY and then generate a new rendering image of particles.</p>
+<p>This database already contains visualization images of particles rendered using POV-RAY. However, you may wish to change rendering parameters, such as particle and background colors, reference scale, particle orientation … etc. To do so, the <code class="docutils literal notranslate"><span class="pre">aggscatpy</span></code> package contains a module that can be used to run POV-RAY and then generate a new rendering image of particles.</p>
 <div class="section" id="Setups">
 <h2>Setups<a class="headerlink" href="#Setups" title="Permalink to this heading"></a></h2>
 <p>Since this visulation tool relys on POV-RAY, it has to be installed in advance. Also, to run the command, a povray script (either aggregate.pov or irregular.pov) has to be placed in your working directory. These scripts are provided in aggscatvir/python/povray/.</p>
@@ -380,7 +380,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<p>We can then run the <code class="docutils literal notranslate"><span class="pre">particle_rendering</span></code> function:</p>
+<p>To generate a particle image, we can use the <code class="docutils literal notranslate"><span class="pre">particle_rendering</span></code> function:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -397,8 +397,8 @@ div.rendered_html tbody tr:hover {
 writing ...  ./imgs/geom_demo1.png
 </pre></div></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">partype</span></code>, <code class="docutils literal notranslate"><span class="pre">size</span></code>, <code class="docutils literal notranslate"><span class="pre">amon</span></code> are the particle type, particle size, and the monomer radius. These arguments are the same as those introduced in the previous section. <code class="docutils literal notranslate"><span class="pre">ireal</span></code> is a realization number. Then the POV-RAY automaticlly starts to run and generate a .png image in ./imgs/ (the path to the directory was specifed in the argument when calling this function).</p>
-<p>To check the ouput image, let’s define a simple function:</p>
+<p>where <code class="docutils literal notranslate"><span class="pre">partype</span></code>, <code class="docutils literal notranslate"><span class="pre">size</span></code>, <code class="docutils literal notranslate"><span class="pre">amon</span></code> are the particle type, particle size, and the monomer radius, respectively. These arguments are the same as those introduced in the previous section. <code class="docutils literal notranslate"><span class="pre">ireal</span></code> is a realization number. The command will generate a povray readable file and pass it to POV-RAY. As a result, a .png image of the corresponding particle model will be produced in ./imgs/ (the path to the directory was specifed in the argument when calling this function).</p>
+<p>To check out the produced image, let’s define a simple function:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
@@ -415,7 +415,7 @@ writing ...  ./imgs/geom_demo1.png
 </pre></div>
 </div>
 </div>
-<p>The image generated by the above command is</p>
+<p>The image produced by the above command is</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
@@ -431,7 +431,7 @@ writing ...  ./imgs/geom_demo1.png
 <img alt="_images/geometry_12_0.png" src="_images/geometry_12_0.png" />
 </div>
 </div>
-<p>If you would like to make an image for irregular grains, you can type:</p>
+<p>You can also produce images for irregular grains via</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
@@ -459,7 +459,7 @@ writing ...  ./imgs/geom_demo2.png
 </div>
 <div class="section" id="Particle-and-background-colors">
 <h2>Particle and background colors<a class="headerlink" href="#Particle-and-background-colors" title="Permalink to this heading"></a></h2>
-<p>We can change the color of particles by adding <code class="docutils literal notranslate"><span class="pre">particle_color='rgb&lt;value,value,value&gt;'</span></code> as an option. The color can be chosen from basic colors (e.g., Red, Green, Blue, Yellow, Cyan, Magenta, Clear, White) or specified with RGB mixing. RGB is a mixture of colors based on the primary colors of light, allowing for fine-tuning of the particle color. The color can be specified in the form of ‘rgb&lt;value,value,value&gt;’, where each value ranges from 0 to 1. For example, black is ‘rgb&lt;0,0,0&gt;’, and
+<p>The color of particles can be specified by adding <code class="docutils literal notranslate"><span class="pre">particle_color='rgb&lt;value,value,value&gt;'</span></code> as an option. The color can be chosen from basic colors (e.g., Red, Green, Blue, Yellow, Cyan, Magenta, Clear, White) or specified with RGB mixing. RGB is a mixture of colors based on the primary colors of light, allowing for fine-tuning of the particle color. The color can be specified in the form of ‘rgb&lt;value,value,value&gt;’, where each value ranges from 0 to 1. For example, black is ‘rgb&lt;0,0,0&gt;’, and
 white is ‘rgb&lt;1,1,1&gt;’. When all values of R, G, and B are the same, the color can also be specified simply as ‘rgb value’.</p>
 <p>As an example, let’s make a yellowish particle:</p>
 <div class="nbinput docutils container">
@@ -487,13 +487,13 @@ writing ...  ./imgs/geom_demo3.png
 <img alt="_images/geometry_17_1.png" src="_images/geometry_17_1.png" />
 </div>
 </div>
-<p>By default, the background color is set to transparent. To change the background color, set <code class="docutils literal notranslate"><span class="pre">bgtransparent=True</span></code> and set its color by adding <code class="docutils literal notranslate"><span class="pre">bg_color</span></code>. <code class="docutils literal notranslate"><span class="pre">bgcolor</span></code> can be specified in the same way as the particle color, either by RGB values or by basic colors (e.g., White, Black, Red, Green, Blue, Yellow, Cyan, Magenta, Gray). For example, to have a gray background, the command looks like this:</p>
+<p>By default, the background color is set to transparent. To change the background color, set <code class="docutils literal notranslate"><span class="pre">background=True</span></code> and set its color by adding <code class="docutils literal notranslate"><span class="pre">bg_color='rgb&lt;value,value,value&gt;'</span></code>. <code class="docutils literal notranslate"><span class="pre">bgcolor</span></code> can be specified in the same way as the particle color, either by RGB values or by basic colors (e.g., White, Black, Red, Green, Blue, Yellow, Cyan, Magenta, Gray). For example, to have a gray background, the command looks like this:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">aggscatpy</span><span class="o">.</span><span class="n">particle_rendering</span><span class="p">(</span><span class="n">partype</span><span class="o">=</span><span class="s1">&#39;CAHP&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="s1">&#39;8&#39;</span><span class="p">,</span><span class="n">amon</span><span class="o">=</span><span class="s1">&#39;100nm&#39;</span><span class="p">,</span><span class="n">ireal</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="n">fn</span><span class="o">=</span><span class="s1">&#39;geom_demo4&#39;</span><span class="p">,</span><span class="n">path</span><span class="o">=</span><span class="s1">&#39;./imgs/&#39;</span><span class="p">,</span>\
-                   <span class="n">particle_color</span><span class="o">=</span><span class="s1">&#39;rgb&lt;0.4,0.4,0.15&gt;&#39;</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">bg_color</span><span class="o">=</span><span class="s1">&#39;Gray20&#39;</span><span class="p">)</span>
+                   <span class="n">particle_color</span><span class="o">=</span><span class="s1">&#39;rgb&lt;0.4,0.4,0.15&gt;&#39;</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bg_color</span><span class="o">=</span><span class="s1">&#39;Gray20&#39;</span><span class="p">)</span>
 <span class="n">show_image</span><span class="p">(</span><span class="s1">&#39;./imgs/geom_demo4.png&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -516,14 +516,14 @@ writing ...  ./imgs/geom_demo4.png
 </div>
 <div class="section" id="Reference-bar:-position-and-reference-scale">
 <h2>Reference bar: position and reference scale<a class="headerlink" href="#Reference-bar:-position-and-reference-scale" title="Permalink to this heading"></a></h2>
-<p>You modify a reference-scale bar in the image. The default reference bar length is set to the characteristic radius and the volume-equivalent radius for aggregates and irregular grains, respectively. The physical length of the bar (in units of <span class="math notranslate nohighlight">\(\mu\mathrm{m}\)</span>) can be directly specified by setting <code class="docutils literal notranslate"><span class="pre">reference_length</span></code>. The color of the reference bar can also be changed with <code class="docutils literal notranslate"><span class="pre">reference_color</span></code> (the color can be specified in the same way as the particle color and background color). If you
-would like to have larger text fonts, you can specify its magnification rate by <code class="docutils literal notranslate"><span class="pre">ref_fontsize</span></code> (to make it large, the value has to be &gt;1.0. Conversely, to make it small, the value should be &lt;1.0).</p>
+<p>You can modify a reference-scale bar in the image. The default bar length is set to the characteristic radius and the volume-equivalent radius for aggregates and irregular grains, respectively. The physical length of the bar (in units of <span class="math notranslate nohighlight">\(\mu\mathrm{m}\)</span>) can be directly specified by setting <code class="docutils literal notranslate"><span class="pre">reference_length</span></code>. The color of the reference bar can also be changed with <code class="docutils literal notranslate"><span class="pre">reference_color</span></code> (similar to the particle color and background color). If you would like to have larger text fonts, you
+can set a magnification rate by <code class="docutils literal notranslate"><span class="pre">ref_fontsize</span></code> (to make it large, the value has to be &gt;1.0. Conversely, to make it small, the value should be &lt;1.0).</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">aggscatpy</span><span class="o">.</span><span class="n">particle_rendering</span><span class="p">(</span><span class="n">partype</span><span class="o">=</span><span class="s1">&#39;CAHP&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="s1">&#39;8&#39;</span><span class="p">,</span><span class="n">amon</span><span class="o">=</span><span class="s1">&#39;100nm&#39;</span><span class="p">,</span><span class="n">ireal</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="n">fn</span><span class="o">=</span><span class="s1">&#39;geom_demo5&#39;</span><span class="p">,</span><span class="n">path</span><span class="o">=</span><span class="s1">&#39;./imgs/&#39;</span><span class="p">,</span>\
-                   <span class="n">particle_color</span><span class="o">=</span><span class="s1">&#39;rgb&lt;0.4,0.4,0.15&gt;&#39;</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">bg_color</span><span class="o">=</span><span class="s1">&#39;Gray20&#39;</span><span class="p">,</span>\
+                   <span class="n">particle_color</span><span class="o">=</span><span class="s1">&#39;rgb&lt;0.4,0.4,0.15&gt;&#39;</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bg_color</span><span class="o">=</span><span class="s1">&#39;Gray20&#39;</span><span class="p">,</span>\
                    <span class="n">ref_color</span><span class="o">=</span><span class="s1">&#39;White&#39;</span><span class="p">,</span> <span class="n">ref_length</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ref_fontsize</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
 <span class="n">show_image</span><span class="p">(</span><span class="s1">&#39;./imgs/geom_demo5.png&#39;</span><span class="p">)</span>
 </pre></div>
@@ -544,15 +544,15 @@ writing ...  ./imgs/geom_demo5.png
 <img alt="_images/geometry_22_1.png" src="_images/geometry_22_1.png" />
 </div>
 </div>
-<p>You can specify more detailed position of the reference bar using <code class="docutils literal notranslate"><span class="pre">ref_dist</span></code> and <code class="docutils literal notranslate"><span class="pre">ref_posang</span></code> (see also the image below). The former and latter set the distance from the origin to the center of the bar (in units of the characteristic radius for aggregates and the volume-equivalent radius for irregular grains) and angle (in degrees) measured from the <span class="math notranslate nohighlight">\(z\)</span> axis, respectively.</p>
-<p><img alt="a4f6947ccf3640118a654756f36a314c" class="no-scaled-link" src="_images/reference_bar.jpg" style="width: 200px;" /></p>
+<p>You can change the position of the reference bar, using <code class="docutils literal notranslate"><span class="pre">ref_dist</span></code> and <code class="docutils literal notranslate"><span class="pre">ref_posang</span></code> (see also the image below). The former and latter set the distance from the origin to the center of the bar (in units of the characteristic radius for aggregates and the volume-equivalent radius for irregular grains) and angle (in degrees) measured from the <span class="math notranslate nohighlight">\(z\)</span> axis, respectively.</p>
+<p><img alt="e8cc11500b6c4c859804ef89513f3bf4" class="no-scaled-link" src="_images/reference_bar.jpg" style="width: 200px;" /></p>
 <p>For example, if you would like to set the bar at the top of the image, you need to set <code class="docutils literal notranslate"><span class="pre">ref_posang=90</span></code>:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">aggscatpy</span><span class="o">.</span><span class="n">particle_rendering</span><span class="p">(</span><span class="n">partype</span><span class="o">=</span><span class="s1">&#39;CAHP&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="s1">&#39;8&#39;</span><span class="p">,</span><span class="n">amon</span><span class="o">=</span><span class="s1">&#39;100nm&#39;</span><span class="p">,</span><span class="n">ireal</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="n">fn</span><span class="o">=</span><span class="s1">&#39;geom_demo6&#39;</span><span class="p">,</span><span class="n">path</span><span class="o">=</span><span class="s1">&#39;./imgs/&#39;</span><span class="p">,</span>\
-                   <span class="n">particle_color</span><span class="o">=</span><span class="s1">&#39;rgb&lt;0.4,0.4,0.15&gt;&#39;</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">bg_color</span><span class="o">=</span><span class="s1">&#39;Gray20&#39;</span><span class="p">,</span>\
+                   <span class="n">particle_color</span><span class="o">=</span><span class="s1">&#39;rgb&lt;0.4,0.4,0.15&gt;&#39;</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bg_color</span><span class="o">=</span><span class="s1">&#39;Gray20&#39;</span><span class="p">,</span>\
                    <span class="n">ref_color</span><span class="o">=</span><span class="s1">&#39;White&#39;</span><span class="p">,</span> <span class="n">ref_length</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ref_fontsize</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">ref_dist</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span><span class="n">ref_posang</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
 <span class="n">show_image</span><span class="p">(</span><span class="s1">&#39;./imgs/geom_demo6.png&#39;</span><span class="p">)</span>
 </pre></div>
@@ -579,7 +579,7 @@ writing ...  ./imgs/geom_demo6.png
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">aggscatpy</span><span class="o">.</span><span class="n">particle_rendering</span><span class="p">(</span><span class="n">partype</span><span class="o">=</span><span class="s1">&#39;CAHP&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="s1">&#39;8&#39;</span><span class="p">,</span><span class="n">amon</span><span class="o">=</span><span class="s1">&#39;100nm&#39;</span><span class="p">,</span><span class="n">ireal</span><span class="o">=</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="n">fn</span><span class="o">=</span><span class="s1">&#39;geom_demo7&#39;</span><span class="p">,</span><span class="n">path</span><span class="o">=</span><span class="s1">&#39;./imgs/&#39;</span><span class="p">,</span>\
-                   <span class="n">particle_color</span><span class="o">=</span><span class="s1">&#39;rgb&lt;0.4,0.4,0.15&gt;&#39;</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">bg_color</span><span class="o">=</span><span class="s1">&#39;Gray20&#39;</span><span class="p">,</span>\
+                   <span class="n">particle_color</span><span class="o">=</span><span class="s1">&#39;rgb&lt;0.4,0.4,0.15&gt;&#39;</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bg_color</span><span class="o">=</span><span class="s1">&#39;Gray20&#39;</span><span class="p">,</span>\
                    <span class="n">reference</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">show_image</span><span class="p">(</span><span class="s1">&#39;./imgs/geom_demo7.png&#39;</span><span class="p">)</span>
 </pre></div>
@@ -605,7 +605,7 @@ writing ...  ./imgs/geom_demo7.png
 <h2>Camera position and orientation of a particle<a class="headerlink" href="#Camera-position-and-orientation-of-a-particle" title="Permalink to this heading"></a></h2>
 <p>You can change the location of the camera (observer) and the orientation of a particle. The camera is fixed to the <span class="math notranslate nohighlight">\(x\)</span> axis of the coordinate system and you can change the distance from the origin to the camera position via <code class="docutils literal notranslate"><span class="pre">xcamera</span></code> (in units of the characteristic radius and the volume-equivalent radius for aggregates and irregular grains, respectively).</p>
 <p>You can also rotate the aggregate about each axis: <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, and <span class="math notranslate nohighlight">\(z\)</span> (Note that POV-RAY adopts the left-handed system) by using <code class="docutils literal notranslate"><span class="pre">rotx</span></code>, <code class="docutils literal notranslate"><span class="pre">roty</span></code>, and <code class="docutils literal notranslate"><span class="pre">rotz</span></code>, respectively (in units of degrees). These values are used to rotate the coordinate system (not a particle).</p>
-<p><img alt="c77e62101be64a41914ae9e76a77ac55" class="no-scaled-link" src="_images/camera.jpg" style="width: 200px;" /></p>
+<p><img alt="93f3c390bbd9486584355965a8dc2828" class="no-scaled-link" src="_images/camera.jpg" style="width: 200px;" /></p>
 <p>Here is an example. Let’s start with a default parameter:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
@@ -631,7 +631,7 @@ writing ...  ./imgs/geom_demo8.png
 <img alt="_images/geometry_33_1.png" src="_images/geometry_33_1.png" />
 </div>
 </div>
-<p>By setting the <code class="docutils literal notranslate"><span class="pre">xcamera</span></code> less than unity, the camera will be position closer to the default position, and therefore, you will get a closeup image of the particle (the reference scale are also changed for convenience):</p>
+<p>By setting the <code class="docutils literal notranslate"><span class="pre">xcamera</span></code> less than unity, the camera will get closer to the particle, and therefore, you will get a closeup image of the particle (the reference scale are changed accordingly):</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
@@ -657,7 +657,7 @@ writing ...  ./imgs/geom_demo9.png
 <img alt="_images/geometry_35_1.png" src="_images/geometry_35_1.png" />
 </div>
 </div>
-<p>By setting <code class="docutils literal notranslate"><span class="pre">rotz=45</span></code>, then the aggregate can be rotated by 45 degrees.</p>
+<p>By setting <code class="docutils literal notranslate"><span class="pre">rotx=45</span></code>, then the aggregate can be rotated by 45 degrees.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
@@ -690,7 +690,7 @@ writing ...  ./imgs/geom_demo10.png
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="examples.html" class="btn btn-neutral float-left" title="Python Tools" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="examples.html" class="btn btn-neutral float-left" title="Python package: aggscatpy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="radmc3d.html" class="btn btn-neutral float-right" title="Running RADMC-3D with AggScatVIR" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

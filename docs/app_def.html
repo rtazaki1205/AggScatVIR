@@ -45,7 +45,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="about.html">What is AggScatVIR?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="struct.html">Get started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Python Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Python package: aggscatpy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="geometry.html">Visualization of Particles</a></li>
 <li class="toctree-l1"><a class="reference internal" href="radmc3d.html">Running RADMC-3D with AggScatVIR</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Appendix A: Definitions</a><ul>
@@ -185,7 +185,7 @@ Note that RADMC-3D adopts the IAU 1974 definition for the Stokes vectors, and it
 <p>The integration of <span class="math notranslate nohighlight">\(Z_{11}\)</span> over the all solid angles gives the scattering opacity (<span class="math notranslate nohighlight">\(\mathrm{cm}^2/\mathrm{g}\)</span>)</p>
 <div class="math notranslate nohighlight">
 \[\kappa_\mathrm{sca}(\lambda)=\int_{4\pi} Z_{11}(\theta,\lambda)d\Omega.\]</div>
-<p>The definition of the <em>phase function</em> is the same as Bohren &amp; Huffman’s one (see Eq. 13.3):</p>
+<p>The definition of the <em>phase function</em> is the same as Bohren &amp; Huffman’s one (see Eq. 13.3 in Chapter 13):</p>
 <div class="math notranslate nohighlight">
 \[p(\theta)\equiv\frac{1}{C_\mathrm{sca}}\frac{dC_\mathrm{sca}}{d\Omega}=\frac{1}{C_\mathrm{sca}/m_\mathrm{dust}}\frac{S_{11}}{k^2m_\mathrm{dust}}=\frac{Z_{11}(\theta)}{\kappa_\mathrm{sca}},\]</div>
 <p>where <span class="math notranslate nohighlight">\(C_\mathrm{sca}\)</span> is the scattering cross section, and <span class="math notranslate nohighlight">\(dC_\mathrm{sca}/d\Omega\)</span> is the differential scattering cross section. The phase function is therefore normalized such that <span class="math notranslate nohighlight">\(\int_{4\pi} p(\theta)d\Omega=1\)</span>. The asymmetry parameter is defined by (p. 72, Section 3.4 in Bohren &amp; Huffman’s book):</p>

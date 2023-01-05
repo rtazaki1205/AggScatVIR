@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Python Tools &mdash; AggScatVIR v0.0.0 documentation</title>
+  <title>Python package: aggscatpy &mdash; AggScatVIR v0.0.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -45,7 +45,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="about.html">What is AggScatVIR?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="struct.html">Get started</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Python Tools</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Python package: aggscatpy</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#View-particle-geomertry">View particle geomertry</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Get-the-optical-properties-of-each-dust-model">Get the optical properties of each dust model</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#Basic-formula">Basic formula</a></li>
@@ -88,7 +88,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Python Tools</li>
+      <li>Python package: aggscatpy</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/examples.ipynb.txt" rel="nofollow"> View page source</a>
       </li>
@@ -376,8 +376,8 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
-<div class="section" id="Python-Tools">
-<h1>Python Tools<a class="headerlink" href="#Python-Tools" title="Permalink to this heading"></a></h1>
+<div class="section" id="Python-package:-aggscatpy">
+<h1>Python package: aggscatpy<a class="headerlink" href="#Python-package:-aggscatpy" title="Permalink to this heading"></a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">AggScatVIR</span></code> package provides some python tools that may be useful for users to quickly delve into the optical properties stored in this database. The main functionalities of this tool are: (1) view each particle geometry, (2) check and plot the optical properties of dust particles stored in this database, (3) convert the unit of the scattering matrix elements from RADMC-3D’s definition to Bohren &amp; Huffman’s definition, (4) change the power-law index of size distribution and the chop angle
 from the default values, (5) output datafiles in various formats.</p>
 <p>In this section, we demonstrate how to use it and what we can do with this tools.</p>
@@ -580,7 +580,7 @@ from the default values, (5) output datafiles in various formats.</p>
 </div>
 <p>The above plots summarize the absorption and scattering opacities (<span class="math notranslate nohighlight">\(\kappa_\mathrm{abs}\)</span>, <span class="math notranslate nohighlight">\(\kappa_\mathrm{sca}\)</span>) (<em>left top</em>), the single scattering albedo (<span class="math notranslate nohighlight">\(\omega\)</span>), the asymmetry parameter (<span class="math notranslate nohighlight">\(g\)</span>), and the maximum degree of linear polarization (<span class="math notranslate nohighlight">\(P_\mathrm{max}\)</span>) (<em>left bottom</em>), the scattering phase function (<em>right top</em>) and the degree of linear polarization (<em>right bottom</em>) at various wavelengths.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">showmodel</span></code> function has some options that might be useful for you: (1) If you set <code class="docutils literal notranslate"><span class="pre">opacity=False</span></code>, the left top panel will be replaced by cross sections (<span class="math notranslate nohighlight">\(\mu\mathrm{m}^2\)</span>) instead of the opacity (<span class="math notranslate nohighlight">\(\mathrm{cm}^2/\mathrm{g}\)</span>) (2) If you set <code class="docutils literal notranslate"><span class="pre">savefig=True</span></code>, the plot will be saved. The file name will be generated automaticlly, but you can set your own file name by further adding <code class="docutils literal notranslate"><span class="pre">fn=your_favorate_filename</span></code>.</p>
-<p>If you would like to do more flexible analysis, it is a good way to directly look into the values stored as attributes in each instance. For example, you can get the values of wavelength, opacity, and asymmetry parameter:</p>
+<p>If you would like to do more flexible analysis, it is good to directly look into the values stored as attributes in each instance. For example, you can get the values of wavelength, opacity, and asymmetry parameter:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
@@ -635,8 +635,8 @@ from the default values, (5) output datafiles in various formats.</p>
  168. 169. 170. 171. 172. 173. 174. 175. 176. 177. 178. 179. 180.]
 </pre></div></div>
 </div>
-<p>Each instance contains the scattering phase function (<code class="docutils literal notranslate"><span class="pre">phase</span></code>) and 6 scattering matrix elements (<code class="docutils literal notranslate"><span class="pre">smat11</span></code>,<code class="docutils literal notranslate"><span class="pre">smat12</span></code>,<code class="docutils literal notranslate"><span class="pre">smat22</span></code>,<code class="docutils literal notranslate"><span class="pre">smat33</span></code>,<code class="docutils literal notranslate"><span class="pre">smat34</span></code>,<code class="docutils literal notranslate"><span class="pre">smat44</span></code>) as its attributes. Note that the scattering matrix elements follow the RADMC-3D definition <span class="math notranslate nohighlight">\(Z_{ij}\)</span> (though you can change the definition into the Bohren &amp; Huffman one if you want; see the next section for more information). Each of them is a function of both wavelength and scattering angle, resulting in a
-two-dimensional array. For example, <span class="math notranslate nohighlight">\(Z_{11}(\lambda,\theta)\)</span> has the shape of:</p>
+<p>Each instance contains the scattering phase function (<code class="docutils literal notranslate"><span class="pre">phase</span></code>) and 6 scattering matrix elements (<code class="docutils literal notranslate"><span class="pre">smat11</span></code>,<code class="docutils literal notranslate"><span class="pre">smat12</span></code>,<code class="docutils literal notranslate"><span class="pre">smat22</span></code>,<code class="docutils literal notranslate"><span class="pre">smat33</span></code>,<code class="docutils literal notranslate"><span class="pre">smat34</span></code>,<code class="docutils literal notranslate"><span class="pre">smat44</span></code>) as its attributes. Note that the scattering matrix elements follow the RADMC-3D definition <span class="math notranslate nohighlight">\(Z_{ij}\)</span> (though you can change the definition into the Bohren &amp; Huffman one if you want; see the next section for more information). Each of them is a function of wavelength and scattering angle, resulting in a two-dimensional
+array. For example, <span class="math notranslate nohighlight">\(Z_{11}(\lambda,\theta)\)</span> has the shape of:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
@@ -727,7 +727,7 @@ wavelength (um) = 0.554
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$Z_</span><span class="si">{11}</span><span class="s1">~(\mathrm</span><span class="si">{cm}</span><span class="s1">^2/\mathrm</span><span class="si">{g}</span><span class="s1">/\mathrm</span><span class="si">{str}</span><span class="s1">)$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$Z_</span><span class="si">{11}</span><span class="s1">~(\mathrm</span><span class="si">{cm}</span><span class="s1">^2~\mathrm</span><span class="si">{g}</span><span class="s1">^{-1}~\mathrm</span><span class="si">{str}</span><span class="s1">^{-1})$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">180</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;scattering angle (degrees)&#39;</span><span class="p">)</span>
@@ -744,7 +744,7 @@ wavelength (um) = 0.554
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.legend.Legend at 0x7fcd645dd610&gt;
+&lt;matplotlib.legend.Legend at 0x7fe5cd898160&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -772,7 +772,7 @@ wavelength (um) = 0.554
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$S_</span><span class="si">{11}</span><span class="s1">$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;$S_</span><span class="si">{11}</span><span class="s1">~(\mathrm</span><span class="si">{str}</span><span class="s1">^{-1})$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">180</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;scattering angle (degrees)&#39;</span><span class="p">)</span>
@@ -789,7 +789,7 @@ wavelength (um) = 0.554
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.legend.Legend at 0x7fcd78327b20&gt;
+&lt;matplotlib.legend.Legend at 0x7fe5dc207250&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1051,7 +1051,7 @@ writing ... scatmat_CALP_Nmax4096_100nm_amc_lmd1.63um.out
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d2</span><span class="o">=</span><span class="n">aggscatpy</span><span class="o">.</span><span class="n">dustmodel</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;./dustkapscatmat_CALP_Nmax4096_100nm_amc.out&#39;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">d2</span><span class="o">=</span><span class="n">aggscatpy</span><span class="o">.</span><span class="n">dustmodel</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;./dustkapscatmat_CALP_Nmin8_Nmax2048_pow3.5_100nm_amc.out&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1060,7 +1060,7 @@ writing ... scatmat_CALP_Nmax4096_100nm_amc_lmd1.63um.out
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-...reading  ./dustkapscatmat_CALP_Nmax4096_100nm_amc.out
+...reading  ./dustkapscatmat_CALP_Nmin8_Nmax2048_pow3.5_100nm_amc.out
 </pre></div></div>
 </div>
 <p>Currently, the <code class="docutils literal notranslate"><span class="pre">dustmodel</span></code> class can only read files generated by this tool.</p>
@@ -1141,7 +1141,7 @@ Reading dust model ...  FA11_Nmax128_100nm_amc
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.legend.Legend at 0x7fcd78c0a640&gt;
+&lt;matplotlib.legend.Legend at 0x7fe5df7300a0&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -1193,7 +1193,7 @@ Reading dust model ...  FA11_Nmax128_100nm_amc
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.legend.Legend at 0x7fcd66192cd0&gt;
+&lt;matplotlib.legend.Legend at 0x7fe5deea7730&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
