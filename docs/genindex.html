@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Index &mdash; AggScatVIR v0.1.0 documentation</title>
+  <title>Index &mdash; AggScatVIR v0.0.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -42,6 +42,7 @@
 <li class="toctree-l1"><a class="reference internal" href="about.html">What is AggScatVIR?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="struct.html">Get started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Python Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geometry.html">Visualization of Particles</a></li>
 <li class="toctree-l1"><a class="reference internal" href="radmc3d.html">Running RADMC-3D with AggScatVIR</a></li>
 <li class="toctree-l1"><a class="reference internal" href="app_def.html">Appendix A: Definitions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="app_gallery.html">Appendix B: Gallery of the optical properties</a></li>
@@ -83,20 +84,12 @@
  | <a href="#O"><strong>O</strong></a>
  | <a href="#P"><strong>P</strong></a>
  | <a href="#S"><strong>S</strong></a>
+ | <a href="#V"><strong>V</strong></a>
  | <a href="#W"><strong>W</strong></a>
  
 </div>
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    agginfo
-
-      <ul>
-        <li><a href="api/agginfo.html#module-agginfo">module</a>
-</li>
-      </ul></li>
-  </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     aggscatpy
@@ -105,13 +98,44 @@
         <li><a href="api/aggscatpy.html#module-aggscatpy">module</a>
 </li>
       </ul></li>
+      <li>
+    aggscatpy.agginfo
+
+      <ul>
+        <li><a href="api/aggscatpy.html#module-aggscatpy.agginfo">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    aggscatpy.aggscatpy
+
+      <ul>
+        <li><a href="api/aggscatpy.html#module-aggscatpy.aggscatpy">module</a>
+</li>
+      </ul></li>
+      <li>
+    aggscatpy.rendering
+
+      <ul>
+        <li><a href="api/aggscatpy.html#module-aggscatpy.rendering">module</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/agginfo.html#agginfo.calculate_dust_mass">calculate_dust_mass() (in module agginfo)</a>
+      <li><a href="api/aggscatpy.html#aggscatpy.agginfo.calculate_dust_mass">calculate_dust_mass() (in module aggscatpy.agginfo)</a>
+</li>
+      <li><a href="api/aggscatpy.html#aggscatpy.agginfo.check_particle_composition">check_particle_composition() (in module aggscatpy.agginfo)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/aggscatpy.html#aggscatpy.agginfo.check_particle_size">check_particle_size() (in module aggscatpy.agginfo)</a>
+</li>
+      <li><a href="api/aggscatpy.html#aggscatpy.agginfo.check_particle_type">check_particle_type() (in module aggscatpy.agginfo)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -119,15 +143,15 @@
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/aggscatpy.html#aggscatpy.distaverage">distaverage (class in aggscatpy)</a>
+      <li><a href="api/aggscatpy.html#aggscatpy.aggscatpy.distaverage">distaverage (class in aggscatpy.aggscatpy)</a>
 </li>
-      <li><a href="api/aggscatpy.html#aggscatpy.dustmodel">dustmodel (class in aggscatpy)</a>
+      <li><a href="api/aggscatpy.html#aggscatpy.aggscatpy.dustmodel">dustmodel (class in aggscatpy.aggscatpy)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/aggscatpy.html#aggscatpy.dustspec">dustspec() (in module aggscatpy)</a>
+      <li><a href="api/aggscatpy.html#aggscatpy.aggscatpy.dustspec">dustspec() (in module aggscatpy.aggscatpy)</a>
 </li>
-      <li><a href="api/aggscatpy.html#aggscatpy.dustspec_header">dustspec_header() (in module aggscatpy)</a>
+      <li><a href="api/aggscatpy.html#aggscatpy.aggscatpy.dustspec_header">dustspec_header() (in module aggscatpy.aggscatpy)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -135,13 +159,13 @@
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/agginfo.html#agginfo.get_radius_and_porosity">get_radius_and_porosity() (in module agginfo)</a>
+      <li><a href="api/aggscatpy.html#aggscatpy.agginfo.get_radius_and_porosity">get_radius_and_porosity() (in module aggscatpy.agginfo)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/agginfo.html#agginfo.get_sizelist">get_sizelist() (in module agginfo)</a>
+      <li><a href="api/aggscatpy.html#aggscatpy.agginfo.get_sizelist">get_sizelist() (in module aggscatpy.agginfo)</a>
 </li>
-      <li><a href="api/agginfo.html#agginfo.grs_voleq">grs_voleq() (in module agginfo)</a>
+      <li><a href="api/aggscatpy.html#aggscatpy.agginfo.grs_voleq">grs_voleq() (in module aggscatpy.agginfo)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -153,11 +177,13 @@
     module
 
       <ul>
-        <li><a href="api/agginfo.html#module-agginfo">agginfo</a>
-</li>
         <li><a href="api/aggscatpy.html#module-aggscatpy">aggscatpy</a>
 </li>
-        <li><a href="api/plots.html#module-plots">plots</a>
+        <li><a href="api/aggscatpy.html#module-aggscatpy.agginfo">aggscatpy.agginfo</a>
+</li>
+        <li><a href="api/aggscatpy.html#module-aggscatpy.aggscatpy">aggscatpy.aggscatpy</a>
+</li>
+        <li><a href="api/aggscatpy.html#module-aggscatpy.rendering">aggscatpy.rendering</a>
 </li>
       </ul></li>
   </ul></td>
@@ -166,7 +192,7 @@
 <h2 id="O">O</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/aggscatpy.html#aggscatpy.output_all_gallery_plot">output_all_gallery_plot() (in module aggscatpy)</a>
+      <li><a href="api/aggscatpy.html#aggscatpy.aggscatpy.output_all_gallery_plot">output_all_gallery_plot() (in module aggscatpy.aggscatpy)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -174,16 +200,11 @@
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    plots
-
-      <ul>
-        <li><a href="api/plots.html#module-plots">module</a>
+      <li><a href="api/aggscatpy.html#aggscatpy.rendering.particle_rendering">particle_rendering() (in module aggscatpy.rendering)</a>
 </li>
-      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/plots.html#plots.plots">plots (class in plots)</a>
+      <li><a href="api/aggscatpy.html#aggscatpy.aggscatpy.plots">plots (class in aggscatpy.aggscatpy)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -191,19 +212,27 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/plots.html#plots.plots.set_ang_vs_phase">set_ang_vs_phase() (plots.plots method)</a>
+      <li><a href="api/aggscatpy.html#aggscatpy.aggscatpy.plots.set_ang_vs_phase">set_ang_vs_phase() (aggscatpy.aggscatpy.plots method)</a>
 </li>
-      <li><a href="api/plots.html#plots.plots.set_ang_vs_pol">set_ang_vs_pol() (plots.plots method)</a>
+      <li><a href="api/aggscatpy.html#aggscatpy.aggscatpy.plots.set_ang_vs_pol">set_ang_vs_pol() (aggscatpy.aggscatpy.plots method)</a>
 </li>
-      <li><a href="api/plots.html#plots.plots.set_lmd_vs_albedo">set_lmd_vs_albedo() (plots.plots method)</a>
+      <li><a href="api/aggscatpy.html#aggscatpy.aggscatpy.plots.set_lmd_vs_albedo">set_lmd_vs_albedo() (aggscatpy.aggscatpy.plots method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/plots.html#plots.plots.set_lmd_vs_cross">set_lmd_vs_cross() (plots.plots method)</a>
+      <li><a href="api/aggscatpy.html#aggscatpy.aggscatpy.plots.set_lmd_vs_cross">set_lmd_vs_cross() (aggscatpy.aggscatpy.plots method)</a>
 </li>
-      <li><a href="api/plots.html#plots.plots.set_lmd_vs_opc">set_lmd_vs_opc() (plots.plots method)</a>
+      <li><a href="api/aggscatpy.html#aggscatpy.aggscatpy.plots.set_lmd_vs_opc">set_lmd_vs_opc() (aggscatpy.aggscatpy.plots method)</a>
 </li>
-      <li><a href="api/aggscatpy.html#aggscatpy.showmodel">showmodel() (in module aggscatpy)</a>
+      <li><a href="api/aggscatpy.html#aggscatpy.aggscatpy.showmodel">showmodel() (in module aggscatpy.aggscatpy)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="V">V</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/aggscatpy.html#aggscatpy.rendering.view_particle">view_particle() (in module aggscatpy.rendering)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -211,11 +240,7 @@
 <h2 id="W">W</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/aggscatpy.html#aggscatpy.write_data">write_data() (in module aggscatpy)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/aggscatpy.html#aggscatpy.distaverage.write_dustkapscatmat">write_dustkapscatmat() (aggscatpy.distaverage method)</a>
+      <li><a href="api/aggscatpy.html#aggscatpy.aggscatpy.write_data">write_data() (in module aggscatpy.aggscatpy)</a>
 </li>
   </ul></td>
 </tr></table>

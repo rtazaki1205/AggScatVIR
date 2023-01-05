@@ -1,5 +1,35 @@
-aggscatpy module
-================
+aggscatpy package
+=================
+
+Submodules
+----------
+
+aggscatpy.agginfo module
+------------------------
+
+.. automodule:: aggscatpy.agginfo
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+aggscatpy.aggscatpy module
+--------------------------
+
+.. automodule:: aggscatpy.aggscatpy
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+aggscatpy.rendering module
+--------------------------
+
+.. automodule:: aggscatpy.rendering
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
 
 .. automodule:: aggscatpy
    :members:

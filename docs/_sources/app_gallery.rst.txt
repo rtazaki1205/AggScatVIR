@@ -1,10 +1,10 @@
 Appendix B: Gallery of the optical properties
 ==============================================
 
-In this section, we provide an overview of the optical properties stored in this database. For each group of plots, top and bottom rows represents the results for ``org`` and ``amc``, respectively.
+In this section, we provide an overview of the optical properties stored in this database. For each group of plots, top and bottom rows represent the results for ``org`` and ``amc``, respectively.
 
-Irregular Grains
-#################
+GRS (Irregular grains)
+######################
 
 - **With size distribution**
 
@@ -16,8 +16,8 @@ Irregular Grains
    .. image:: ./imgs/grs_single.png
 
 
-CALP (Compact aggregates with low porosity)
-###########################################
+CALP (Compact aggregates with a low porosity)
+#############################################
 amon=100nm
 ***********
 
@@ -56,8 +56,8 @@ amon=400nm
    .. image:: ./imgs/CALP_400nm_single.png
 
 
-CAMP (Compact aggregates with moderate porosity)
-################################################
+CAMP (Compact aggregates with a moderate porosity)
+###################################################
 amon=100nm
 **********
 
@@ -95,7 +95,7 @@ amon=400nm
    .. image:: ./imgs/CAMP_400nm_single.png
 
 
-CAHP (Compact aggregates with highly porosity)
+CAHP (Compact aggregates with a high porosity)
 ###############################################
 amon=100nm
 ***********

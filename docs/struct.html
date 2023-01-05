@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Get started &mdash; AggScatVIR v0.1.0 documentation</title>
+  <title>Get started &mdash; AggScatVIR v0.0.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -54,9 +54,15 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#dust-composition-and-refractive-indices">Dust composition and Refractive indices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#structure-of-each-dust-file">Structure of each dust file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#particle-shape-data">Particle shape data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#aggregates">Aggregates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#irregular-grains">Irregular grains</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Python Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geometry.html">Visualization of Particles</a></li>
 <li class="toctree-l1"><a class="reference internal" href="radmc3d.html">Running RADMC-3D with AggScatVIR</a></li>
 <li class="toctree-l1"><a class="reference internal" href="app_def.html">Appendix A: Definitions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="app_gallery.html">Appendix B: Gallery of the optical properties</a></li>
@@ -119,7 +125,15 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">rtazaki1205</span><span class="o">/</span><span class="n">AggScatVIR</span><span class="o">.</span><span class="n">git</span>
 </pre></div>
 </div>
-<p><strong>Warnings: The main datasets have not yet been registered in the repository, and therefore it is not ready to use.</strong></p>
+<p>To install the python package <code class="docutils literal notranslate"><span class="pre">aggscatpy</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">python</span>           <span class="c1"># enter the code directory</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">.</span>    <span class="c1"># install the python package</span>
+</pre></div>
+</div>
+<p>To check if the python package has been successfully installed in your system:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">show</span> <span class="n">aggscatpy</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="structure-of-this-package">
 <h2>Structure of this package<a class="headerlink" href="#structure-of-this-package" title="Permalink to this heading"></a></h2>
@@ -136,10 +150,19 @@
 │        ├─── chop5
 │        └─── chop10
 ├── docs
+├── particles
+│    ├── aggregate
+│    ├── irregular
+│    └── images
 └── python
+     ├── aggscatpy
+     ├── notebooks
+     ├── povray
+     └── setup.py
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">aggscatrt</span></code> directory contains the dataset of the optical properties of various dust particles. The <code class="docutils literal notranslate"><span class="pre">docs</span></code> and <code class="docutils literal notranslate"><span class="pre">python</span></code> directories contain a manual and two Jupyter notebooks on the usage of the python tools, respectively. The <code class="docutils literal notranslate"><span class="pre">aggscatrt</span></code> directory includes two sub-directories: <code class="docutils literal notranslate"><span class="pre">single</span></code> and <code class="docutils literal notranslate"><span class="pre">distave</span></code>. The former and the latter contain the optical properties without/with a particle size distribution, respectively. Each of these directories further includes three sub-directories: <code class="docutils literal notranslate"><span class="pre">nochop</span></code>, <code class="docutils literal notranslate"><span class="pre">chop5</span></code>, and <code class="docutils literal notranslate"><span class="pre">chop10</span></code>. The <code class="docutils literal notranslate"><span class="pre">nochop</span></code> directory contains the optical properties of various dust particles, while the other two contain data that has been processed with a special treatment that may be useful in radiative transfer simulations (see Note below). If you are new to this database, it is recommended to start with the <code class="docutils literal notranslate"><span class="pre">nochop</span></code> directory.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">aggscatrt</span></code> directory contains the dataset of the optical properties of various dust particles. The <code class="docutils literal notranslate"><span class="pre">docs</span></code> and <code class="docutils literal notranslate"><span class="pre">python</span></code> directories contain a manual and two Jupyter notebooks on the usage of the python tools, respectively. The <code class="docutils literal notranslate"><span class="pre">particles</span></code> directory contains the particle shape data, such as the position data of monomers in an aggregate (in <code class="docutils literal notranslate"><span class="pre">/particles/aggregate</span></code>) as well as polygon surface model for irregular grains (in <code class="docutils literal notranslate"><span class="pre">particles/irregular</span></code>). All particle images are also provided in <code class="docutils literal notranslate"><span class="pre">particles/images</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">aggscatrt</span></code> directory includes two sub-directories: <code class="docutils literal notranslate"><span class="pre">single</span></code> and <code class="docutils literal notranslate"><span class="pre">distave</span></code>. The former and the latter contain the optical properties without/with a particle size distribution, respectively. Each of these directories further includes three sub-directories: <code class="docutils literal notranslate"><span class="pre">nochop</span></code>, <code class="docutils literal notranslate"><span class="pre">chop5</span></code>, and <code class="docutils literal notranslate"><span class="pre">chop10</span></code>. The <code class="docutils literal notranslate"><span class="pre">nochop</span></code> directory contains the optical properties of various dust particles, while the other two contain data that has been processed with a special treatment that may be useful in radiative transfer simulations (see Note below). If you are new to this database, it is recommended to start with the <code class="docutils literal notranslate"><span class="pre">nochop</span></code> directory.</p>
 <p>In principle, each dust model has a single ASCII file that tabulates all of its optical properties: the wavelength-dependent opacity, scattering angle grids, and scattering matrix elements (11, 12, 22, 33, 34, 44) for each wavelength and scattering angle. The physical properties of a dust model, such as the number of monomers and porosity, are also described in the header section of each file starting with ‘#’.</p>
 <p>If you access the <code class="docutils literal notranslate"><span class="pre">nochop</span></code> directory, you will see a number of files with names like:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dustkapscatmat_XXX</span><span class="o">.</span><span class="n">inp</span>
@@ -152,7 +175,7 @@
 </div>
 </div>
 <div class="section" id="rules-for-dust-file-names">
-<h2>Rules for dust file names<a class="headerlink" href="#rules-for-dust-file-names" title="Permalink to this heading"></a></h2>
+<span id="filename"></span><h2>Rules for dust file names<a class="headerlink" href="#rules-for-dust-file-names" title="Permalink to this heading"></a></h2>
 <div class="section" id="for-aggregates">
 <h3>For aggregates<a class="headerlink" href="#for-aggregates" title="Permalink to this heading"></a></h3>
 <p>The name of each aggregate model follows the syntax:</p>
@@ -513,6 +536,19 @@ For carbonaceous material, we adopt refractory organics by <a class="reference e
 </div>
 <p>The first block contains some header information (staring from #) and the number of grids for wavelength and scattering angle. The second block then contains wavelength (<span class="math notranslate nohighlight">\(\mu\mathrm{m}\)</span>), the absorption and scattering opacities (<span class="math notranslate nohighlight">\(\mathrm{cm}^2/\mathrm{g}\)</span>), and the asymmetry parameter. The third block is a list of scattering angles (<span class="math notranslate nohighlight">\(^\circ\)</span>). The final block contains 6 scattering matrix elements (<span class="math notranslate nohighlight">\(\mathrm{cm}^2/\mathrm{g}/\mathrm{str}\)</span>).</p>
 <p>Regarding the definition of the scattering matrix elements <span class="math notranslate nohighlight">\(Z_{ij}\)</span>, please refer to <a class="reference internal" href="app_def.html#scatmatdefs"><span class="std std-ref">Definitions of scattering properties</span></a>.</p>
+</div>
+<div class="section" id="particle-shape-data">
+<h2>Particle shape data<a class="headerlink" href="#particle-shape-data" title="Permalink to this heading"></a></h2>
+<div class="section" id="aggregates">
+<h3>Aggregates<a class="headerlink" href="#aggregates" title="Permalink to this heading"></a></h3>
+<p>In <code class="docutils literal notranslate"><span class="pre">/particles/aggregate</span></code>, the radius and the Cartesian coordinates of each monomer in an aggregate are provided. Each file has a name of <code class="docutils literal notranslate"><span class="pre">PARTYPE_SIZE_IREAL_AMON.pos</span></code>, where <code class="docutils literal notranslate"><span class="pre">PARTYPE</span></code>, <code class="docutils literal notranslate"><span class="pre">SIZE</span></code>, and <code class="docutils literal notranslate"><span class="pre">AMON</span></code> are the same as those introduced in <a class="reference internal" href="#filename"><span class="std std-ref">Rules for dust file names</span></a>. <code class="docutils literal notranslate"><span class="pre">IREAL</span></code> specifies the realization index of each model. Each aggregate model has four realizations, and therefore, <code class="docutils literal notranslate"><span class="pre">IREAL</span></code> runs from 1 to 4.</p>
+<p>In each file, the first column contains the monomer radius in units of microns, while the 2nd, 3rd, and 4th columns specify the Cartesian coordinates of the monomers in units of microns.</p>
+</div>
+<div class="section" id="irregular-grains">
+<h3>Irregular grains<a class="headerlink" href="#irregular-grains" title="Permalink to this heading"></a></h3>
+<p>In <code class="docutils literal notranslate"><span class="pre">/particles/irregular</span></code>, we provide the shape model of irregular grains with 10 realizations with two different file formats: .vtk or .inc. Each file has a name of <code class="docutils literal notranslate"><span class="pre">grsXXX.vtk(.inc)</span></code>, where XXX indicates the realization index. In the light scattering calculation, The radius of the grains are scaled to have a prescribed value of the volume-equivalent radius while fixing the particle shape.</p>
+<p>The former file contains the shape model of irregular grains are provided in ASCII Legacy VTK File Format. The first block summraizes the number of vertexes and its Cartesian coordinates. Then the second block specified which three of the vertexes are conneted to form a triangular cell face. You can open these vtk files by using <a class="reference external" href="https://www.paraview.org/">Paraview</a>. The latter .inc files contain the same information as the former one, but it is written in a format that can be used to run POV-RAY.</p>
+</div>
 </div>
 </div>
 

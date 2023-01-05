@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>aggscatpy module &mdash; AggScatVIR v0.1.0 documentation</title>
+  <title>aggscatpy package &mdash; AggScatVIR v0.0.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -20,8 +20,7 @@
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="plots module" href="plots.html" />
-    <link rel="prev" title="agginfo module" href="agginfo.html" /> 
+    <link rel="prev" title="Appendix C: Python modules" href="../api.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -44,13 +43,19 @@
 <li class="toctree-l1"><a class="reference internal" href="../about.html">What is AggScatVIR?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../struct.html">Get started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples.html">Python Tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../geometry.html">Visualization of Particles</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../radmc3d.html">Running RADMC-3D with AggScatVIR</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../app_def.html">Appendix A: Definitions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../app_gallery.html">Appendix B: Gallery of the optical properties</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">Appendix C: Python modules</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="agginfo.html">agginfo module</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">aggscatpy module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plots.html">plots module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">aggscatpy package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-aggscatpy.agginfo">aggscatpy.agginfo module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-aggscatpy.aggscatpy">aggscatpy.aggscatpy module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-aggscatpy.rendering">aggscatpy.rendering module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-aggscatpy">Module contents</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -70,7 +75,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="../api.html">Appendix C: Python modules</a> &raquo;</li>
-      <li>aggscatpy module</li>
+      <li>aggscatpy package</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/api/aggscatpy.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -104,11 +109,166 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="module-aggscatpy">
-<span id="aggscatpy-module"></span><h1>aggscatpy module<a class="headerlink" href="#module-aggscatpy" title="Permalink to this heading"></a></h1>
+<div class="section" id="aggscatpy-package">
+<h1>aggscatpy package<a class="headerlink" href="#aggscatpy-package" title="Permalink to this heading"></a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</div>
+<div class="section" id="module-aggscatpy.agginfo">
+<span id="aggscatpy-agginfo-module"></span><h2>aggscatpy.agginfo module<a class="headerlink" href="#module-aggscatpy.agginfo" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="aggscatpy.agginfo.calculate_dust_mass">
+<span class="sig-prename descclassname"><span class="pre">aggscatpy.agginfo.</span></span><span class="sig-name descname"><span class="pre">calculate_dust_mass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aggscatpy.agginfo.calculate_dust_mass" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate a dust mass (or distribution-averaged value when the size distribution is present).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>qind</strong><span class="classifier">float</span></dt><dd><p>power-law index of the size distribution</p>
+</dd>
+<dt><strong>sizemin</strong><span class="classifier">str (optional)</span></dt><dd><p>a string for specifying the minimum dust particle</p>
+</dd>
+<dt><strong>sizemax</strong><span class="classifier">str (optional)</span></dt><dd><p>a string for specifying the maximum dust particle</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>mass</strong><span class="classifier">float</span></dt><dd><p>dust mass in units of gram</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aggscatpy.agginfo.check_particle_composition">
+<span class="sig-prename descclassname"><span class="pre">aggscatpy.agginfo.</span></span><span class="sig-name descname"><span class="pre">check_particle_composition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">comp</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aggscatpy.agginfo.check_particle_composition" title="Permalink to this definition"></a></dt>
+<dd><p>Check if the input particle composition is correctly formatted</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>comp</strong><span class="classifier">str</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aggscatpy.agginfo.check_particle_size">
+<span class="sig-prename descclassname"><span class="pre">aggscatpy.agginfo.</span></span><span class="sig-name descname"><span class="pre">check_particle_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aggscatpy.agginfo.check_particle_size" title="Permalink to this definition"></a></dt>
+<dd><p>Check if the input particle size is correctly formatted</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>partype</strong><span class="classifier">str</span></dt><dd></dd>
+<dt><strong>amon</strong><span class="classifier">str (optional)</span></dt><dd></dd>
+<dt><strong>size</strong><span class="classifier">str</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aggscatpy.agginfo.check_particle_type">
+<span class="sig-prename descclassname"><span class="pre">aggscatpy.agginfo.</span></span><span class="sig-name descname"><span class="pre">check_particle_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partype</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aggscatpy.agginfo.check_particle_type" title="Permalink to this definition"></a></dt>
+<dd><p>Check if the input particle type is correctly formatted</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>partype</strong><span class="classifier">str</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aggscatpy.agginfo.get_radius_and_porosity">
+<span class="sig-prename descclassname"><span class="pre">aggscatpy.agginfo.</span></span><span class="sig-name descname"><span class="pre">get_radius_and_porosity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">np</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aggscatpy.agginfo.get_radius_and_porosity" title="Permalink to this definition"></a></dt>
+<dd><p>Get the characteristic radius and porosity of an aggregate</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ac</span><span class="p">,</span><span class="n">por</span><span class="o">=</span><span class="n">get_radius_and_porosity</span><span class="p">(</span><span class="s1">&#39;FA19&#39;</span><span class="p">,</span><span class="s1">&#39;100nm&#39;</span><span class="p">,</span><span class="s1">&#39;4096&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%-21s</span><span class="s1">&#39;</span><span class="o">%</span><span class="s2">&quot;characteristic radius&quot;</span><span class="p">,</span><span class="s1">&#39;= </span><span class="si">%5.3f</span><span class="s1"> um&#39;</span><span class="o">%</span><span class="n">ac</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%-21s</span><span class="s1">&#39;</span><span class="o">%</span><span class="s2">&quot;porosity&quot;</span><span class="p">,</span><span class="s1">&#39;= </span><span class="si">%5.2f</span><span class="s1"> </span><span class="si">%%</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">por</span><span class="p">)</span>
+<span class="go">characteristic radius = 10.04 um</span>
+<span class="go">porosity              = 99.60 %</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ac</span><span class="p">,</span><span class="n">por</span><span class="o">=</span><span class="n">get_radius_and_porosity</span><span class="p">(</span><span class="s1">&#39;CAHP&#39;</span><span class="p">,</span><span class="s1">&#39;400nm&#39;</span><span class="p">,</span><span class="s1">&#39;64&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%-21s</span><span class="s1">&#39;</span><span class="o">%</span><span class="s2">&quot;characteristic radius&quot;</span><span class="p">,</span><span class="s1">&#39;= </span><span class="si">%5.3f</span><span class="s1"> um&#39;</span><span class="o">%</span><span class="n">ac</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%-21s</span><span class="s1">&#39;</span><span class="o">%</span><span class="s2">&quot;porosity&quot;</span><span class="p">,</span><span class="s1">&#39;= </span><span class="si">%5.2f</span><span class="s1"> </span><span class="si">%%</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">por</span><span class="p">)</span>
+<span class="go">characteristic radius =  3.12 um</span>
+<span class="go">porosity              = 86.47 %</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aggscatpy.agginfo.get_sizelist">
+<span class="sig-prename descclassname"><span class="pre">aggscatpy.agginfo.</span></span><span class="sig-name descname"><span class="pre">get_sizelist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aggscatpy.agginfo.get_sizelist" title="Permalink to this definition"></a></dt>
+<dd><p>Get a list of available <code class="docutils literal notranslate"><span class="pre">size</span></code> arguments, which is necessary to call the <code class="docutils literal notranslate"><span class="pre">dustmodel</span></code> class.
+If amon is None and partype is for dust aggregates, an available list of amon and size will be outputted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>partype</strong><span class="classifier">str</span></dt><dd></dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>nlist</strong><span class="classifier">list of size arguments</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">get_sizelist</span><span class="p">(</span><span class="s1">&#39;FA19&#39;</span><span class="p">))</span>
+<span class="go">Available amon and size for FA19</span>
+<span class="go">amon=&#39;100nm&#39; | &#39;8&#39;,&#39;16&#39;,&#39;32&#39;,&#39;64&#39;,&#39;128&#39;,&#39;256&#39;,&#39;512&#39;,&#39;1024&#39;,&#39;2048&#39;,&#39;4096&#39;</span>
+<span class="go">amon=&#39;150nm&#39; | &#39;8&#39;,&#39;16&#39;,&#39;32&#39;,&#39;64&#39;,&#39;128&#39;,&#39;256&#39;,&#39;512&#39;</span>
+<span class="go">amon=&#39;200nm&#39; | &#39;8&#39;,&#39;16&#39;,&#39;32&#39;,&#39;64&#39;,&#39;128&#39;,&#39;256&#39;,&#39;512&#39;</span>
+<span class="go">amon=&#39;300nm&#39; | &#39;8&#39;,&#39;16&#39;,&#39;32&#39;,&#39;64&#39;,&#39;128&#39;,&#39;256&#39;</span>
+<span class="go">amon=&#39;400nm&#39; | &#39;8&#39;,&#39;16&#39;,&#39;32&#39;,&#39;64&#39;,&#39;128&#39;</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">get_sizelist</span><span class="p">(</span><span class="s1">&#39;FA19&#39;</span><span class="p">,</span><span class="n">amon</span><span class="o">=</span><span class="s1">&#39;100nm&#39;</span><span class="p">))</span>
+<span class="go">[&#39;8&#39;, &#39;16&#39;, &#39;32&#39;, &#39;64&#39;, &#39;128&#39;, &#39;256&#39;, &#39;512&#39;, &#39;1024&#39;, &#39;2048&#39;, &#39;4096&#39;]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">get_sizelist</span><span class="p">(</span><span class="s1">&#39;CAHP&#39;</span><span class="p">,</span><span class="n">amon</span><span class="o">=</span><span class="s1">&#39;400nm&#39;</span><span class="p">))</span>
+<span class="go">[&#39;8&#39;, &#39;16&#39;, &#39;32&#39;, &#39;64&#39;]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">get_sizelist</span><span class="p">(</span><span class="s1">&#39;grs&#39;</span><span class="p">))</span>
+<span class="go">[&#39;0_2000&#39;, &#39;0_2520&#39;, &#39;0_3175&#39;, &#39;0_4000&#39;, &#39;0_5040&#39;, &#39;0_6350&#39;, &#39;0_8000&#39;, &#39;1_0079&#39;, &#39;1_2699&#39;, &#39;1_6000&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aggscatpy.agginfo.grs_voleq">
+<span class="sig-prename descclassname"><span class="pre">aggscatpy.agginfo.</span></span><span class="sig-name descname"><span class="pre">grs_voleq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sizename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aggscatpy.agginfo.grs_voleq" title="Permalink to this definition"></a></dt>
+<dd><p>Get a volume-equivalent radius of grs particles.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>sizename</strong><span class="classifier">str</span></dt><dd><p>a string to specify the size of GRS particles</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>av</strong><span class="classifier">float</span></dt><dd><p>the grain radius in units of microns</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-aggscatpy.aggscatpy">
+<span id="aggscatpy-aggscatpy-module"></span><h2>aggscatpy.aggscatpy module<a class="headerlink" href="#module-aggscatpy.aggscatpy" title="Permalink to this heading"></a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="aggscatpy.distaverage">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aggscatpy.</span></span><span class="sig-name descname"><span class="pre">distaverage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sizemin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sizemax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">powind</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chopang</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smatBH</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aggscatpy.distaverage" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="aggscatpy.aggscatpy.distaverage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aggscatpy.aggscatpy.</span></span><span class="sig-name descname"><span class="pre">distaverage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sizemin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sizemax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">powind</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chopang</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smatBH</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aggscatpy.aggscatpy.distaverage" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A class to perform size distribution averaging</p>
 <dl class="field-list">
@@ -140,8 +300,6 @@
 <dt class="field-even">Attributes</dt>
 <dd class="field-even"><dl>
 <dt><strong>model</strong><span class="classifier">str</span></dt><dd><p>dust model name</p>
-</dd>
-<dt><strong>path</strong><span class="classifier">str</span></dt><dd><p>A relative path to the file</p>
 </dd>
 <dt><strong>dist</strong><span class="classifier">bool</span></dt><dd><p>True when the size distribution is on (always True in this mode)</p>
 </dd>
@@ -189,37 +347,11 @@ Number of monomers of the minimum aggregate in the size distribution</p>
 </dl>
 </dd>
 </dl>
-<p class="rubric">Methods</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 26%" />
-<col style="width: 74%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>write_dustkapscatmat:</strong></p></td>
-<td><p>Output the optical properties in a format directly readable by RADMC-3D.</p></td>
-</tr>
-</tbody>
-</table>
-<dl class="py method">
-<dt class="sig sig-object py" id="aggscatpy.distaverage.write_dustkapscatmat">
-<span class="sig-name descname"><span class="pre">write_dustkapscatmat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aggscatpy.distaverage.write_dustkapscatmat" title="Permalink to this definition"></a></dt>
-<dd><p>Output dustkapscatmat_XXX.inp</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>fn</strong><span class="classifier">str (optional)</span></dt><dd><p>Filename for the ouput file</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="aggscatpy.dustmodel">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aggscatpy.</span></span><span class="sig-name descname"><span class="pre">dustmodel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'nochop'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smatBH</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aggscatpy.dustmodel" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="aggscatpy.aggscatpy.dustmodel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aggscatpy.aggscatpy.</span></span><span class="sig-name descname"><span class="pre">dustmodel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'nochop'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smatBH</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aggscatpy.aggscatpy.dustmodel" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A class to read <cite>dustkapscatmat_XXX.inp</cite> and store the information therein</p>
 <dl class="field-list">
@@ -327,8 +459,8 @@ Number of monomers of the minimum aggregate in the size distribution</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="aggscatpy.dustspec">
-<span class="sig-prename descclassname"><span class="pre">aggscatpy.</span></span><span class="sig-name descname"><span class="pre">dustspec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specoutput</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aggscatpy.dustspec" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="aggscatpy.aggscatpy.dustspec">
+<span class="sig-prename descclassname"><span class="pre">aggscatpy.aggscatpy.</span></span><span class="sig-name descname"><span class="pre">dustspec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specoutput</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aggscatpy.aggscatpy.dustspec" title="Permalink to this definition"></a></dt>
 <dd><p>Print info about dust properties</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -341,13 +473,15 @@ Number of monomers of the minimum aggregate in the size distribution</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="aggscatpy.dustspec_header">
-<span class="sig-prename descclassname"><span class="pre">aggscatpy.</span></span><span class="sig-name descname"><span class="pre">dustspec_header</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specoutput</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aggscatpy.dustspec_header" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="aggscatpy.aggscatpy.dustspec_header">
+<span class="sig-prename descclassname"><span class="pre">aggscatpy.aggscatpy.</span></span><span class="sig-name descname"><span class="pre">dustspec_header</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">specoutput</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outfmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opacity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aggscatpy.aggscatpy.dustspec_header" title="Permalink to this definition"></a></dt>
 <dd><p>Header information about dust properties</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>specoutput</strong><span class="classifier">str (optional)</span></dt><dd><p>To which the results are redirected</p>
+</dd>
+<dt><strong>outfmt</strong><span class="classifier">str</span></dt><dd><p>Output file format</p>
 </dd>
 </dl>
 </dd>
@@ -355,8 +489,8 @@ Number of monomers of the minimum aggregate in the size distribution</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="aggscatpy.output_all_gallery_plot">
-<span class="sig-prename descclassname"><span class="pre">aggscatpy.</span></span><span class="sig-name descname"><span class="pre">output_all_gallery_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aggscatpy.output_all_gallery_plot" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="aggscatpy.aggscatpy.output_all_gallery_plot">
+<span class="sig-prename descclassname"><span class="pre">aggscatpy.aggscatpy.</span></span><span class="sig-name descname"><span class="pre">output_all_gallery_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aggscatpy.aggscatpy.output_all_gallery_plot" title="Permalink to this definition"></a></dt>
 <dd><p>Output plots for Appendix B (gallery of the optical properties)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -377,9 +511,67 @@ Number of monomers of the minimum aggregate in the size distribution</p>
 </dl>
 </dd></dl>
 
+<dl class="py class">
+<dt class="sig sig-object py" id="aggscatpy.aggscatpy.plots">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aggscatpy.aggscatpy.</span></span><span class="sig-name descname"><span class="pre">plots</span></span><a class="headerlink" href="#aggscatpy.aggscatpy.plots" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class to set some axes.</p>
+<p class="rubric">Methods</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 79%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>set_lmd_vs_opc:</strong></p></td>
+<td><p>set axis for a plot for the opacity againt wavelength.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>set_lmd_vs_albedo:</strong></p></td>
+<td><p>set axis for a plot for the albedo, pmax, asymmetry parameter  against wavelength.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>set_ang_vs_phase:</strong></p></td>
+<td><p>set axis for a plot for the phase function against scattering angle.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>set_lmd_vs_opc:</strong></p></td>
+<td><p>set axis for a plot for the degree of polarization against scattering angle.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="aggscatpy.aggscatpy.plots.set_ang_vs_phase">
+<span class="sig-name descname"><span class="pre">set_ang_vs_phase</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#aggscatpy.aggscatpy.plots.set_ang_vs_phase" title="Permalink to this definition"></a></dt>
+<dd><p>set axis for a plot for the phase function against scattering angle.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aggscatpy.aggscatpy.plots.set_ang_vs_pol">
+<span class="sig-name descname"><span class="pre">set_ang_vs_pol</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#aggscatpy.aggscatpy.plots.set_ang_vs_pol" title="Permalink to this definition"></a></dt>
+<dd><p>set axis for a plot for the degree of polarization against scattering angle.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aggscatpy.aggscatpy.plots.set_lmd_vs_albedo">
+<span class="sig-name descname"><span class="pre">set_lmd_vs_albedo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#aggscatpy.aggscatpy.plots.set_lmd_vs_albedo" title="Permalink to this definition"></a></dt>
+<dd><p>set axis for a plot for the albedo, pmax, asymmetry parameter  against wavelength.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aggscatpy.aggscatpy.plots.set_lmd_vs_cross">
+<span class="sig-name descname"><span class="pre">set_lmd_vs_cross</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#aggscatpy.aggscatpy.plots.set_lmd_vs_cross" title="Permalink to this definition"></a></dt>
+<dd><p>set axis for a plot for the cross section vs wavelength.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="aggscatpy.aggscatpy.plots.set_lmd_vs_opc">
+<span class="sig-name descname"><span class="pre">set_lmd_vs_opc</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#aggscatpy.aggscatpy.plots.set_lmd_vs_opc" title="Permalink to this definition"></a></dt>
+<dd><p>set axis for a plot for the opacity vs wavelength.</p>
+</dd></dl>
+
+</dd></dl>
+
 <dl class="py function">
-<dt class="sig sig-object py" id="aggscatpy.showmodel">
-<span class="sig-prename descclassname"><span class="pre">aggscatpy.</span></span><span class="sig-name descname"><span class="pre">showmodel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opacity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">savefig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aggscatpy.showmodel" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="aggscatpy.aggscatpy.showmodel">
+<span class="sig-prename descclassname"><span class="pre">aggscatpy.aggscatpy.</span></span><span class="sig-name descname"><span class="pre">showmodel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opacity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">savefig</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aggscatpy.aggscatpy.showmodel" title="Permalink to this definition"></a></dt>
 <dd><p>Show summary plots of the optical property</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -396,17 +588,19 @@ Number of monomers of the minimum aggregate in the size distribution</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="aggscatpy.write_data">
-<span class="sig-prename descclassname"><span class="pre">aggscatpy.</span></span><span class="sig-name descname"><span class="pre">write_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wlist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aggscatpy.write_data" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="aggscatpy.aggscatpy.write_data">
+<span class="sig-prename descclassname"><span class="pre">aggscatpy.aggscatpy.</span></span><span class="sig-name descname"><span class="pre">write_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opacity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wlist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aggscatpy.aggscatpy.write_data" title="Permalink to this definition"></a></dt>
 <dd><p>Write optical properties of dust particles in various formats</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>output</strong><span class="classifier">str (optional)</span></dt><dd><p>Determines what kind of optical properties will be outputted (‘all’, ‘integrated’, ‘smat’).</p>
+<dt><strong>output</strong><span class="classifier">str (optional)</span></dt><dd><p>Determines what kind of optical properties will be outputted (‘all’, ‘dustkappa’, ‘smat’).</p>
 </dd>
 <dt><strong>wlist</strong><span class="classifier">list of float (optional)</span></dt><dd><p>Determines which wavelength data will be outputted.</p>
 </dd>
 <dt><strong>fn</strong><span class="classifier">str (optional)</span></dt><dd><p>Filename for the ouput file</p>
+</dd>
+<dt><strong>opacity</strong><span class="classifier">bool (optional)</span></dt><dd><p>If True (default), absorption and scattering opacities (cm^2/g) will be written,                        while when False, absorption and scattering cross sections will be written.</p>
 </dd>
 </dl>
 </dd>
@@ -414,13 +608,85 @@ Number of monomers of the minimum aggregate in the size distribution</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-aggscatpy.rendering">
+<span id="aggscatpy-rendering-module"></span><h2>aggscatpy.rendering module<a class="headerlink" href="#module-aggscatpy.rendering" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="aggscatpy.rendering.particle_rendering">
+<span class="sig-prename descclassname"><span class="pre">aggscatpy.rendering.</span></span><span class="sig-name descname"><span class="pre">particle_rendering</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ireal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xcamera</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roty</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">particle_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'rgb&lt;0.15,0.15,0.15&gt;'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bg_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'White'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_dist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_posang</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">240.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ref_fontsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aggscatpy.rendering.particle_rendering" title="Permalink to this definition"></a></dt>
+<dd><p>Perform rendering of a particle shape via POVRAY</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>partype</strong><span class="classifier">str</span></dt><dd><p>Particle type</p>
+</dd>
+<dt><strong>size</strong><span class="classifier">str</span></dt><dd><p>Dust particle size</p>
+</dd>
+<dt><strong>amon</strong><span class="classifier">str</span></dt><dd><p>Monomer radius (necessary if you call aggregate files).</p>
+</dd>
+<dt><strong>ireal</strong><span class="classifier">str</span></dt><dd><p>Realization number</p>
+</dd>
+<dt><strong>xcamera</strong><span class="classifier">float (optional)</span></dt><dd><p>Distance from the origin to the camera along the x-axis                                in units of the characteristic radius (for aggregates)                                or the volume-equivalent radius (for irregular grains).</p>
+</dd>
+<dt><strong>rotx, roty, rotz</strong><span class="classifier">float (optional)</span></dt><dd><p>Angle of rotation about the x, y, z axes, respectively (in degrees).</p>
+</dd>
+<dt><strong>particle_color</strong><span class="classifier">str (optional)</span></dt><dd><p>Particle color</p>
+</dd>
+<dt><strong>background</strong><span class="classifier">bool (optional)</span></dt><dd><p>A background color is set when True</p>
+</dd>
+<dt><strong>bgcolor</strong><span class="classifier">str (optional)</span></dt><dd><p>Background color</p>
+</dd>
+<dt><strong>reference</strong><span class="classifier">bool (optinal)</span></dt><dd><p>A reference bar is shown when True</p>
+</dd>
+<dt><strong>ref_length</strong><span class="classifier">float (optional)</span></dt><dd><p>A physical length of reference bar in units of microns</p>
+</dd>
+<dt><strong>ref_dist</strong><span class="classifier">float (optional)</span></dt><dd><p>A distance from the origin to the center of the reference bar in the image plane                               in units of the characteristic radius (for aggregates)                                or the volume-equivalent radius (for irregular grains).</p>
+</dd>
+<dt><strong>ref_posang</strong><span class="classifier">float (optional)</span></dt><dd><p>A position angle of the reference bar center measured from the z axis                                in units of degrees</p>
+</dd>
+<dt><strong>ref_color</strong><span class="classifier">str (optional)</span></dt><dd><p>A color of the reference bar and text</p>
+</dd>
+<dt><strong>ref_fontsize</strong><span class="classifier">float (optional)</span></dt><dd><p>A fontsize relative to the default font size</p>
+</dd>
+<dt><strong>fn</strong><span class="classifier">str (optional)</span></dt><dd><p>A filename used for a generated png image</p>
+</dd>
+<dt><strong>path</strong><span class="classifier">str (optional)</span></dt><dd><p>A path to which a generated image will be saved.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="aggscatpy.rendering.view_particle">
+<span class="sig-prename descclassname"><span class="pre">aggscatpy.rendering.</span></span><span class="sig-name descname"><span class="pre">view_particle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ireal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aggscatpy.rendering.view_particle" title="Permalink to this definition"></a></dt>
+<dd><p>Displaly the pre-rendering particle images</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>partype</strong><span class="classifier">str</span></dt><dd><p>Particle type</p>
+</dd>
+<dt><strong>size</strong><span class="classifier">str</span></dt><dd><p>Dust particle size</p>
+</dd>
+<dt><strong>ireal</strong><span class="classifier">str (optional)</span></dt><dd><p>Realization number. If not specified, all realizations are displayed.</p>
+</dd>
+<dt><strong>amon</strong><span class="classifier">str</span></dt><dd><p>Monomer radius (necessary if you call aggregate files).</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-aggscatpy">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-aggscatpy" title="Permalink to this heading"></a></h2>
+</div>
+</div>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="agginfo.html" class="btn btn-neutral float-left" title="agginfo module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="plots.html" class="btn btn-neutral float-right" title="plots module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../api.html" class="btn btn-neutral float-left" title="Appendix C: Python modules" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

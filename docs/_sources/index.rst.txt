@@ -13,6 +13,7 @@ Documentation for AggScatVIR
    about
    struct
    examples
+   geometry
    radmc3d
    app_def
    app_gallery

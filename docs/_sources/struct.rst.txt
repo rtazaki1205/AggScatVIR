@@ -8,7 +8,14 @@ Download
 
     git clone https://github.com/rtazaki1205/AggScatVIR.git
 
-**Warnings: The main datasets have not yet been registered in the repository, and therefore it is not ready to use.**
+To install the python package ``aggscatpy``::
+
+    cd python           # enter the code directory
+    pip install -e .    # install the python package
+
+To check if the python package has been successfully installed in your system::
+
+    pip show aggscatpy
 
 Structure of this package
 ##########################
@@ -28,10 +35,20 @@ The package has the following structure:
     │        ├─── chop5
     │        └─── chop10
     ├── docs
+    ├── particles
+    │    ├── aggregate
+    │    ├── irregular
+    │    └── images
     └── python
+         ├── aggscatpy
+         ├── notebooks
+         ├── povray
+         └── setup.py
+
+The ``aggscatrt`` directory contains the dataset of the optical properties of various dust particles. The ``docs`` and ``python`` directories contain a manual and two Jupyter notebooks on the usage of the python tools, respectively. The ``particles`` directory contains the particle shape data, such as the position data of monomers in an aggregate (in ``/particles/aggregate``) as well as polygon surface model for irregular grains (in ``particles/irregular``). All particle images are also provided in ``particles/images``.
 
 
-The ``aggscatrt`` directory contains the dataset of the optical properties of various dust particles. The ``docs`` and ``python`` directories contain a manual and two Jupyter notebooks on the usage of the python tools, respectively. The ``aggscatrt`` directory includes two sub-directories: ``single`` and ``distave``. The former and the latter contain the optical properties without/with a particle size distribution, respectively. Each of these directories further includes three sub-directories: ``nochop``, ``chop5``, and ``chop10``. The ``nochop`` directory contains the optical properties of various dust particles, while the other two contain data that has been processed with a special treatment that may be useful in radiative transfer simulations (see Note below). If you are new to this database, it is recommended to start with the ``nochop`` directory.
+The ``aggscatrt`` directory includes two sub-directories: ``single`` and ``distave``. The former and the latter contain the optical properties without/with a particle size distribution, respectively. Each of these directories further includes three sub-directories: ``nochop``, ``chop5``, and ``chop10``. The ``nochop`` directory contains the optical properties of various dust particles, while the other two contain data that has been processed with a special treatment that may be useful in radiative transfer simulations (see Note below). If you are new to this database, it is recommended to start with the ``nochop`` directory.
 
 In principle, each dust model has a single ASCII file that tabulates all of its optical properties: the wavelength-dependent opacity, scattering angle grids, and scattering matrix elements (11, 12, 22, 33, 34, 44) for each wavelength and scattering angle. The physical properties of a dust model, such as the number of monomers and porosity, are also described in the header section of each file starting with '#'.
 
@@ -43,6 +60,9 @@ where ``XXX`` represents a dust model name. Regarding the file structure, see :r
 
 .. note::
    The chop5 and chop10 directories are intended for users who encounter problems due to the strong forward scattering peak of each dust particle in radiative transfer calculations. To alleviate this issue, the chop5 and chop10 directories provide the optical properties where the forward scattering peak is *chopped* at a scattering angle below 5 degrees or 10 degrees, respectively.
+
+
+.. _filename:
 
 Rules for dust file names
 #########################
@@ -312,4 +332,18 @@ The first block contains some header information (staring from #) and the number
 
 Regarding the definition of the scattering matrix elements :math:`Z_{ij}`, please refer to :ref:`scatmatdefs`.
 
-.. (see also `the manual of RADMC-3D <https://www.ita.uni-heidelberg.de/~dullemond/software/radmc-3d/manual_radmc3d/inputoutputfiles.html#the-dustkapscatmat-inp-files>`_ for a detailed description for the file structure.
+
+Particle shape data
+#########################
+
+Aggregates
+******************
+In ``/particles/aggregate``, the radius and the Cartesian coordinates of each monomer in an aggregate are provided. Each file has a name of ``PARTYPE_SIZE_IREAL_AMON.pos``, where ``PARTYPE``, ``SIZE``, and ``AMON`` are the same as those introduced in :ref:`filename`. ``IREAL`` specifies the realization index of each model. Each aggregate model has four realizations, and therefore, ``IREAL`` runs from 1 to 4.
+
+In each file, the first column contains the monomer radius in units of microns, while the 2nd, 3rd, and 4th columns specify the Cartesian coordinates of the monomers in units of microns.
+
+Irregular grains
+******************
+In ``/particles/irregular``, we provide the shape model of irregular grains with 10 realizations with two different file formats: .vtk or .inc. Each file has a name of ``grsXXX.vtk(.inc)``, where XXX indicates the realization index. In the light scattering calculation, The radius of the grains are scaled to have a prescribed value of the volume-equivalent radius while fixing the particle shape.
+
+The former file contains the shape model of irregular grains are provided in ASCII Legacy VTK File Format. The first block summraizes the number of vertexes and its Cartesian coordinates. Then the second block specified which three of the vertexes are conneted to form a triangular cell face. You can open these vtk files by using `Paraview <https://www.paraview.org/>`_. The latter .inc files contain the same information as the former one, but it is written in a format that can be used to run POV-RAY.
