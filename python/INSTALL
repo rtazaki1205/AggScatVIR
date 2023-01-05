@@ -1,0 +1,8 @@
+You can download 'AggScatVIR' via
+
+    git clone https://github.com/rtazaki1205/AggScatVIR.git
+
+(Optional)
+To install the python tool 'aggscatpy'
+    cd python           # enter the code directory
+    pip install -e .    # install the python package
