@@ -5,6 +5,7 @@ from aggscatpy.aggscatpy import dustspec
 from aggscatpy.aggscatpy import showmodel
 from aggscatpy.aggscatpy import output_all_gallery_plot
 from aggscatpy.aggscatpy import write_data
+from aggscatpy.aggscatpy import plots
 
 from aggscatpy.agginfo import get_sizelist
 from aggscatpy.agginfo import get_radius_and_porosity
