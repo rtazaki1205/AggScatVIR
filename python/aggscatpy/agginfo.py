@@ -6,6 +6,62 @@ except ImportError:
     traceback.format_exc()
 
 
+def check_particle_type(partype):
+    """
+    Check if the input particle type is correctly formatted
+
+    Parameters
+    ----------
+    partype : str
+    """
+    
+    if partype not in ['grs','CALP','CAMP','CAHP','FA19','FA15','FA13','FA11']:
+        msg='Incorrect particle type. The input value is '+partype+', while available values are '\
+                "['grs','CALP','CAMP','CAHP','FA19','FA15','FA13','FA11']"
+        raise ValueError(msg)
+
+
+def check_particle_size(partype,amon,size):
+    """
+    Check if the input particle size is correctly formatted
+
+    Parameters
+    ----------
+    partype : str
+    amon    : str (optional)
+    size    : str
+    """
+
+    nl=get_sizelist(partype,amon=amon)
+    # check consistency between monomer radius and number of monomers
+    if size not in nl:
+        msg='Incorrect particle size. The particle model that was attempted to be read is '+partype
+        if partype != 'grs':
+            msg=msg+' with the monomer radius of '+amon+'.'
+
+        if not nl:
+            msg=msg+'---> The input monomer radius is not available.'
+        else:
+            msg=msg+' Input size option is '+size+\
+                    ', while available size options for this particle model is '+str(nl)
+        
+        raise ValueError(msg)
+
+def check_particle_composition(comp):
+    """
+    Check if the input particle composition is correctly formatted
+
+    Parameters
+    ----------
+    comp : str
+    """
+
+    if comp not in ['org','amc']:
+        msg='Incorrect particle composition. The input composition option is '+comp+\
+                ", while available values are 'org' or 'amc'"
+        raise ValueError(msg)
+
+
 def get_sizelist(partype,amon=None):
     """
     Get a list of available ``size`` arguments, which is necessary to call the ``dustmodel`` class.
@@ -39,6 +95,9 @@ def get_sizelist(partype,amon=None):
         ['0_2000', '0_2520', '0_3175', '0_4000', '0_5040', '0_6350', '0_8000', '1_0079', '1_2699', '1_6000']
     """
     
+    # check particle type
+    check_particle_type(partype)
+
     #
     # output all info
     #
@@ -75,29 +134,21 @@ def get_sizelist(partype,amon=None):
         #exit()
         return
 
-    #
-    # safety checks
-    #
+    # make a monomer size list
     if partype in ['CALP','CAMP','CAHP']:
         amon_list=['100nm','200nm','400nm']
     elif partype in ['FA11','FA13','FA15','FA19']:
         amon_list=['100nm','150nm','200nm','300nm','400nm']
     elif partype=='grs':
         amon=None
-    else:
-        print('error in get_sizelist: incorrect partype type')
-        print(' inputt value     = ',partype)
-        print(" while available values are = 'FA11', 'FA13', 'FA15', 'FA19', 'CAHP', 'CAMP', 'CALP', 'grs'")
-        exit()
 
-    # check amon
+    # check input amon value
     if amon is not None and amon not in amon_list:
-        print('error in get_sizelist: incorrect monomer radius')
-        print(' input value     = ',amon)
-        print(' while available values are = ',amon_list)
-        exit()
+        msg='error in get_sizelist: incorrect monomer radius'\
+            ' input value     = '+str(amon)+\
+            ' while available values are = '+str(amon_list)
+        raise ValueError(msg)
 
-    #
     #
     nlist=[]
     if partype=='FA11':
@@ -162,60 +213,6 @@ def get_sizelist(partype,amon=None):
     return nlist
 
 
-def check_particle_type(partype):
-    """
-    Check if the input particle type is correctly formatted
-
-    Parameters
-    ----------
-    partype : str
-    """
-    
-    if partype not in ['grs','CALP','CAMP','CAHP','FA19','FA15','FA13','FA11']:
-        msg='Incorrect particle type. The input value is '+partype+', while available values are '\
-                "['grs','CALP','CAMP','CAHP','FA19','FA15','FA13','FA11']"
-        raise ValueError(msg)
-
-
-def check_particle_size(partype,amon,size):
-    """
-    Check if the input particle size is correctly formatted
-
-    Parameters
-    ----------
-    partype : str
-    amon    : str (optional)
-    size    : str
-    """
-
-    nl=get_sizelist(partype,amon=amon)
-    # check consistency between monomer radius and number of monomers
-    if size not in nl:
-        msg='Incorrect particle size. The particle model that was attempted to be read is '+partype
-        if partype != 'grs':
-            msg=msg+' with the monomer radius of '+amon+'.'
-
-        if not nl:
-            msg=msg+'---> The input monomer radius is not available.'
-        else:
-            msg=msg+' Input size option is '+size+\
-                    ', while available size options for this particle model is '+str(nl)
-        
-        raise ValueError(msg)
-
-def check_particle_composition(comp):
-    """
-    Check if the input particle composition is correctly formatted
-
-    Parameters
-    ----------
-    comp : str
-    """
-
-    if comp not in ['org','amc']:
-        msg='Incorrect particle composition. The input composition option is '+comp+\
-                ", while available values are 'org' or 'amc'"
-        raise ValueError(msg)
 
 
 # volume equivalent radius of grs particles in unit of microns
