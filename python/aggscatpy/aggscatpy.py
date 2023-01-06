@@ -1118,8 +1118,9 @@ def showmodel(self,opacity=True,savefig=False,fn=None):
     # save figure
     if savefig:
         if fn==None:
-            fn = self.model+'.pdf'
-        print('... saveing the plot as',fn)
+            fn = self.model
+        fn = fn + '.pdf'
+        print('... saving the plot as',fn)
         plt.savefig(str(fn),bbox_inches='tight', pad_inches=0.05)
 
 
