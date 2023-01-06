@@ -2,7 +2,7 @@
 What is AggScatVIR?
 =====================
 
-``AggScatVIR`` stands for AGGregate SCATtering at Visual and InfraRed wavelengths. This project aims to provide the optical properties of complex-shaped dust particles that can be used to interpret scattered light observations of circumstellar disks (such as protoplanetary disks and debris disks) at visible and near-infrared wavelengths. This allows us to interpret disk observations without relying on the Mie theory. To this end, we have conducted more than 10,000 light-scattering simulations using either the T-matrix method or discrete dipole approximation for various particle morphologies. Currently, the database consists of the scattering matrix and opacity of various dust particles studied in Tazaki & Dominik (2022) and Tazaki, Ginski, and Dominik (submitted).
+``AggScatVIR`` stands for AGGregate SCATtering at Visual and InfraRed wavelengths. This project aims to provide the optical properties of complex-shaped dust particles that can be used to interpret scattered light observations of circumstellar disks (such as protoplanetary disks and debris disks) at visible and near-infrared wavelengths. This allows us to interpret disk observations without relying on the Mie theory. To this end, we have conducted more than 10,000 light-scattering simulations using either the T-matrix method or discrete dipole approximation for various particle morphologies. Currently, the database consists of the scattering matrix and opacity of dust particles studied in Tazaki & Dominik (2022) and Tazaki, Ginski, and Dominik (submitted).
 
     .. image:: ./imgs/all.png
 
@@ -14,22 +14,18 @@ Highlighted features
 
 * **Full compatibility with RADMC-3D v2.0**: One key application of ``AggScatVIR`` is to model observed scattered light images of protoplanetary disks and debris disks. For this purpose, each file provided in this database has a data structure that is directly readable by a public radiative transfer code `RADMC-3D v2.0 <https://www.ita.uni-heidelberg.de/~dullemond/software/radmc-3d/>`_
 
-.. We have tried to cover a wide variety of dust morphology, such as aggregate radius, monomer radius, composition, porosity, fractal dimension. The database consists of 360 different dust models; 20 irregular grain models (10 grain radii; 2 compositions), 126 different compact aggregate models (3 aggregation models; 2 compositions; 3 monomer radii; on average 7 aggregate radii), and 214 fractal aggregate models (4 different fractal dimensions, 2 compositions, 5 monomer radii; on average 5.35 aggregate radii).
-.. * **A full compatibility with RADMC-3D v2.0**: One key application of ``AggScatVIR`` is observational modeling of (un)polarized scattered light from protoplanetary disks and debris disks. For this purpose, each file provided in this database  (``dustkapscatmat_XXX.inp``) has a data structure that is directly readable by a public radiative transfer code `RADMC-3D v2.0 <https://www.ita.uni-heidelberg.de/~dullemond/software/radmc-3d/>`_.
-
 
 Assumptions and Limitations
 ############################
-Since we adopt exact numerical techniques for solving the optical properties, the limitation is coming from simulation setups.
+Since we adopt exact numerical techniques for solving the optical properties, the limitation comes from simulation setups.
 
 
-* **Randomly orientated particles**: Given that each dust particle is no longer symmetrical in shape, we must assume an orientation of the particle relative to the direction of incident and scattered lights. We assume that the particles are randomly orientated, and their optical properties are averaged over all possible orientations with equal probability. In other words, we do not take into account the scenario in which non-spherical particles become aligned. This assumption results in only six elements of the scattering matrix being independent.
+* **Randomly orientated particles**: Given that each dust particle is no longer symmetrical in shape, we must assume an orientation of the particle relative to the direction of the incident and scattered lights. We assume that the particles are randomly orientated, and their optical properties are averaged over all possible orientations with equal probability. In other words, we do not consider the case where non-spherical particles become aligned. This assumption results in only six elements of the scattering matrix being independent.
 
 * **Monomers are homogeneous spheres with a single size**: Dust aggregates consist of numerous small particles referred to as monomers. The optical properties of the aggregates contained in this database are all constructed from monodisperse monomers with a homogeneous composition for computational convenience.
   
-* **Limited wavelength coverage**: As the package name suggests, this database contains the optical properties visible and near-infrared wavelengths (ranging from :math:`0.554~\mu\mathrm{m}` to :math:`3.780~\mu\mathrm{m}`). Consequently, if you are seeking information on a wavelength outside of this range, the database will not be applicable.
+* **Limited wavelength coverage**: As the package name suggests, this database contains the optical properties of visible and near-infrared wavelengths (ranging from :math:`0.554~\mu\mathrm{m}` to :math:`3.780~\mu\mathrm{m}`). Consequently, if you are seeking information on a wavelength outside of this range, the database will not be applicable.
 
-.. However, the monomers of cometary aggregates in the Solar System have been suggested to have a log-normal size distribution with a mean value of a sub-micrometer size (Rietmeijer 1993). As long as aggregates are cometary-like, our optical properties would not be far too different from the actual optical properties.
 
 How to cite?
 ######################

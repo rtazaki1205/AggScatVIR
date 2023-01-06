@@ -46,7 +46,7 @@
 <li class="toctree-l1"><a class="reference internal" href="about.html">What is AggScatVIR?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="struct.html">Get started</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Python package: aggscatpy</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#View-particle-geomertry">View particle geomertry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#View-particle-shape">View particle shape</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Get-the-optical-properties-of-each-dust-model">Get the optical properties of each dust model</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#Basic-formula">Basic formula</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#Check-physical-and-optical-properties">Check physical and optical properties</a></li>
@@ -378,21 +378,26 @@ div.rendered_html tbody tr:hover {
 </style>
 <div class="section" id="Python-package:-aggscatpy">
 <h1>Python package: aggscatpy<a class="headerlink" href="#Python-package:-aggscatpy" title="Permalink to this heading"></a></h1>
-<p>The <code class="docutils literal notranslate"><span class="pre">AggScatVIR</span></code> package provides some python tools that may be useful for users to quickly delve into the optical properties stored in this database. The main functionalities of this tool are: (1) view each particle geometry, (2) check and plot the optical properties of dust particles stored in this database, (3) convert the unit of the scattering matrix elements from RADMC-3D’s definition to Bohren &amp; Huffman’s definition, (4) change the power-law index of size distribution and the chop angle
-from the default values, (5) output datafiles in various formats.</p>
-<p>In this section, we demonstrate how to use it and what we can do with this tools.</p>
-<div class="section" id="View-particle-geomertry">
-<h2>View particle geomertry<a class="headerlink" href="#View-particle-geomertry" title="Permalink to this heading"></a></h2>
-<p>The first thing we need to do is to import the package:</p>
+<p><em>aggscatpy</em> is a python package that helps to analyze the data contained in this database. The main functionalities are:</p>
+<ul class="simple">
+<li><p>view each particle shape model,</p></li>
+<li><p>check and plot the optical properties of dust particles,</p></li>
+<li><p>convert the definition of the scattering matrix from RADMC-3D’s one to Bohren &amp; Huffman’s one,</p></li>
+<li><p>change the power-law index of particle-size distribution and the chop angle from the default values,</p></li>
+<li><p>output files in various formats.</p></li>
+</ul>
+<p>Suppose you have already installed the package via pip, you can import the package:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">aggscatpy</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">aggscatpy</span>
 </pre></div>
 </div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">view_particle</span></code> function outputs a particle geometry used to compute the optical properties. For example,</p>
+<div class="section" id="View-particle-shape">
+<h2>View particle shape<a class="headerlink" href="#View-particle-shape" title="Permalink to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">view_particle</span></code> function displays a particle shape used to compute the optical properties. For example,</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -405,10 +410,10 @@ from the default values, (5) output datafiles in various formats.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/examples_5_0.png" src="_images/examples_5_0.png" />
+<img alt="_images/examples_4_0.png" src="_images/examples_4_0.png" />
 </div>
 </div>
-<p>where <code class="docutils literal notranslate"><span class="pre">partype</span></code> is the particle type, <code class="docutils literal notranslate"><span class="pre">size</span></code> is the size of the aggregate (in units of the number of monomers), and <code class="docutils literal notranslate"><span class="pre">amon</span></code> is the monomer radius. The arguments take values that are the same as what we used in their file names. By default, the command will display all (four) realizations. If you would like to display one of the realization, then you can specify it in the argument. Note that <strong>the index for counting realizations starts from 1, not 0.</strong></p>
+<p>where <code class="docutils literal notranslate"><span class="pre">partype</span></code> is the particle type, <code class="docutils literal notranslate"><span class="pre">size</span></code> is the size of the aggregate (in units of the number of monomers), and <code class="docutils literal notranslate"><span class="pre">amon</span></code> is the monomer radius. The arguments that are used to call the function obey the same rules as the dust file name. By default, the command results in showing all realizations of each particle model. If you want to display one of the realizations, you can set it in the argument (<em>note:</em> the realization index starts from 1, not 0):</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
@@ -421,7 +426,7 @@ from the default values, (5) output datafiles in various formats.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/examples_7_0.png" src="_images/examples_7_0.png" />
+<img alt="_images/examples_6_0.png" src="_images/examples_6_0.png" />
 </div>
 </div>
 <p>We can get a list of a possible combination between the <code class="docutils literal notranslate"><span class="pre">amon</span></code> and <code class="docutils literal notranslate"><span class="pre">size</span></code> arguments by using the <code class="docutils literal notranslate"><span class="pre">get_sizelist</span></code> function:</p>
@@ -444,7 +449,7 @@ from the default values, (5) output datafiles in various formats.</p>
  amon=&#39;400nm&#39; | size=&#39;8&#39;,&#39;16&#39;,&#39;32&#39;,&#39;64&#39;
 </pre></div></div>
 </div>
-<p>The command to diaplay irregular grains is</p>
+<p>The command to display irregular grains is</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
@@ -457,7 +462,7 @@ from the default values, (5) output datafiles in various formats.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/examples_11_0.png" src="_images/examples_11_0.png" />
+<img alt="_images/examples_10_0.png" src="_images/examples_10_0.png" />
 </div>
 </div>
 <p>In this case, <code class="docutils literal notranslate"><span class="pre">partype</span></code> has to be <code class="docutils literal notranslate"><span class="pre">'grs'</span></code>. The <code class="docutils literal notranslate"><span class="pre">size</span></code> argument represents the volume-equivalent radius of maximum grains in the size distribution in units of microns (the decimal point needs to be replaced by an underscore). For example, <code class="docutils literal notranslate"><span class="pre">size='1_6000'</span></code> means that the volume-equivalent radius (of the maximum grain) is <span class="math notranslate nohighlight">\(1.6~\mu\)</span>m. By default, the command will display all (ten) realizations.</p>
@@ -494,7 +499,7 @@ from the default values, (5) output datafiles in various formats.</p>
 <div class="section" id="Basic-formula">
 <h3>Basic formula<a class="headerlink" href="#Basic-formula" title="Permalink to this heading"></a></h3>
 <p>Let’s read one of dustkapscatmat_XXX.inp stored in the <code class="docutils literal notranslate"><span class="pre">AggScatVIR</span></code> database. To do this, we can use the <code class="docutils literal notranslate"><span class="pre">dustmodel</span></code> class.</p>
-<p>The basic command for accessing a dust file for aggregates is</p>
+<p>The basic command for accessing a dust file for each aggregate model is</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
@@ -504,7 +509,7 @@ from the default values, (5) output datafiles in various formats.</p>
 </div>
 </div>
 <p>where <code class="docutils literal notranslate"><span class="pre">partype</span></code> is the particle type, <code class="docutils literal notranslate"><span class="pre">size</span></code> is the size of the largest aggregate in the size distribution (in units of the number of monomers), <code class="docutils literal notranslate"><span class="pre">amon</span></code> is the monomer radius, and <code class="docutils literal notranslate"><span class="pre">comp</span></code> is the monomer composition. After running this command, the instance <code class="docutils literal notranslate"><span class="pre">a</span></code> contains the physical and optical properties of the dust model of <code class="docutils literal notranslate"><span class="pre">CALP_Nmax4096_100nm_amc</span></code>.</p>
-<p>Similarly, the command for a dust file for irregular grains is</p>
+<p>Similarly, the command for a dust file for each irregular-grain model is</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
@@ -513,8 +518,8 @@ from the default values, (5) output datafiles in various formats.</p>
 </pre></div>
 </div>
 </div>
-<p>By default, the <code class="docutils literal notranslate"><span class="pre">dustmodel</span></code> class will read a dust file <strong>with size distribution and without any forward-scattering chopping</strong>. If you would like to change these, you need to specify two additional arguments: <code class="docutils literal notranslate"><span class="pre">dist</span></code> and <code class="docutils literal notranslate"><span class="pre">chop</span></code> when calling the <code class="docutils literal notranslate"><span class="pre">dustmodel</span></code> class. For example, if you want to switch off the size distribution, you need to set <code class="docutils literal notranslate"><span class="pre">dist=False</span></code> (default: <code class="docutils literal notranslate"><span class="pre">dist=True</span></code>). If you would like to have the data with chopped forward scattering, you can set either <code class="docutils literal notranslate"><span class="pre">chop='chop5'</span></code> or
-<code class="docutils literal notranslate"><span class="pre">chop='chop10'</span></code> (default: <code class="docutils literal notranslate"><span class="pre">chop='nochop'</span></code>). <code class="docutils literal notranslate"><span class="pre">chop5</span></code> and <code class="docutils literal notranslate"><span class="pre">chop10</span></code> refer to cases where the forward scattering peak is chopeed below scattering angles of 5 or 10 degrees, respectively. Thus if you need the optical properties without assuming particle-size distribution and with the forward-scattering chopping of 5 degrees, the command becomes</p>
+<p>By default, the <code class="docutils literal notranslate"><span class="pre">dustmodel</span></code> class reads a dust file <strong>with size distribution and no forward-scattering chopping</strong>. You can change this default setting by the <code class="docutils literal notranslate"><span class="pre">dist</span></code> and <code class="docutils literal notranslate"><span class="pre">chop</span></code> options when calling the class. For example, if you want to switch off the size distribution, set <code class="docutils literal notranslate"><span class="pre">dist=False</span></code> (default: <code class="docutils literal notranslate"><span class="pre">dist=True</span></code>). If you want to forward scattering chopping, set either <code class="docutils literal notranslate"><span class="pre">chop='chop5'</span></code> or <code class="docutils literal notranslate"><span class="pre">chop='chop10'</span></code> (default: <code class="docutils literal notranslate"><span class="pre">chop='nochop'</span></code>). <code class="docutils literal notranslate"><span class="pre">chop5</span></code> and <code class="docutils literal notranslate"><span class="pre">chop10</span></code> refer to cases where the
+forward scattering peak is chopped at scattering angles below 5 or 10 degrees, respectively. For example, the command looks like this:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
@@ -526,7 +531,7 @@ from the default values, (5) output datafiles in various formats.</p>
 </div>
 <div class="section" id="Check-physical-and-optical-properties">
 <h3>Check physical and optical properties<a class="headerlink" href="#Check-physical-and-optical-properties" title="Permalink to this heading"></a></h3>
-<p>Each instance created by <code class="docutils literal notranslate"><span class="pre">dustmodel</span></code> contains the physical and optical properties of the dust model as its attributes (see Appendix C for the attributes). The python tool inclues some functions that allow us to quick overview of the values stored in its attributes.</p>
+<p>Each instance created by <code class="docutils literal notranslate"><span class="pre">dustmodel</span></code> contains the physical and optical properties of the dust model as its attributes (see Appendix C for the attributes). The <em>aggscatpy</em> package includes functions that allow us to quickly overview the values stored in its attributes.</p>
 <p>We can display the physical properties of the dust particle stored in the instance <code class="docutils literal notranslate"><span class="pre">a</span></code> by using the <code class="docutils literal notranslate"><span class="pre">dustspec</span></code> function:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
@@ -575,12 +580,12 @@ from the default values, (5) output datafiles in various formats.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/examples_27_0.png" src="_images/examples_27_0.png" />
+<img alt="_images/examples_26_0.png" src="_images/examples_26_0.png" />
 </div>
 </div>
 <p>The above plots summarize the absorption and scattering opacities (<span class="math notranslate nohighlight">\(\kappa_\mathrm{abs}\)</span>, <span class="math notranslate nohighlight">\(\kappa_\mathrm{sca}\)</span>) (<em>left top</em>), the single scattering albedo (<span class="math notranslate nohighlight">\(\omega\)</span>), the asymmetry parameter (<span class="math notranslate nohighlight">\(g\)</span>), and the maximum degree of linear polarization (<span class="math notranslate nohighlight">\(P_\mathrm{max}\)</span>) (<em>left bottom</em>), the scattering phase function (<em>right top</em>) and the degree of linear polarization (<em>right bottom</em>) at various wavelengths.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">showmodel</span></code> function has some options that might be useful for you: (1) If you set <code class="docutils literal notranslate"><span class="pre">opacity=False</span></code>, the left top panel will be replaced by cross sections (<span class="math notranslate nohighlight">\(\mu\mathrm{m}^2\)</span>) instead of the opacity (<span class="math notranslate nohighlight">\(\mathrm{cm}^2/\mathrm{g}\)</span>) (2) If you set <code class="docutils literal notranslate"><span class="pre">savefig=True</span></code>, the plot will be saved. The file name will be generated automaticlly, but you can set your own file name by further adding <code class="docutils literal notranslate"><span class="pre">fn=your_favorate_filename</span></code>.</p>
-<p>If you would like to do more flexible analysis, it is good to directly look into the values stored as attributes in each instance. For example, you can get the values of wavelength, opacity, and asymmetry parameter:</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">showmodel</span></code> function has some options that might be useful for you: (1) If you set <code class="docutils literal notranslate"><span class="pre">opacity=False</span></code>, the left top panel will be replaced by cross sections (<span class="math notranslate nohighlight">\(\mu\mathrm{m}^2\)</span>) instead of the opacity (<span class="math notranslate nohighlight">\(\mathrm{cm}^2/\mathrm{g}\)</span>) (2) If you set <code class="docutils literal notranslate"><span class="pre">savefig=True</span></code>, the plot will be saved. The file name will be generated automatically, but you can set your own file name by adding <code class="docutils literal notranslate"><span class="pre">fn=your_favorate_filename</span></code>.</p>
+<p>If you would like to do a more flexible analysis, it is good to directly look into the values stored as attributes in each instance. For example, you can get the values of wavelength, opacity, and the asymmetry parameter:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
@@ -635,7 +640,7 @@ from the default values, (5) output datafiles in various formats.</p>
  168. 169. 170. 171. 172. 173. 174. 175. 176. 177. 178. 179. 180.]
 </pre></div></div>
 </div>
-<p>Each instance contains the scattering phase function (<code class="docutils literal notranslate"><span class="pre">phase</span></code>) and 6 scattering matrix elements (<code class="docutils literal notranslate"><span class="pre">smat11</span></code>,<code class="docutils literal notranslate"><span class="pre">smat12</span></code>,<code class="docutils literal notranslate"><span class="pre">smat22</span></code>,<code class="docutils literal notranslate"><span class="pre">smat33</span></code>,<code class="docutils literal notranslate"><span class="pre">smat34</span></code>,<code class="docutils literal notranslate"><span class="pre">smat44</span></code>) as its attributes. Note that the scattering matrix elements follow the RADMC-3D definition <span class="math notranslate nohighlight">\(Z_{ij}\)</span> (though you can change the definition into the Bohren &amp; Huffman one if you want; see the next section for more information). Each of them is a function of wavelength and scattering angle, resulting in a two-dimensional
+<p>Each instance contains the scattering phase function (<code class="docutils literal notranslate"><span class="pre">phase</span></code>) and 6 scattering matrix elements (<code class="docutils literal notranslate"><span class="pre">smat11</span></code>,<code class="docutils literal notranslate"><span class="pre">smat12</span></code>,<code class="docutils literal notranslate"><span class="pre">smat22</span></code>,<code class="docutils literal notranslate"><span class="pre">smat33</span></code>,<code class="docutils literal notranslate"><span class="pre">smat34</span></code>,<code class="docutils literal notranslate"><span class="pre">smat44</span></code>) as its attributes. Note that the scattering matrix elements follow the RADMC-3D definition <span class="math notranslate nohighlight">\(Z_{ij}\)</span> (though you can change the definition to the Bohren &amp; Huffman one if you want; see the next section for more information). Each of them is a function of wavelength and scattering angle, resulting in a two-dimensional
 array. For example, <span class="math notranslate nohighlight">\(Z_{11}(\lambda,\theta)\)</span> has the shape of:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
@@ -653,7 +658,7 @@ array. For example, <span class="math notranslate nohighlight">\(Z_{11}(\lambda,
 (7, 181)
 </pre></div></div>
 </div>
-<p>To fix the wavelength value, the first dimension should be fixed to the same index (note that the index starts from 0 as usual in python):</p>
+<p>To fix the wavelength value, the first dimension should be fixed to the same index (note that the index starts from 0, as usual in python):</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
@@ -744,14 +749,14 @@ wavelength (um) = 0.554
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.legend.Legend at 0x7fe5cd898160&gt;
+&lt;matplotlib.legend.Legend at 0x7f7f550328e0&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/examples_38_1.png" src="_images/examples_38_1.png" />
+<img alt="_images/examples_37_1.png" src="_images/examples_37_1.png" />
 </div>
 </div>
 </div>
@@ -766,7 +771,7 @@ wavelength (um) = 0.554
 </pre></div>
 </div>
 </div>
-<p>Now, all the scattering matrix elements (<code class="docutils literal notranslate"><span class="pre">smat11</span></code>,<code class="docutils literal notranslate"><span class="pre">smat12</span></code>,<code class="docutils literal notranslate"><span class="pre">smat22</span></code>,<code class="docutils literal notranslate"><span class="pre">smat33</span></code>,<code class="docutils literal notranslate"><span class="pre">smat34</span></code>,<code class="docutils literal notranslate"><span class="pre">smat44</span></code>) stored in the instance <code class="docutils literal notranslate"><span class="pre">abh</span></code> are given in Bohren &amp; Huffman’s definition. Thus <span class="math notranslate nohighlight">\(S_{11}(\lambda,\theta)\)</span> looks like this:</p>
+<p>All the values in the attributes (<code class="docutils literal notranslate"><span class="pre">smat11</span></code>,<code class="docutils literal notranslate"><span class="pre">smat12</span></code>,<code class="docutils literal notranslate"><span class="pre">smat22</span></code>,<code class="docutils literal notranslate"><span class="pre">smat33</span></code>,<code class="docutils literal notranslate"><span class="pre">smat34</span></code>,<code class="docutils literal notranslate"><span class="pre">smat44</span></code>) have been replaced by the ones in Bohren &amp; Huffman’s definition (so <code class="docutils literal notranslate"><span class="pre">smat11</span></code> now contains <span class="math notranslate nohighlight">\(S_{11}\)</span> instead of <span class="math notranslate nohighlight">\(Z_{11}\)</span>). Thus <span class="math notranslate nohighlight">\(S_{11}(\lambda,\theta)\)</span> looks like this:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
@@ -789,21 +794,21 @@ wavelength (um) = 0.554
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.legend.Legend at 0x7fe5dc207250&gt;
+&lt;matplotlib.legend.Legend at 0x7f7f53b34e80&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/examples_43_1.png" src="_images/examples_43_1.png" />
+<img alt="_images/examples_42_1.png" src="_images/examples_42_1.png" />
 </div>
 </div>
 </div>
 </div>
 <div class="section" id="Changing-the-size-distribution-and-the-chop-angle">
 <h2>Changing the size distribution and the chop angle<a class="headerlink" href="#Changing-the-size-distribution-and-the-chop-angle" title="Permalink to this heading"></a></h2>
-<p>This databse contains the optical properties averaged over a particle-size distribution. The size distribution is assumed to have a simple power-law form:</p>
+<p>This database contains the optical properties averaged over a particle-size distribution. The size distribution is assumed to have a simple power-law form:</p>
 <div class="math notranslate nohighlight">
 \[n(a_\mathrm{V})da_\mathrm{V}\propto a_\mathrm{V}^{-q}da_\mathrm{V}~(a_\mathrm{min}\le a_\mathrm{V} \le a_\mathrm{max}),\]</div>
 <p>where <span class="math notranslate nohighlight">\(a_\mathrm{V}\)</span> is the volume-equivalent radius and <span class="math notranslate nohighlight">\(n(a_\mathrm{V})da_\mathrm{V}\)</span> is the number density of particles within a radius range of <span class="math notranslate nohighlight">\([a_\mathrm{V},a_\mathrm{V}+da_\mathrm{V}]\)</span>. For aggregates,</p>
@@ -811,7 +816,7 @@ wavelength (um) = 0.554
 \[\begin{split}a_\mathrm{min}=a_\mathrm{mon}N_\mathrm{min}^{1/3},\\
 a_\mathrm{max}=a_\mathrm{mon}N_\mathrm{max}^{1/3},\end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(N_\mathrm{min}\)</span> and <span class="math notranslate nohighlight">\(N_\mathrm{max}\)</span> are the number of monomers of the smallest and largest aggregate in the size distribution, respectively. By default, we assume <span class="math notranslate nohighlight">\(q=3.5\)</span>, <span class="math notranslate nohighlight">\(N_\mathrm{min}=8\)</span> for aggregates, and <span class="math notranslate nohighlight">\(a_\mathrm{V,min}=0.2~\mu\)</span>m for irregular grains.</p>
-<p>However, you may be interested in the optical properties for different size distributions, such as <span class="math notranslate nohighlight">\(q\ne3.5\)</span> . To accommodate this, this python tool provides another class called <code class="docutils literal notranslate"><span class="pre">distaverage</span></code>, which allows for size-distribution averaging of the optical properties with user-specified values for <span class="math notranslate nohighlight">\(a_\mathrm{min}\)</span>, <span class="math notranslate nohighlight">\(a_\mathrm{max}\)</span>, and <span class="math notranslate nohighlight">\(q\)</span>. The <code class="docutils literal notranslate"><span class="pre">distaverage</span></code> class can also be utilized to modify the chop angle to arbitrary values.</p>
+<p>However, you may be interested in the optical properties for different size distributions, such as <span class="math notranslate nohighlight">\(q\ne3.5\)</span> . To accommodate this, <em>aggscatpy</em> has another class called <code class="docutils literal notranslate"><span class="pre">distaverage</span></code>, which allows for size-distribution averaging of the optical properties with user-specified values of <span class="math notranslate nohighlight">\(a_\mathrm{min}\)</span>, <span class="math notranslate nohighlight">\(a_\mathrm{max}\)</span>, and <span class="math notranslate nohighlight">\(q\)</span>. The <code class="docutils literal notranslate"><span class="pre">distaverage</span></code> class can also be utilized to modify the chop angle to arbitrary values.</p>
 <div class="section" id="id1">
 <h3>Basic formula<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
 <p>The basic command is</p>
@@ -823,8 +828,8 @@ a_\mathrm{max}=a_\mathrm{mon}N_\mathrm{max}^{1/3},\end{split}\]</div>
 </pre></div>
 </div>
 </div>
-<p>The newly created instance <code class="docutils literal notranslate"><span class="pre">d</span></code> contains the distribution-averaged optical properties. The <code class="docutils literal notranslate"><span class="pre">sizemin</span></code> and <code class="docutils literal notranslate"><span class="pre">sizemax</span></code> represent the smallest and largest aggregates in the distribution in units of the number of monomers, respectively, and <code class="docutils literal notranslate"><span class="pre">powind</span></code> is the power-law index.</p>
-<p>For irregular grains, the command looks like this:</p>
+<p>The newly created instance <code class="docutils literal notranslate"><span class="pre">d</span></code> contains the distribution-averaged optical properties. The <code class="docutils literal notranslate"><span class="pre">sizemin</span></code> and <code class="docutils literal notranslate"><span class="pre">sizemax</span></code> represent the smallest and largest aggregates in the distribution in units of the number of monomers, respectively, and <code class="docutils literal notranslate"><span class="pre">powind</span></code> is the power-law index <span class="math notranslate nohighlight">\(q\)</span>.</p>
+<p>The command for irregular grains is</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
@@ -834,7 +839,7 @@ a_\mathrm{max}=a_\mathrm{mon}N_\mathrm{max}^{1/3},\end{split}\]</div>
 </div>
 </div>
 <p>As with the case of <code class="docutils literal notranslate"><span class="pre">dustmodel</span></code>, an instance created by <code class="docutils literal notranslate"><span class="pre">distaverage</span></code> can be substituted into functions: <code class="docutils literal notranslate"><span class="pre">dustspec()</span></code>, <code class="docutils literal notranslate"><span class="pre">showmodel()</span></code>, and <code class="docutils literal notranslate"><span class="pre">write_data()</span></code> (the last function will be introduced later).</p>
-<p>Since the parameters used above are exactly the same as the default size distribution, the results have to be in agreement with those contained in the default dust files. As shown below, these two are in perfect agreement.</p>
+<p>Since the parameters used above are exactly the same as the default size distribution, the results have to agree with those contained in the default dust files. As shown below, these two are in perfect agreement.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
@@ -879,7 +884,7 @@ wavelength =  3.780
 </div>
 <div class="section" id="Examples">
 <h3>Examples<a class="headerlink" href="#Examples" title="Permalink to this heading"></a></h3>
-<p>If you want the size distribution between <span class="math notranslate nohighlight">\(N_\mathrm{min}=128\)</span> to <span class="math notranslate nohighlight">\(N_\mathrm{max}=2048\)</span> with the default size distrituion power-law index (<span class="math notranslate nohighlight">\(q=3.5\)</span>):</p>
+<p>If you want the size distribution between <span class="math notranslate nohighlight">\(N_\mathrm{min}=128\)</span> to <span class="math notranslate nohighlight">\(N_\mathrm{max}=2048\)</span> with the default size distribution power-law index (<span class="math notranslate nohighlight">\(q=3.5\)</span>):</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
@@ -908,7 +913,7 @@ wavelength =  3.780
 </pre></div>
 </div>
 </div>
-<p>If you set <span class="math notranslate nohighlight">\(N_\mathrm{min}=N_\mathrm{max}\)</span>, the calculation results will be the same as the single-sized results.</p>
+<p>If you set <span class="math notranslate nohighlight">\(N_\mathrm{min}=N_\mathrm{max}\)</span>, the results will be the same as the single-sized case.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
@@ -917,12 +922,12 @@ wavelength =  3.780
 </pre></div>
 </div>
 </div>
-<p>You can also change the definition of the scattering matrix elements:</p>
+<p>You can also change the definition of the scattering matrix:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dbh</span><span class="o">=</span><span class="n">aggscatpy</span><span class="o">.</span><span class="n">distaverage</span><span class="p">(</span><span class="n">partype</span><span class="o">=</span><span class="s1">&#39;CALP&#39;</span><span class="p">,</span><span class="n">sizemin</span><span class="o">=</span><span class="s1">&#39;8&#39;</span><span class="p">,</span><span class="n">sizemax</span><span class="o">=</span><span class="s1">&#39;2048&#39;</span><span class="p">,</span><span class="n">comp</span><span class="o">=</span><span class="s1">&#39;amc&#39;</span><span class="p">,</span><span class="n">amon</span><span class="o">=</span><span class="s1">&#39;100nm&#39;</span><span class="p">,</span> <span class="n">smatBH</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dbh</span><span class="o">=</span><span class="n">aggscatpy</span><span class="o">.</span><span class="n">distaverage</span><span class="p">(</span><span class="n">partype</span><span class="o">=</span><span class="s1">&#39;CALP&#39;</span><span class="p">,</span><span class="n">sizemin</span><span class="o">=</span><span class="s1">&#39;128&#39;</span><span class="p">,</span><span class="n">sizemax</span><span class="o">=</span><span class="s1">&#39;2048&#39;</span><span class="p">,</span><span class="n">comp</span><span class="o">=</span><span class="s1">&#39;amc&#39;</span><span class="p">,</span><span class="n">amon</span><span class="o">=</span><span class="s1">&#39;100nm&#39;</span><span class="p">,</span> <span class="n">smatBH</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -930,8 +935,8 @@ wavelength =  3.780
 </div>
 <div class="section" id="Writing-files">
 <h2>Writing files<a class="headerlink" href="#Writing-files" title="Permalink to this heading"></a></h2>
-<p>If you have generated the optical properties with a new particle-size distribution or/and chop angle, you may wish to save them as a RADMC-3D readable format. To do this, you can used the <code class="docutils literal notranslate"><span class="pre">write_data</span></code> function, which allow for outputting the optical properties in various formats, including the one readable by RADMC-3D. An instance created by either the <code class="docutils literal notranslate"><span class="pre">dustmodel</span></code> or <code class="docutils literal notranslate"><span class="pre">distaverage</span></code> class can be passed to the <code class="docutils literal notranslate"><span class="pre">write_data</span></code> function.</p>
-<p>Suppose you have already create an instance <code class="docutils literal notranslate"><span class="pre">d</span></code>, then you can type:</p>
+<p>If you have generated the optical properties with a new particle-size distribution or/and chop angle, you may wish to save them as a RADMC-3D readable format. To do this, you can use the <code class="docutils literal notranslate"><span class="pre">write_data</span></code> function. An instance created by either the <code class="docutils literal notranslate"><span class="pre">dustmodel</span></code> or <code class="docutils literal notranslate"><span class="pre">distaverage</span></code> class can be passed to the <code class="docutils literal notranslate"><span class="pre">write_data</span></code> function.</p>
+<p>Suppose you have already created an instance <code class="docutils literal notranslate"><span class="pre">d</span></code>, then you can type:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
@@ -949,7 +954,7 @@ writing ... dustkapscatmat_CALP_Nmin2048_Nmax2048_pow3.5_100nm_amc.inp
 </pre></div></div>
 </div>
 <p>The filename will be automatically generated based on the minimum and maximum particle sizes, power-law index, and chopping angle (if non-zero). You can also modify the filename by setting the <code class="docutils literal notranslate"><span class="pre">fn</span></code> option.</p>
-<p>Without any options, the generated file will be formatted in a standard ‘dustkapscatmat_XXX’ format. <strong>IMPORTANT: the definition of the scattering matrix elements written to the file will be the same as the definition of the scattering matrix elements defined in each instance</strong>. The above instance <code class="docutils literal notranslate"><span class="pre">d</span></code> has the sattering matrix with the RADMC definition, the generated file can be directly readable by RADMC-3D.</p>
+<p>Without any options, the generated file will have a standard ‘dustkapscatmat_XXX’ format. <strong>IMPORTANT: the definition of the scattering matrix to be written in the file will be the same as the one defined in each instance</strong>. The above instance <code class="docutils literal notranslate"><span class="pre">d</span></code> has the scattering matrix with the RADMC definition, you can use the generated file to run RADMC-3D.</p>
 <p>Conversely, if you have created an instance that has the scattering matrix in Bohren &amp; Huffman’s definition, the following will happen:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
@@ -964,10 +969,10 @@ writing ... dustkapscatmat_CALP_Nmin2048_Nmax2048_pow3.5_100nm_amc.inp
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-writing ... dustkapscatmat_CALP_Nmin8_Nmax2048_pow3.5_100nm_amc.out
+writing ... dustkapscatmat_CALP_Nmin128_Nmax2048_pow3.5_100nm_amc.out
 </pre></div></div>
 </div>
-<p>In this case, the file extension has been changed from .inp to .out because the file is not compatible with RADMC-3D anymore due to different definition of the scattering matrix definition. You can check the definition of the scattering matrix in the header part of each generated file.</p>
+<p>In this case, the file extension has been changed from .inp to .out because the file is not compatible with RADMC-3D anymore. You can check the definition in the header part of each generated file.</p>
 <p>If you are only interested in the angle-integrated quantities (opacity, asymmetry parameter, …), you can add <code class="docutils literal notranslate"><span class="pre">output='dustkappa'</span></code>:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
@@ -985,7 +990,7 @@ writing ... dustkapscatmat_CALP_Nmin8_Nmax2048_pow3.5_100nm_amc.out
 writing ... dustkappa_CALP_Nmax4096_100nm_amc.out
 </pre></div></div>
 </div>
-<p>The generated file now only contains the angle-integrated quantities and not for scattering matrix elements. If you are interested in cross sections instead of opacity, you can add the following option so that the output file will contain cross sections (<span class="math notranslate nohighlight">\(\mu\mathrm{m}^2\)</span>):</p>
+<p>The generated file now only contains the angle-integrated quantities and not scattering matrix elements. If you are interested in cross sections instead of opacity, you can add the following option so that the output file will contain cross sections (<span class="math notranslate nohighlight">\(\mu\mathrm{m}^2\)</span>):</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
@@ -1025,7 +1030,7 @@ writing ... scatmat_CALP_Nmax4096_100nm_amc_lmd2.18um.out
 writing ... scatmat_CALP_Nmax4096_100nm_amc_lmd3.78um.out
 </pre></div></div>
 </div>
-<p>This command will generate some files; the number of files to be generated will be the same as the number of the wavelengh grid (at most 7). If you do not need all wavelengths, you can limit the wavelength you want by futher adding an option:</p>
+<p>This command will generate some files; the number of files to be generated will be the same as the number of the wavelength grid (at most 7). If you do not need all wavelengths, you can limit the wavelength you want by adding an option:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
@@ -1046,7 +1051,7 @@ writing ... scatmat_CALP_Nmax4096_100nm_amc_lmd1.63um.out
 </div>
 <div class="section" id="Reloading-a-dustkapscatmat_XXX-file-generated-by-this-tool">
 <h2>Reloading a dustkapscatmat_XXX file generated by this tool<a class="headerlink" href="#Reloading-a-dustkapscatmat_XXX-file-generated-by-this-tool" title="Permalink to this heading"></a></h2>
-<p>You can use the <code class="docutils literal notranslate"><span class="pre">dustmodel</span></code> class to reload a file with the format dustkapscatmat_XXX.inp or dustkapscatmat_XXX.out generated by this tool. To do so, simply specify the relative path to the file.</p>
+<p>You can use the <code class="docutils literal notranslate"><span class="pre">dustmodel</span></code> class to reload a file with the format dustkapscatmat_XXX.inp or dustkapscatmat_XXX.out generated by this tool. To do so, specify the relative path to the file when calling:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
@@ -1063,7 +1068,6 @@ writing ... scatmat_CALP_Nmax4096_100nm_amc_lmd1.63um.out
 ...reading  ./dustkapscatmat_CALP_Nmin8_Nmax2048_pow3.5_100nm_amc.out
 </pre></div></div>
 </div>
-<p>Currently, the <code class="docutils literal notranslate"><span class="pre">dustmodel</span></code> class can only read files generated by this tool.</p>
 </div>
 <div class="section" id="Example-analysis">
 <h2>Example analysis<a class="headerlink" href="#Example-analysis" title="Permalink to this heading"></a></h2>
@@ -1081,7 +1085,7 @@ writing ... scatmat_CALP_Nmax4096_100nm_amc_lmd1.63um.out
 </pre></div>
 </div>
 </div>
-<p>where we have assumed that smaller number of monomers for a lower fractal dimension to approximately fix the aggregate radius. To check the characteristic radius of an aggregate, you can use the <code class="docutils literal notranslate"><span class="pre">get_radius_and_porosity</span></code> function</p>
+<p>where we have assumed that a smaller number of monomers for a lower fractal dimension to approximately fix the aggregate radius. To check the characteristic radius of an aggregate, you can use the <code class="docutils literal notranslate"><span class="pre">get_radius_and_porosity</span></code> function</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
@@ -1103,7 +1107,7 @@ Particle Type: FA13  Number of monomers =  256  agg radius =  6.73 um
 Particle Type: FA11  Number of monomers =  128  agg radius =  6.56 um
 </pre></div></div>
 </div>
-<p>Now we’ve confirmed that the four aggregates have approximately the same characteristic radius: <span class="math notranslate nohighlight">\(a_\mathrm{c}=6.645\pm0.085~\mu\)</span>m. Then, let’s make a plot of the phase function for those models.</p>
+<p>Now we confirmed that the four aggregates have approximately the same characteristic radius: <span class="math notranslate nohighlight">\(a_\mathrm{c}=6.645\pm0.085~\mu\)</span>m. Then, let’s plot the phase function for those models.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
@@ -1141,20 +1145,20 @@ Reading dust model ...  FA11_Nmax128_100nm_amc
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.legend.Legend at 0x7fe5df7300a0&gt;
+&lt;matplotlib.legend.Legend at 0x7f7f479c0dc0&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/examples_85_2.png" src="_images/examples_85_2.png" />
+<img alt="_images/examples_83_2.png" src="_images/examples_83_2.png" />
 </div>
 </div>
 </div>
 <div class="section" id="Polarization-phase-functions">
 <h3>Polarization phase functions<a class="headerlink" href="#Polarization-phase-functions" title="Permalink to this heading"></a></h3>
-<p>Let’s give you one more example. In this example, we are going to see how the polarization phase function depends on aggregate radius and structure. Similar to the above example, we first make some lists:</p>
+<p>Let’s give you one more example. In this example, we will see how the polarization phase function depends on aggregate radius and structure. Similar to the above example, we first make some lists:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
@@ -1193,14 +1197,14 @@ Reading dust model ...  FA11_Nmax128_100nm_amc
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;matplotlib.legend.Legend at 0x7fe5deea7730&gt;
+&lt;matplotlib.legend.Legend at 0x7f7f6b82e5e0&gt;
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/examples_89_1.png" src="_images/examples_89_1.png" />
+<img alt="_images/examples_87_1.png" src="_images/examples_87_1.png" />
 </div>
 </div>
 </div>

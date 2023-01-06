@@ -6,28 +6,15 @@
    "source": [
     "# Python package: aggscatpy\n",
     "\n",
-    "The ``AggScatVIR`` package provides some python tools that may be useful for users to quickly delve into the optical properties stored in this database. The main functionalities of this tool are:\n",
-    "(1) view each particle geometry,\n",
-    "(2) check and plot the optical properties of dust particles stored in this database,\n",
-    "(3) convert the unit of the scattering matrix elements from RADMC-3D's definition to Bohren & Huffman's definition,\n",
-    "(4) change the power-law index of size distribution and the chop angle from the default values, \n",
-    "(5) output datafiles in various formats.\n",
+    "*aggscatpy* is a python package that helps to analyze the data contained in this database. The main functionalities are:\n",
     "\n",
-    "In this section, we demonstrate how to use it and what we can do with this tools."
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "## View particle geomertry"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "The first thing we need to do is to import the package:"
+    "* view each particle shape model,\n",
+    "* check and plot the optical properties of dust particles,\n",
+    "* convert the definition of the scattering matrix from RADMC-3D's one to Bohren & Huffman's one,\n",
+    "* change the power-law index of particle-size distribution and the chop angle from the default values, \n",
+    "* output files in various formats.\n",
+    "\n",
+    "Suppose you have already installed the package via pip, you can import the package:"
    ]
   },
   {
@@ -36,14 +23,21 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "from aggscatpy import *"
+    "import aggscatpy"
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "The ``view_particle`` function outputs a particle geometry used to compute the optical properties. For example,"
+    "## View particle shape"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The ``view_particle`` function displays a particle shape used to compute the optical properties. For example,"
    ]
   },
   {
@@ -74,7 +68,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "where ``partype`` is the particle type, ``size`` is the size of the aggregate (in units of the number of monomers), and ``amon`` is the monomer radius. The arguments take values that are the same as what we used in their file names.  By default, the command will display all (four) realizations. If you would like to display one of the realization, then you can specify it in the argument. Note that **the index for counting realizations starts from 1, not 0.**"
+    "where ``partype`` is the particle type, ``size`` is the size of the aggregate (in units of the number of monomers), and ``amon`` is the monomer radius. The arguments that are used to call the function obey the same rules as the dust file name. By default, the command results in showing all realizations of each particle model. If you want to display one of the realizations, you can set it in the argument (*note:* the realization index starts from 1, not 0):"
    ]
   },
   {
@@ -132,7 +126,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "The command to diaplay irregular grains is"
+    "The command to display irregular grains is"
    ]
   },
   {
@@ -219,7 +213,7 @@
    "source": [
     "Let's read one of dustkapscatmat_XXX.inp stored in the ``AggScatVIR`` database. To do this, we can use the ``dustmodel`` class. \n",
     "\n",
-    "The basic command for accessing a dust file for aggregates is"
+    "The basic command for accessing a dust file for each aggregate model is"
    ]
   },
   {
@@ -242,7 +236,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "Similarly, the command for a dust file for irregular grains is"
+    "Similarly, the command for a dust file for each irregular-grain model is"
    ]
   },
   {
@@ -258,7 +252,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "By default, the `dustmodel` class will read a dust file **with size distribution and without any forward-scattering chopping**. If you would like to change these, you need to specify two additional arguments: `dist` and `chop` when calling the `dustmodel` class. For example, if you want to switch off the size distribution, you need to set `dist=False` (default: `dist=True`). If you would like to have the data with chopped forward scattering, you can set either `chop='chop5'` or `chop='chop10'` (default: `chop='nochop'`). ``chop5`` and ``chop10`` refer to cases where the forward scattering peak is chopeed below scattering angles of 5 or 10 degrees, respectively. Thus if you need the optical properties without assuming particle-size distribution and with the forward-scattering chopping of 5 degrees, the command becomes"
+    "By default, the `dustmodel` class reads a dust file **with size distribution and no forward-scattering chopping**. You can change this default setting by the `dist` and `chop` options when calling the class. For example, if you want to switch off the size distribution, set `dist=False` (default: `dist=True`). If you want to forward scattering chopping, set either `chop='chop5'` or `chop='chop10'` (default: `chop='nochop'`). ``chop5`` and ``chop10`` refer to cases where the forward scattering peak is chopped at scattering angles below 5 or 10 degrees, respectively. For example, the command looks like this:"
    ]
   },
   {
@@ -281,7 +275,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "Each instance created by ``dustmodel`` contains the physical and optical properties of the dust model as its attributes  (see Appendix C for the attributes). The python tool inclues some functions that allow us to quick overview of the values stored in its attributes.\n",
+    "Each instance created by ``dustmodel`` contains the physical and optical properties of the dust model as its attributes  (see Appendix C for the attributes). The *aggscatpy* package includes functions that allow us to quickly overview the values stored in its attributes.\n",
     "\n",
     "We can display the physical properties of the dust particle stored in the instance ``a`` by using the `dustspec` function:"
    ]
@@ -361,7 +355,7 @@
    "source": [
     "The above plots summarize the absorption and scattering opacities ($\\kappa_\\mathrm{abs}$, $\\kappa_\\mathrm{sca}$) (*left top*), the single scattering albedo ($\\omega$), the asymmetry parameter ($g$), and the maximum degree of linear polarization ($P_\\mathrm{max}$) (*left bottom*), the scattering phase function (*right top*) and the degree of linear polarization (*right bottom*) at various wavelengths. \n",
     "\n",
-    "The ``showmodel`` function has some options that might be useful for you: (1) If you set ``opacity=False``, the left top panel will be replaced by cross sections ($\\mu\\mathrm{m}^2$) instead of the opacity ($\\mathrm{cm}^2/\\mathrm{g}$) (2) If you set ``savefig=True``, the plot will be saved.  The file name will be generated automaticlly, but you can set your own file name by further adding ``fn=your_favorate_filename``."
+    "The ``showmodel`` function has some options that might be useful for you: (1) If you set ``opacity=False``, the left top panel will be replaced by cross sections ($\\mu\\mathrm{m}^2$) instead of the opacity ($\\mathrm{cm}^2/\\mathrm{g}$) (2) If you set ``savefig=True``, the plot will be saved.  The file name will be generated automatically, but you can set your own file name by adding ``fn=your_favorate_filename``."
    ]
   },
   {
@@ -369,7 +363,7 @@
    "metadata": {},
    "source": [
     "\n",
-    "If you would like to do more flexible analysis, it is good to directly look into the values stored as attributes in each instance. For example, you can get the values of wavelength, opacity, and asymmetry parameter:"
+    "If you would like to do a more flexible analysis, it is good to directly look into the values stored as attributes in each instance. For example, you can get the values of wavelength, opacity, and the asymmetry parameter:"
    ]
   },
   {
@@ -440,7 +434,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "Each instance contains the scattering phase function (``phase``) and 6 scattering matrix elements (``smat11``,``smat12``,``smat22``,``smat33``,``smat34``,``smat44``) as its attributes. Note that the scattering matrix elements follow the RADMC-3D definition $Z_{ij}$ (though you can change the definition into the Bohren & Huffman one if you want; see the next section for more information). Each of them is a function of wavelength and scattering angle, resulting in a two-dimensional array. For example, $Z_{11}(\\lambda,\\theta)$ has the shape of:"
+    "Each instance contains the scattering phase function (``phase``) and 6 scattering matrix elements (``smat11``,``smat12``,``smat22``,``smat33``,``smat34``,``smat44``) as its attributes. Note that the scattering matrix elements follow the RADMC-3D definition $Z_{ij}$ (though you can change the definition to the Bohren & Huffman one if you want; see the next section for more information). Each of them is a function of wavelength and scattering angle, resulting in a two-dimensional array. For example, $Z_{11}(\\lambda,\\theta)$ has the shape of:"
    ]
   },
   {
@@ -464,7 +458,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "To fix the wavelength value, the first dimension should be fixed to the same index (note that the index starts from 0 as usual in python):"
+    "To fix the wavelength value, the first dimension should be fixed to the same index (note that the index starts from 0, as usual in python):"
    ]
   },
   {
@@ -549,7 +543,7 @@
     {
      "data": {
       "text/plain": [
-       "<matplotlib.legend.Legend at 0x7fe5cd898160>"
+       "<matplotlib.legend.Legend at 0x7f7f550328e0>"
       ]
      },
      "execution_count": 16,
@@ -613,7 +607,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "Now, all the scattering matrix elements (``smat11``,``smat12``,``smat22``,``smat33``,``smat34``,``smat44``) stored in the instance `abh` are given in Bohren & Huffman's definition. Thus $S_{11}(\\lambda,\\theta)$ looks like this:"
+    "All the values in the attributes (``smat11``,``smat12``,``smat22``,``smat33``,``smat34``,``smat44``) have been replaced by the ones in Bohren & Huffman's definition (so ``smat11`` now contains $S_{11}$ instead of $Z_{11}$). Thus $S_{11}(\\lambda,\\theta)$ looks like this:"
    ]
   },
   {
@@ -624,7 +618,7 @@
     {
      "data": {
       "text/plain": [
-       "<matplotlib.legend.Legend at 0x7fe5dc207250>"
+       "<matplotlib.legend.Legend at 0x7f7f53b34e80>"
       ]
      },
      "execution_count": 18,
@@ -667,7 +661,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "This databse contains the optical properties averaged over a particle-size distribution. The size distribution is assumed to have a simple power-law form: \n",
+    "This database contains the optical properties averaged over a particle-size distribution. The size distribution is assumed to have a simple power-law form: \n",
     "$$\n",
     "n(a_\\mathrm{V})da_\\mathrm{V}\\propto a_\\mathrm{V}^{-q}da_\\mathrm{V}~(a_\\mathrm{min}\\le a_\\mathrm{V} \\le a_\\mathrm{max}),\n",
     "$$\n",
@@ -678,7 +672,7 @@
     "$$\n",
     "where $N_\\mathrm{min}$ and $N_\\mathrm{max}$ are the number of monomers of the smallest and largest aggregate in the size distribution, respectively. By default, we assume $q=3.5$, $N_\\mathrm{min}=8$ for aggregates, and $a_\\mathrm{V,min}=0.2~\\mu$m for irregular grains. \n",
     "\n",
-    "However, you may be interested in the optical properties for different size distributions, such as $q\\ne3.5$ . To accommodate this, this python tool provides another class called ``distaverage``, which allows for size-distribution averaging of the optical properties with user-specified values for $a_\\mathrm{min}$, $a_\\mathrm{max}$, and $q$. The ``distaverage`` class can also be utilized to modify the chop angle to arbitrary values.\n",
+    "However, you may be interested in the optical properties for different size distributions, such as $q\\ne3.5$ . To accommodate this, *aggscatpy* has another class called ``distaverage``, which allows for size-distribution averaging of the optical properties with user-specified values of $a_\\mathrm{min}$, $a_\\mathrm{max}$, and $q$. The ``distaverage`` class can also be utilized to modify the chop angle to arbitrary values.\n",
     "\n",
     "### Basic formula"
    ]
@@ -703,9 +697,9 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "The newly created instance ``d`` contains the distribution-averaged optical properties. The ``sizemin`` and `sizemax` represent the smallest and largest aggregates in the distribution in units of the number of monomers, respectively, and ``powind`` is the power-law index.\n",
+    "The newly created instance ``d`` contains the distribution-averaged optical properties. The ``sizemin`` and `sizemax` represent the smallest and largest aggregates in the distribution in units of the number of monomers, respectively, and ``powind`` is the power-law index $q$.\n",
     "\n",
-    "For irregular grains, the command looks like this:"
+    "The command for irregular grains is"
    ]
   },
   {
@@ -723,7 +717,7 @@
    "source": [
     "As with the case of ``dustmodel``, an instance created by ``distaverage`` can be substituted into functions: ``dustspec()``, ``showmodel()``, and ``write_data()`` (the last function will be introduced later).\n",
     "\n",
-    "Since the parameters used above are exactly the same as the default size distribution, the results have to be in agreement with those contained in the default dust files. As shown below, these two are in perfect agreement."
+    "Since the parameters used above are exactly the same as the default size distribution, the results have to agree with those contained in the default dust files. As shown below, these two are in perfect agreement."
    ]
   },
   {
@@ -776,7 +770,7 @@
    "source": [
     "### Examples\n",
     "\n",
-    "If you want the size distribution between $N_\\mathrm{min}=128$ to $N_\\mathrm{max}=2048$ with the default size distrituion power-law index ($q=3.5$):"
+    "If you want the size distribution between $N_\\mathrm{min}=128$ to $N_\\mathrm{max}=2048$ with the default size distribution power-law index ($q=3.5$):"
    ]
   },
   {
@@ -826,7 +820,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "If you set $N_\\mathrm{min}=N_\\mathrm{max}$, the calculation results will be the same as the single-sized results."
+    "If you set $N_\\mathrm{min}=N_\\mathrm{max}$, the results will be the same as the single-sized case."
    ]
   },
   {
@@ -844,7 +838,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "You can also change the definition of the scattering matrix elements:"
+    "You can also change the definition of the scattering matrix:"
    ]
   },
   {
@@ -853,7 +847,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "dbh=aggscatpy.distaverage(partype='CALP',sizemin='8',sizemax='2048',comp='amc',amon='100nm', smatBH=True)"
+    "dbh=aggscatpy.distaverage(partype='CALP',sizemin='128',sizemax='2048',comp='amc',amon='100nm', smatBH=True)"
    ]
   },
   {
@@ -867,9 +861,9 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "If you have generated the optical properties with a new particle-size distribution or/and chop angle, you may wish to save them as a RADMC-3D readable format. To do this, you can used the ``write_data`` function, which allow for outputting the optical properties in various formats, including the one readable by RADMC-3D. An instance created by either the ``dustmodel`` or ``distaverage`` class can be passed to the ``write_data`` function.\n",
+    "If you have generated the optical properties with a new particle-size distribution or/and chop angle, you may wish to save them as a RADMC-3D readable format. To do this, you can use the ``write_data`` function. An instance created by either the ``dustmodel`` or ``distaverage`` class can be passed to the ``write_data`` function.\n",
     "\n",
-    "Suppose you have already create an instance ``d``, then you can type:"
+    "Suppose you have already created an instance ``d``, then you can type:"
    ]
   },
   {
@@ -895,7 +889,7 @@
    "source": [
     "The filename will be automatically generated based on the minimum and maximum particle sizes, power-law index, and chopping angle (if non-zero). You can also modify the filename by setting the ``fn`` option. \n",
     "\n",
-    "Without any options, the generated file will be formatted in a standard 'dustkapscatmat_XXX' format. **IMPORTANT: the definition of the scattering matrix elements written to the file will be the same as the definition of the scattering matrix elements defined in each instance**.  The above instance `d` has the sattering matrix with the RADMC definition, the generated file can be directly readable by RADMC-3D. \n",
+    "Without any options, the generated file will have a standard 'dustkapscatmat_XXX' format. **IMPORTANT: the definition of the scattering matrix to be written in the file will be the same as the one defined in each instance**.  The above instance `d` has the scattering matrix with the RADMC definition, you can use the generated file to run RADMC-3D. \n",
     "\n",
     "Conversely, if you have created an instance that has the scattering matrix in Bohren & Huffman's definition, the following will happen:"
    ]
@@ -909,7 +903,7 @@
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "writing ... dustkapscatmat_CALP_Nmin8_Nmax2048_pow3.5_100nm_amc.out\n"
+      "writing ... dustkapscatmat_CALP_Nmin128_Nmax2048_pow3.5_100nm_amc.out\n"
      ]
     }
    ],
@@ -921,7 +915,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "In this case, the file extension has been changed from .inp to .out because the file is not compatible with RADMC-3D anymore due to different definition of the scattering matrix definition. You can check the definition of the scattering matrix in the header part of each generated file."
+    "In this case, the file extension has been changed from .inp to .out because the file is not compatible with RADMC-3D anymore. You can check the definition in the header part of each generated file."
    ]
   },
   {
@@ -952,7 +946,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "The generated file now only contains the angle-integrated quantities and not for scattering matrix elements. If you are interested in cross sections instead of opacity, you can add the following option so that the output file will contain cross sections ($\\mu\\mathrm{m}^2$):"
+    "The generated file now only contains the angle-integrated quantities and not scattering matrix elements. If you are interested in cross sections instead of opacity, you can add the following option so that the output file will contain cross sections ($\\mu\\mathrm{m}^2$):"
    ]
   },
   {
@@ -1006,7 +1000,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "This command will generate some files; the number of files to be generated will be the same as the number of the wavelengh grid (at most 7). If you do not need all wavelengths, you can limit the wavelength you want by futher adding an option:"
+    "This command will generate some files; the number of files to be generated will be the same as the number of the wavelength grid (at most 7). If you do not need all wavelengths, you can limit the wavelength you want by adding an option:"
    ]
   },
   {
@@ -1038,7 +1032,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "You can use the ``dustmodel`` class to reload a file with the format dustkapscatmat_XXX.inp or dustkapscatmat_XXX.out generated by this tool. To do so, simply specify the relative path to the file."
+    "You can use the ``dustmodel`` class to reload a file with the format dustkapscatmat_XXX.inp or dustkapscatmat_XXX.out generated by this tool. To do so, specify the relative path to the file when calling:"
    ]
   },
   {
@@ -1056,13 +1050,6 @@
    ],
    "source": [
     "d2=aggscatpy.dustmodel(filename='./dustkapscatmat_CALP_Nmin8_Nmax2048_pow3.5_100nm_amc.out')"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "Currently, the ``dustmodel`` class can only read files generated by this tool."
    ]
   },
   {
@@ -1093,7 +1080,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "where we have assumed that smaller number of monomers for a lower fractal dimension to approximately fix the aggregate radius. To check the characteristic radius of an aggregate, you can use the `get_radius_and_porosity` function"
+    "where we have assumed that a smaller number of monomers for a lower fractal dimension to approximately fix the aggregate radius. To check the characteristic radius of an aggregate, you can use the `get_radius_and_porosity` function"
    ]
   },
   {
@@ -1122,7 +1109,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "Now we've confirmed that the four aggregates have approximately the same characteristic radius: $a_\\mathrm{c}=6.645\\pm0.085~\\mu$m. Then, let's make a plot of the phase function for those models. "
+    "Now we confirmed that the four aggregates have approximately the same characteristic radius: $a_\\mathrm{c}=6.645\\pm0.085~\\mu$m. Then, let's plot the phase function for those models. "
    ]
   },
   {
@@ -1149,7 +1136,7 @@
     {
      "data": {
       "text/plain": [
-       "<matplotlib.legend.Legend at 0x7fe5df7300a0>"
+       "<matplotlib.legend.Legend at 0x7f7f479c0dc0>"
       ]
      },
      "execution_count": 36,
@@ -1187,7 +1174,7 @@
    "source": [
     "### Polarization phase functions\n",
     "\n",
-    "Let's give you one more example. In this example, we are going to see how the polarization phase function depends on aggregate radius and structure. Similar to the above example, we first make some lists:"
+    "Let's give you one more example. In this example, we will see how the polarization phase function depends on aggregate radius and structure. Similar to the above example, we first make some lists:"
    ]
   },
   {
@@ -1215,7 +1202,7 @@
     {
      "data": {
       "text/plain": [
-       "<matplotlib.legend.Legend at 0x7fe5deea7730>"
+       "<matplotlib.legend.Legend at 0x7f7f6b82e5e0>"
       ]
      },
      "execution_count": 38,

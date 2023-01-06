@@ -361,13 +361,13 @@ div.rendered_html tbody tr:hover {
 </style>
 <div class="section" id="Running-RADMC-3D-with-AggScatVIR">
 <h1>Running RADMC-3D with AggScatVIR<a class="headerlink" href="#Running-RADMC-3D-with-AggScatVIR" title="Permalink to this heading"></a></h1>
-<p>One primary application of <code class="docutils literal notranslate"><span class="pre">AggScatVIR</span></code> is the observational modeling of both total-intensity and polarized scattered light from protoplanetary disks and debris disks. Our database has been designed to allow users to easily conduct radiative transfer simulations with <a class="reference external" href="https://www.ita.uni-heidelberg.de/~dullemond/software/radmc-3d/">RADMC-3D</a>, a publicly available radiative transfer simulation code. As our dust data files have a data structure that is directly readable by RADMC-3D v2.0,
-RADMC-3D can be run without further data processing. To use one of our dust models with RADMC-3D, simply place it (dustkapscatmat_XXX.inp) in a directory that RADMC-3D will be running. Once the necessary input files have been properly prepared (as described below), you will be ready to run RADMC-3D.</p>
+<p>One primary application of <code class="docutils literal notranslate"><span class="pre">AggScatVIR</span></code> is to model total-intensity and polarized scattered light from protoplanetary disks and debris disks. Our database has been designed to allow users to easily conduct radiative transfer simulations with <a class="reference external" href="https://www.ita.uni-heidelberg.de/~dullemond/software/radmc-3d/">RADMC-3D</a>, a publicly available radiative transfer simulation code. To use one of our dust models with RADMC-3D, place it (dustkapscatmat_XXX.inp) in a directory that RADMC-3D will be
+running. Once the necessary input files have been properly prepared (as described below), you will be ready to run RADMC-3D.</p>
 <div class="section" id="Quick-demo-using-radmc3dPy">
 <h2>Quick demo using radmc3dPy<a class="headerlink" href="#Quick-demo-using-radmc3dPy" title="Permalink to this heading"></a></h2>
-<p>Please ensure that RADMC-3D has been installed on your system before proceeding. If not, refer to <a class="reference external" href="https://www.ita.uni-heidelberg.de/~dullemond/software/radmc-3d/">the RADMC-3D manual</a> for installation instructions. Once RADMC-3D is installed, go to the directory where you wish to run RADMC-3D. Select one of our dust model files (dustkapscatmat_XXX.inp) and place it in your working directory. For example, we have made a local copy of <code class="docutils literal notranslate"><span class="pre">dustkapscatmat_FA19_Nmax2048_100nm_amc_chop5.inp</span></code>. To
-prepare the remaining necessary files for RADMC-3D, we will utilize radmc3dPy, which is also included in RADMC-3D.</p>
-<p>To do so, we first import the radmc3dPy package:</p>
+<p>Please ensure that RADMC-3D has been installed on your system before proceeding. If not, refer to <a class="reference external" href="https://www.ita.uni-heidelberg.de/~dullemond/software/radmc-3d/">the RADMC-3D manual</a> for installation instructions. Once RADMC-3D is installed, go to the directory where you wish to run RADMC-3D. Please select one of our dust model files (dustkapscatmat_XXX.inp) and place it in your working directory. For example, we have made a local copy of <code class="docutils literal notranslate"><span class="pre">dustkapscatmat_FA19_Nmax2048_100nm_amc_chop5.inp</span></code>
+in <code class="docutils literal notranslate"><span class="pre">python/notebooks/</span></code>. To prepare the other necessary files for RADMC-3D, we will utilize radmc3dPy, which is also included in RADMC-3D.</p>
+<p>We first import the radmc3dPy package:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -376,7 +376,7 @@ prepare the remaining necessary files for RADMC-3D, we will utilize radmc3dPy, w
 </pre></div>
 </div>
 </div>
-<p>Then write a default parameter set for a typical protoplanetay disk:</p>
+<p>Then write a default parameter set for a typical protoplanetary disk:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -403,10 +403,10 @@ Writing problem_params.inp
 </pre></div>
 </div>
 </div>
-<p>To create a scattered-light image using RADMC-3D, we need a dust temperature file (dust_temperature.dat or dust_temperature.bdat) in the working directory. Generally, RADMC-3D has a mode for determining the radiation equilibrium temperature of dust particles (mctherm), and the dust temperature file will be generated after running mctherm. <strong>However, the wavelength coverage of this database is too narrow to determine the correct temperature, so mctherm cannot determine the correct temperature</strong>.
-Therefore, the user must manually create the dust temperature file.</p>
+<p>To create a scattered-light image using RADMC-3D, we need a dust temperature file (dust_temperature.dat or dust_temperature.bdat) in the working directory. Generally, RADMC-3D has a mode for determining the radiation equilibrium temperature of dust particles (mctherm), and the dust temperature file will be generated after running mctherm. <strong>However, the wavelength coverage of this database is too narrow to determine the correct temperature</strong>. Therefore, it is recommended that each user creates
+the dust temperature file manually.</p>
 <p>In this section, we omit the contribution of thermal emission, and therefore set the dust temperature to 0 K everywhere in the simulation cells. Such a dust temperature file can be created after running mctherm with no-photon packets by setting (<code class="docutils literal notranslate"><span class="pre">nphoto='int(0)'</span></code>).</p>
-<p>We can create necessary input files for RADMC-3D by running the following command:</p>
+<p>We can create the necessary input files for RADMC-3D by running the following command:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
@@ -462,8 +462,8 @@ Writing radmc3d.inp
 0
 </pre></div></div>
 </div>
-<p>This command ends up with creating a dust_temperature files (<code class="docutils literal notranslate"><span class="pre">dust_temperature.bdat</span></code>).</p>
-<p>We can create a scattered-light image by performing a scattering Monte Carlo simulation. Let’s do imaging at an optical wavelength of (0.6 <span class="math notranslate nohighlight">\(\mu\mathrm{m}\)</span>) and a disk inclination angle of 55 degrees:</p>
+<p>This command ends up with creating a dust_temperature file with 0 K everywhere (<code class="docutils literal notranslate"><span class="pre">dust_temperature.bdat</span></code>).</p>
+<p>We are now ready to create a scattered-light image of the disk by performing a scattering Monte Carlo simulation. Let’s do imaging at an optical wavelength (0.6 <span class="math notranslate nohighlight">\(\mu\mathrm{m}\)</span>) and a disk inclination angle of 55 degrees:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
@@ -522,11 +522,11 @@ Reading image.out
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;implot&#39;: &lt;matplotlib.image.AxesImage at 0x7f9ef360b520&gt;,
- &#39;cbar&#39;: &lt;matplotlib.colorbar.Colorbar at 0x7f9ef35d0a90&gt;}
+{&#39;implot&#39;: &lt;matplotlib.image.AxesImage at 0x7f98f0e0cbb0&gt;,
+ &#39;cbar&#39;: &lt;matplotlib.colorbar.Colorbar at 0x7f98f0dd1af0&gt;}
 </pre></div></div>
 </div>
-<p>Let’s try another parameters: at a wavelength of <span class="math notranslate nohighlight">\(\lambda=2.2~\mu\)</span>m and a disk inclination angle of 85 degrees.</p>
+<p>Let’s try other parameters: at a wavelength of <span class="math notranslate nohighlight">\(\lambda=2.2~\mu\)</span>m and a disk inclination angle of 85 degrees.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
@@ -584,11 +584,11 @@ Reading image.out
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-{&#39;implot&#39;: &lt;matplotlib.image.AxesImage at 0x7f9ef932a7f0&gt;,
- &#39;cbar&#39;: &lt;matplotlib.colorbar.Colorbar at 0x7f9ef94e10d0&gt;}
+{&#39;implot&#39;: &lt;matplotlib.image.AxesImage at 0x7f98f972ba90&gt;,
+ &#39;cbar&#39;: &lt;matplotlib.colorbar.Colorbar at 0x7f98f98dd370&gt;}
 </pre></div></div>
 </div>
-<p>These are the model images of scattered light of a disk containing fractal dust aggregates with sub-micron grains, although more photon packets/finer spatial grids would be needed to improve the image quality. These images will then be used to compare actual scattered-light images of disks, from which we may understand how dust coagulation proceeds in disks as well as the initial condition of dust coagulation (the radius and composition of monomers).</p>
+<p>These are the model images of scattered light of a disk containing fractal dust aggregates with sub-micron grains, although more photon packets/finer spatial grids would be needed to improve the image quality.</p>
 </div>
 <div class="section" id="Preparation-of-input-files-and-caveats">
 <h2>Preparation of input files and caveats<a class="headerlink" href="#Preparation-of-input-files-and-caveats" title="Permalink to this heading"></a></h2>
@@ -599,7 +599,7 @@ Reading image.out
 files.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p><strong>Thermal Monte Carlo runs</strong>: As already mentioned in the above example, dust files provided in AggScatVIR have a wavelength coverage too narrow to determine radiation equillibrium temperature via thermal Monte Carlo calculations (<code class="docutils literal notranslate"><span class="pre">mctherm</span></code> in RADMC-3D). <em>Therefore, it is recommended to use the package for monochromatic scattering Monte Carlo radiative transfer simulations.</em></p>
+<p><strong>Thermal Monte Carlo runs</strong>: As already mentioned in the above example, dust files provided in AggScatVIR have a wavelength coverage too narrow to determine radiation equilibrium temperature via thermal Monte Carlo calculations (<code class="docutils literal notranslate"><span class="pre">mctherm</span></code> in RADMC-3D). <em>Therefore, it is recommended to use the package for monochromatic scattering Monte Carlo radiative transfer simulations.</em></p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -607,7 +607,7 @@ files.</p>
 </div>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p><strong>Chopping forward scattering</strong>: Dust particles much larger than the wavelength may exhibit a strong forward scattering, which may cause some issues in your simulations, such as poor image quality. One approximate way to mitigate this issue is to chop the forward scattering peak off. For this purpose, <code class="docutils literal notranslate"><span class="pre">AggScatVIR</span></code> offers the dustkapscatmat_XXX.inp file with two different chopping angles: 5 and 10 degrees. When you encounter the issue, please consider using those files.</p>
+<p><strong>Chopping forward scattering</strong>: Dust particles much larger than the wavelength may exhibit a strong forward scattering, which may cause some issues in your simulations, such as poor image quality. One approximate way to mitigate this issue is to chop the forward scattering peak off. For this purpose, <code class="docutils literal notranslate"><span class="pre">AggScatVIR</span></code> offers the dustkapscatmat_XXX.inp file with two different chopping angles: 5 and 10 degrees. When you encounter such an issue, please consider using those files.</p>
 </div>
 </div>
 </div>

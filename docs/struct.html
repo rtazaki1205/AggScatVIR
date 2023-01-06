@@ -54,7 +54,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#dust-composition-and-refractive-indices">Dust composition and Refractive indices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#structure-of-each-dust-file">Structure of each dust file</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#particle-shape-data">Particle shape data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#particle-shape-models">Particle shape models</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#aggregates">Aggregates</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#irregular-grains">Irregular grains</a></li>
 </ul>
@@ -120,21 +120,16 @@
 <div class="section" id="get-started">
 <h1>Get started<a class="headerlink" href="#get-started" title="Permalink to this heading"></a></h1>
 <div class="section" id="download-and-install">
-<h2>Download and Install<a class="headerlink" href="#download-and-install" title="Permalink to this heading"></a></h2>
+<span id="install"></span><h2>Download and Install<a class="headerlink" href="#download-and-install" title="Permalink to this heading"></a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">AggScatVIR</span></code> has been managed on a GitHub repository. You can freely download the latest version of <code class="docutils literal notranslate"><span class="pre">AggScatVIR</span></code> by typing a standard GitHub command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">rtazaki1205</span><span class="o">/</span><span class="n">AggScatVIR</span><span class="o">.</span><span class="n">git</span>
 </pre></div>
 </div>
-<p>To install the python package <code class="docutils literal notranslate"><span class="pre">aggscatpy</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">python</span>           <span class="c1"># enter the code directory</span>
-<span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">.</span>    <span class="c1"># install the python package</span>
+<p>To install the python package (called <em>aggscatpy</em>), after downloading the repository, enter the <code class="docutils literal notranslate"><span class="pre">python</span></code> directory and execute the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">.</span>
 </pre></div>
 </div>
-<p>To check if the python package has been successfully installed in your system:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">show</span> <span class="n">aggscatpy</span>
-</pre></div>
-</div>
-<p><em>Note:</em> If multiple versions of python are installed in your environment (such as python2 and python3) and if the pip and python commands point to different versions, please try the following command for installation of the python package:</p>
+<p><em>Note:</em> If multiple versions of python are installed in your environment (such as python2 and python3) and if the pip and python commands point to different versions, please try the following command to install of the python package:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">.</span>
 </pre></div>
 </div>
@@ -165,14 +160,19 @@
      └── setup.py
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">aggscatrt</span></code> directory contains the dataset of the optical properties of various dust particles. The <code class="docutils literal notranslate"><span class="pre">python</span></code> directory contains a python package that helps to analyze the data (<em>aggscatpy</em>) and some Jupyter Notebooks to demonstrate its usage. The <code class="docutils literal notranslate"><span class="pre">particles</span></code> directory contains the particle shape data, such as the position data of monomers in an aggregate (in <code class="docutils literal notranslate"><span class="pre">/particles/aggregate</span></code>) as well as polygon surface model for irregular grains (in <code class="docutils literal notranslate"><span class="pre">particles/irregular</span></code>). All particle images are also provided in <code class="docutils literal notranslate"><span class="pre">particles/images</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">aggscatrt</span></code> directory contains the data files of the optical properties of various dust particles. The <code class="docutils literal notranslate"><span class="pre">python</span></code> directory contains a python package (<em>aggscatpy</em>) useful for data analysis, and Jupyter Notebooks provides several exemplary uses of this package. The <code class="docutils literal notranslate"><span class="pre">particles</span></code> directory contains the particle shape data, such as the position data of monomers in each aggregate (in <code class="docutils literal notranslate"><span class="pre">particles/aggregate</span></code>) and the polygon surface models for irregular grains (in <code class="docutils literal notranslate"><span class="pre">particles/irregular</span></code>). Also, all particle images are stored in <code class="docutils literal notranslate"><span class="pre">particles/images</span></code>.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">aggscatrt</span></code> directory includes two sub-directories: <code class="docutils literal notranslate"><span class="pre">single</span></code> and <code class="docutils literal notranslate"><span class="pre">distave</span></code>. The former and the latter contain the optical properties without/with a particle size distribution, respectively. Each of these directories further includes three sub-directories: <code class="docutils literal notranslate"><span class="pre">nochop</span></code>, <code class="docutils literal notranslate"><span class="pre">chop5</span></code>, and <code class="docutils literal notranslate"><span class="pre">chop10</span></code>. The <code class="docutils literal notranslate"><span class="pre">nochop</span></code> directory contains the optical properties of various dust particles, while the other two contain data that has been processed with a special treatment that may be useful in radiative transfer simulations (see Note below). If you are new to this database, it is recommended to start with the <code class="docutils literal notranslate"><span class="pre">nochop</span></code> directory.</p>
-<p>In principle, each dust model has a single ASCII file that tabulates all of its optical properties: the wavelength-dependent opacity, scattering angle grids, and scattering matrix elements (11, 12, 22, 33, 34, 44) for each wavelength and scattering angle. The physical properties of a dust model, such as the number of monomers and porosity, are also described in the header section of each file starting with ‘#’.</p>
-<p>If you access the <code class="docutils literal notranslate"><span class="pre">nochop</span></code> directory, you will see a number of files with names like:</p>
+<p>If you enter the <code class="docutils literal notranslate"><span class="pre">nochop</span></code> directory, you will see a number of files with names like:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dustkapscatmat_XXX</span><span class="o">.</span><span class="n">inp</span>
 </pre></div>
 </div>
-<p>where <code class="docutils literal notranslate"><span class="pre">XXX</span></code> represents a dust model name. Regarding the file structure, see <a class="reference internal" href="#filestruct"><span class="std std-ref">Structure of each dust file</span></a>.</p>
+<p>where <code class="docutils literal notranslate"><span class="pre">XXX</span></code> represents a dust model name. Each dust file is an ASCII file that tabulates all of its optical properties:</p>
+<ul class="simple">
+<li><p>the wavelength-dependent opacity and asymmetry parameter,</p></li>
+<li><p>scattering angle grids,</p></li>
+<li><p>scattering matrix elements (11, 12, 22, 33, 34, 44) for each wavelength and scattering angle.</p></li>
+</ul>
+<p>Regarding the detailed file structure, see <a class="reference internal" href="#filestruct"><span class="std std-ref">Structure of each dust file</span></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The chop5 and chop10 directories are intended for users who encounter problems due to the strong forward scattering peak of each dust particle in radiative transfer calculations. To alleviate this issue, the chop5 and chop10 directories provide the optical properties where the forward scattering peak is <em>chopped</em> at a scattering angle below 5 degrees or 10 degrees, respectively.</p>
@@ -186,7 +186,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dustkapscatmat_TYPE_SIZE_AMON_COMP</span><span class="o">.</span><span class="n">inp</span>
 </pre></div>
 </div>
-<p>where <code class="docutils literal notranslate"><span class="pre">TYPE</span></code> specifices a type of particle shape, <code class="docutils literal notranslate"><span class="pre">SIZE</span></code> is the aggregate size in units of the number of monomers, <code class="docutils literal notranslate"><span class="pre">AMON</span></code> is the monomer radius in units of nanometer, and <code class="docutils literal notranslate"><span class="pre">COMP</span></code> is the dust composition.</p>
+<p>where <code class="docutils literal notranslate"><span class="pre">TYPE</span></code> specifies a type of particle shape, <code class="docutils literal notranslate"><span class="pre">SIZE</span></code> is the aggregate size in units of the number of monomers, <code class="docutils literal notranslate"><span class="pre">AMON</span></code> is the monomer radius in units of nanometer, and <code class="docutils literal notranslate"><span class="pre">COMP</span></code> is the dust composition.</p>
 <p>For <code class="docutils literal notranslate"><span class="pre">TYPE</span></code>, the following values are available (regarding the definition of the fractal dimension and prefactor, see <a class="reference internal" href="app_def.html#strucdef"><span class="std std-ref">Fractal dimension, prefactor, and porosity</span></a>).</p>
 <table class="docutils align-default">
 <colgroup>
@@ -261,8 +261,8 @@
 <p>For <code class="docutils literal notranslate"><span class="pre">COMP</span></code>, the following two options are available (see <a class="reference internal" href="#dustcomp"><span class="std std-ref">Dust composition and Refractive indices</span></a> for more details).</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 12%" />
-<col style="width: 88%" />
+<col style="width: 13%" />
+<col style="width: 87%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>cmd</p></th>
@@ -271,14 +271,14 @@
 </thead>
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">org</span></code></p></td>
-<td><p>pyroxene (Mg0.7Fe0.3SiO3), water ice, troilite, organics</p></td>
+<td><p>pyroxene silicate, water ice, troilite, organics</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">amc</span></code></p></td>
-<td><p>pyroxene (Mg0.7Fe0.3SiO3), water ice, troilite, amorphous carbon</p></td>
+<td><p>pyroxene silicate, water ice, troilite, amorphous carbon</p></td>
 </tr>
 </tbody>
 </table>
-<p>The available number of monomers (<code class="docutils literal notranslate"><span class="pre">SIZE</span></code>) depends on the aggregate type and the monomoer radius. Here is a list of all possible combinations:</p>
+<p>The available number of monomers (<code class="docutils literal notranslate"><span class="pre">SIZE</span></code>) depends on the aggregate type and the monomer radius. Here is a list of all possible combinations:</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 9%" />
@@ -357,11 +357,11 @@ each with a radius of 100 nm and the <code class="docutils literal notranslate">
 <p>We also provide the optical properties averaged over an aggregate-size distribution obeying</p>
 <div class="math notranslate nohighlight">
 \[n(a_\mathrm{V})da_\mathrm{V}\propto a_\mathrm{V}^{-3.5}da_\mathrm{V}~(a_\mathrm{min}\le a_\mathrm{V}\le a_\mathrm{max}),\]</div>
-<p>where <span class="math notranslate nohighlight">\(a_\mathrm{min}\)</span> and <span class="math notranslate nohighlight">\(a_\mathrm{max}\)</span> represent the minimum and maximum volume-equivalent radii, respectively. For the aggregates, the minimum aggregate radius is always set as <span class="math notranslate nohighlight">\(a_\mathrm{min}=2a_\mathrm{mon}\)</span>. The maximum aggregate radius is a parameter. If you wish to obtain the optical properties of the same dust model as in the previous example, but for a size-distributed aggregate instead of a single-sized one, you need to insert <strong>Nmax</strong> before the number of monomers. The correct path to the file is:</p>
+<p>where <span class="math notranslate nohighlight">\(a_\mathrm{min}\)</span> and <span class="math notranslate nohighlight">\(a_\mathrm{max}\)</span> represent the minimum and maximum volume-equivalent radii, respectively. For the aggregates, the minimum aggregate radius is always set as <span class="math notranslate nohighlight">\(a_\mathrm{min}=2a_\mathrm{mon}\)</span>. The maximum aggregate radius is a parameter. The distribution-averaged counterpart of the above example is:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">aggscatrt</span><span class="o">/</span><span class="n">distave</span><span class="o">/</span><span class="n">nochop</span><span class="o">/</span><span class="n">dustkapscatmat_FA19_Nmax4096_100nm_amc</span><span class="o">.</span><span class="n">inp</span>
 </pre></div>
 </div>
-<p>Please remember to switch the directory into <code class="docutils literal notranslate"><span class="pre">distave</span></code> for this case. This file contains the optical properties averaged over aggregate-size distribution; the maximum aggregate in the size distribution contains 4096 monomers and the minimum aggregate contains 8 monomers.</p>
+<p>Please remember to insert <strong>Nmax</strong> right before the number of monomers and to switch the directory into <code class="docutils literal notranslate"><span class="pre">distave</span></code> for this case. This file contains the optical properties averaged over aggregate-size distribution; the maximum aggregate in the size distribution contains 4096 monomers and the minimum aggregate contains 8 monomers.</p>
 </div>
 <div class="section" id="for-irregular-grains">
 <h3>For irregular grains<a class="headerlink" href="#for-irregular-grains" title="Permalink to this heading"></a></h3>
@@ -370,18 +370,14 @@ each with a radius of 100 nm and the <code class="docutils literal notranslate">
 </pre></div>
 </div>
 <div class="line-block">
-<div class="line">where <code class="docutils literal notranslate"><span class="pre">COMP</span></code> is the grain composition (either <code class="docutils literal notranslate"><span class="pre">org</span></code> or <code class="docutils literal notranslate"><span class="pre">amc</span></code>) and <code class="docutils literal notranslate"><span class="pre">SIZE</span></code> is a volume-equivalent radius of irregular grains in units of microns (The decial point should be replaced by the underscore). The available <code class="docutils literal notranslate"><span class="pre">size</span></code> options are as follows.</div>
+<div class="line">where <code class="docutils literal notranslate"><span class="pre">COMP</span></code> is the grain composition (either <code class="docutils literal notranslate"><span class="pre">org</span></code> or <code class="docutils literal notranslate"><span class="pre">amc</span></code>) and <code class="docutils literal notranslate"><span class="pre">SIZE</span></code> is a volume-equivalent radius of irregular grains in units of microns (The decimal point should be replaced by the underscore). The available <code class="docutils literal notranslate"><span class="pre">size</span></code> options are as follows.</div>
 <div class="line"><code class="docutils literal notranslate"><span class="pre">SIZE</span></code> = <code class="docutils literal notranslate"><span class="pre">0_2000</span></code>, <code class="docutils literal notranslate"><span class="pre">0_2520</span></code>, <code class="docutils literal notranslate"><span class="pre">0_3175</span></code>, <code class="docutils literal notranslate"><span class="pre">0_4000</span></code>, <code class="docutils literal notranslate"><span class="pre">0_5040</span></code>, <code class="docutils literal notranslate"><span class="pre">0_6350</span></code>, <code class="docutils literal notranslate"><span class="pre">0_8000</span></code>, <code class="docutils literal notranslate"><span class="pre">1_0079</span></code>, <code class="docutils literal notranslate"><span class="pre">1_2699</span></code>, <code class="docutils literal notranslate"><span class="pre">1_6000</span></code></div>
 </div>
-<p>For example, if you would like to obtain the optical properties of single-sized irregular grains with <span class="math notranslate nohighlight">\(a_\mathrm{V}=1.6~\mu\mathrm{m}\)</span> and the <code class="docutils literal notranslate"><span class="pre">amc</span></code> composition, the correct path to the file is:</p>
+<p>For example, the file for single-sized irregular grains with <span class="math notranslate nohighlight">\(a_\mathrm{V}=1.6~\mu\mathrm{m}\)</span> and the <code class="docutils literal notranslate"><span class="pre">amc</span></code> composition is located at:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">aggscatrt</span><span class="o">/</span><span class="n">single</span><span class="o">/</span><span class="n">nochop</span><span class="o">/</span><span class="n">dustkapscatmat_grs_rv1_6000um_amc</span><span class="o">.</span><span class="n">inp</span>
 </pre></div>
 </div>
-<p>As with the case of aggregates, the optical properties averaged over the size distribution are available for irregular grains as well. In this case, you need to insert <strong>max</strong> right before the size option, and thus the model name looks like:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dustkapscatmat_grs_rvmaxSIZEum_COMP</span><span class="o">.</span><span class="n">inp</span>
-</pre></div>
-</div>
-<p>For example, the distribution-averaged counterpart of the above example has the following relative path:</p>
+<p>And its distribution-averaged counterpart is located at:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">aggscatrt</span><span class="o">/</span><span class="n">distave</span><span class="o">/</span><span class="n">nochop</span><span class="o">/</span><span class="n">dustkapscatmat_grs_rvmax1_6000um_amc</span><span class="o">.</span><span class="n">inp</span>
 </pre></div>
 </div>
@@ -391,7 +387,7 @@ each with a radius of 100 nm and the <code class="docutils literal notranslate">
 <span id="dustcomp"></span><h2>Dust composition and Refractive indices<a class="headerlink" href="#dust-composition-and-refractive-indices" title="Permalink to this heading"></a></h2>
 <p>In order to calculate the optical properties, we need to assume a complex refractive index, which depends on dust composition.
 We consider refractive indices of four materials: water ice <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2008JGRD..11314220W">(Warren &amp; Brandt 2008)</a>,
-proxene silicate Mg0.7Fe0.3SiO3 <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/1995A%26A...300..503D/abstract">(Dorschner et al. 1995)</a>,
+pyroxene silicate <span class="math notranslate nohighlight">\(\mathrm{Mg}_{0.7}\mathrm{Fe}_{0.3}\mathrm{SiO}_3\)</span> <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/1995A%26A...300..503D/abstract">(Dorschner et al. 1995)</a>,
 carbonaceous material, and troilite <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/1996A%26A...311..291H/abstract">(Henning &amp; Stognienko 1996)</a>.
 For carbonaceous material, we adopt refractory organics by <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/1996A%26A...311..291H/abstract">Henning &amp; Stognienko (1996)</a> for the org model and amorphous carbon by <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/1996MNRAS.282.1321Z/abstract">Zubko et al. (1996)</a> for the amc model. The mass abundances for the four components are taken from <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2001ApJ...553..321D/abstract">D’Alessio et al. (2001)</a> by reducing the water-ice mass abundance down to 20%, as done in the DSHARP model by <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2018ApJ...869L..45B/abstract">Birnstiel et al. (2018)</a>. The material density and the resultant mass (volume) fractions are as follows.</p>
 <table class="docutils align-default">
@@ -485,7 +481,7 @@ For carbonaceous material, we adopt refractory organics by <a class="reference e
 <p>The material density is 1.6487 g/cc and 1.7779 g/cc for the org and amc models, respectively.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p><strong>Models with incomplete wavelength coverage</strong>: The following models only have the wavelength coverage of <span class="math notranslate nohighlight">\(1.040\)</span>–<span class="math notranslate nohighlight">\(3.780~\mu\mathrm{m}\)</span>; therefore, the data sets at <span class="math notranslate nohighlight">\(\lambda=0.554~\mu\mathrm{m}\)</span> and <span class="math notranslate nohighlight">\(0.735~\mu\mathrm{m}\)</span> are missing:
+<p><strong>Models with incomplete wavelength coverage</strong>: The following models do not have data sets at <span class="math notranslate nohighlight">\(\lambda=0.554~\mu\mathrm{m}\)</span> and <span class="math notranslate nohighlight">\(0.735~\mu\mathrm{m}\)</span>:
 <code class="docutils literal notranslate"><span class="pre">FA19_(Nmax)4096_100nm_amc</span></code>,
 <code class="docutils literal notranslate"><span class="pre">FA19_(Nmax)4096_100nm_org</span></code>,
 <code class="docutils literal notranslate"><span class="pre">FA15_(Nmax)1024_100nm_amc</span></code>,
@@ -498,7 +494,7 @@ For carbonaceous material, we adopt refractory organics by <a class="reference e
 </div>
 <div class="section" id="structure-of-each-dust-file">
 <span id="filestruct"></span><h2>Structure of each dust file<a class="headerlink" href="#structure-of-each-dust-file" title="Permalink to this heading"></a></h2>
-<p>Our file format conveys the one adopted in a public radiative trasnfer code RADMC-3D v2.0. Each <strong>dustkapscatmat_XXX.inp</strong> has the following format.</p>
+<p>Our file format conveys the one adopted in a public radiative transfer code RADMC-3D v2.0. Each <strong>dustkapscatmat_XXX.inp</strong> has the following format.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
 <span class="c1"># header information</span>
 <span class="c1">#</span>
@@ -538,20 +534,21 @@ For carbonaceous material, we adopt refractory organics by <a class="reference e
 <span class="n">Z_11</span>  <span class="n">Z_12</span>  <span class="n">Z_22</span>  <span class="n">Z_33</span>  <span class="n">Z_34</span>  <span class="n">Z_44</span>   <span class="p">[</span><span class="nb">all</span> <span class="k">for</span> <span class="n">ilam</span><span class="o">=</span><span class="n">nlam</span> <span class="ow">and</span> <span class="n">iang</span><span class="o">=</span><span class="n">nang</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>The first block contains some header information (staring from #) and the number of grids for wavelength and scattering angle. The second block then contains wavelength (<span class="math notranslate nohighlight">\(\mu\mathrm{m}\)</span>), the absorption and scattering opacities (<span class="math notranslate nohighlight">\(\mathrm{cm}^2/\mathrm{g}\)</span>), and the asymmetry parameter. The third block is a list of scattering angles (<span class="math notranslate nohighlight">\(^\circ\)</span>). The final block contains 6 scattering matrix elements (<span class="math notranslate nohighlight">\(\mathrm{cm}^2/\mathrm{g}/\mathrm{str}\)</span>).</p>
+<p>The first block contains header information (staring from #) and the number of grids for wavelength and scattering angle. The second block then contains wavelength (<span class="math notranslate nohighlight">\(\mu\mathrm{m}\)</span>), the absorption and scattering opacities (<span class="math notranslate nohighlight">\(\mathrm{cm}^2/\mathrm{g}\)</span>), and the asymmetry parameter. The third block is a list of scattering angles (<span class="math notranslate nohighlight">\(^\circ\)</span>). The final block contains 6 scattering matrix elements (<span class="math notranslate nohighlight">\(\mathrm{cm}^2/\mathrm{g}/\mathrm{str}\)</span>).</p>
 <p>Regarding the definition of the scattering matrix elements <span class="math notranslate nohighlight">\(Z_{ij}\)</span>, please refer to <a class="reference internal" href="app_def.html#scatmatdefs"><span class="std std-ref">Definitions of scattering properties</span></a>.</p>
 </div>
-<div class="section" id="particle-shape-data">
-<h2>Particle shape data<a class="headerlink" href="#particle-shape-data" title="Permalink to this heading"></a></h2>
+<div class="section" id="particle-shape-models">
+<h2>Particle shape models<a class="headerlink" href="#particle-shape-models" title="Permalink to this heading"></a></h2>
+<p>Particle shape models are available in the <code class="docutils literal notranslate"><span class="pre">particles</span></code> directory.</p>
 <div class="section" id="aggregates">
 <h3>Aggregates<a class="headerlink" href="#aggregates" title="Permalink to this heading"></a></h3>
-<p>In <code class="docutils literal notranslate"><span class="pre">/particles/aggregate</span></code>, the radius and the Cartesian coordinates of each monomer in an aggregate are provided. Each file has a name of <code class="docutils literal notranslate"><span class="pre">PARTYPE_SIZE_IREAL_AMON.pos</span></code>, where <code class="docutils literal notranslate"><span class="pre">PARTYPE</span></code>, <code class="docutils literal notranslate"><span class="pre">SIZE</span></code>, and <code class="docutils literal notranslate"><span class="pre">AMON</span></code> are the same as those introduced in <a class="reference internal" href="#filename"><span class="std std-ref">Rules for dust file names</span></a>. <code class="docutils literal notranslate"><span class="pre">IREAL</span></code> specifies the realization index of each model. Each aggregate model has four realizations, and therefore, <code class="docutils literal notranslate"><span class="pre">IREAL</span></code> runs from 1 to 4.</p>
+<p>In <code class="docutils literal notranslate"><span class="pre">particles/aggregate</span></code>, the radius and the Cartesian coordinates of each monomer in an aggregate are provided. Each file has a name of <code class="docutils literal notranslate"><span class="pre">PARTYPE_SIZE_IREAL_AMON.pos</span></code>, where <code class="docutils literal notranslate"><span class="pre">PARTYPE</span></code>, <code class="docutils literal notranslate"><span class="pre">SIZE</span></code>, and <code class="docutils literal notranslate"><span class="pre">AMON</span></code> are the same as those introduced in <a class="reference internal" href="#filename"><span class="std std-ref">Rules for dust file names</span></a>. <code class="docutils literal notranslate"><span class="pre">IREAL</span></code> specifies the realization index of each model. Each aggregate model has four realizations; therefore, <code class="docutils literal notranslate"><span class="pre">IREAL</span></code> runs from 1 to 4.</p>
 <p>In each file, the first column contains the monomer radius in units of microns, while the 2nd, 3rd, and 4th columns specify the Cartesian coordinates of the monomers in units of microns.</p>
 </div>
 <div class="section" id="irregular-grains">
 <h3>Irregular grains<a class="headerlink" href="#irregular-grains" title="Permalink to this heading"></a></h3>
-<p>In <code class="docutils literal notranslate"><span class="pre">/particles/irregular</span></code>, we provide the shape model of irregular grains with 10 realizations with two different file formats: .vtk or .inc. Each file has a name of <code class="docutils literal notranslate"><span class="pre">grsXXX.vtk(.inc)</span></code>, where XXX indicates the realization index. In the light scattering calculation, The radius of the grains are scaled to have a prescribed value of the volume-equivalent radius while fixing the particle shape.</p>
-<p>The former file contains the shape model of irregular grains are provided in ASCII Legacy VTK File Format. The first block summraizes the number of vertexes and its Cartesian coordinates. Then the second block specified which three of the vertexes are conneted to form a triangular cell face. You can open these vtk files by using <a class="reference external" href="https://www.paraview.org/">Paraview</a>. The latter .inc files contain the same information as the former one, but it is written in a format that can be used to run POV-RAY.</p>
+<p>In <code class="docutils literal notranslate"><span class="pre">particles/irregular</span></code>, we provide the shape model of irregular grains with 10 realizations in two file formats: .vtk or .inc. Each file has a name of <code class="docutils literal notranslate"><span class="pre">grsXXX.vtk(.inc)</span></code>, where XXX indicates the realization index. The former file contains the shape model of irregular grains in ASCII Legacy VTK File Format. The first block summarizes the number of vertexes and its Cartesian coordinates. Then the second block specified which three of the vertexes are connected to form a triangular cell face. You can open these vtk files by using <a class="reference external" href="https://www.paraview.org/">ParaView</a>. The latter .inc files contain the same information as the former one, but it is written in a format to be useful for running <a class="reference external" href="https://www.povray.org/">POV-RAY</a>.</p>
+<p>In the light scattering calculation, the radius of each grain was scaled to have a prescribed value of the volume-equivalent radius while fixing the particle shape.</p>
 </div>
 </div>
 </div>

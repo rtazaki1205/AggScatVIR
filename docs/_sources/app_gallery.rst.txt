@@ -1,7 +1,7 @@
 Appendix B: Gallery of the optical properties
 ==============================================
 
-In this section, we provide an overview of the optical properties stored in this database. For each group of plots, top and bottom rows represent the results for ``org`` and ``amc``, respectively.
+This section provides an overview of the optical properties stored in this database. For each group of plots, top and bottom rows represent the results for ``org`` and ``amc``, respectively.
 
 GRS (Irregular grains)
 ######################
@@ -133,8 +133,8 @@ amon=400nm
    .. image:: ./imgs/CAHP_400nm_single.png
 
 
-FA19 (Fractal aggregates with :math:`D_\mathrm{f}=1.9`)
-#######################################################
+FA19 (Fractal aggregates with a fractal dimension of 1.9)
+#########################################################
 amon=100nm
 ***********
 
@@ -198,8 +198,8 @@ amon=400nm
 
 
 
-FA15 (Fractal aggregates with :math:`D_\mathrm{f}=1.5`)
-#######################################################
+FA15 (Fractal aggregates with a fractal dimension of 1.5)
+#########################################################
 amon=100nm
 ***********
 
@@ -261,8 +261,8 @@ amon=400nm
 
    .. image:: ./imgs/FA15_400nm_single.png
 
-FA13 (Fractal aggregates with :math:`D_\mathrm{f}=1.3`)
-#######################################################
+FA13 (Fractal aggregates with a fractal dimension of 1.3)
+##########################################################
 amon=100nm
 ***********
 
@@ -324,8 +324,8 @@ amon=400nm
 
 
 
-FA11 (Fractal aggregates with :math:`D_\mathrm{f}=1.1`)
-#######################################################
+FA11 (Fractal aggregates with a fractal dimension of 1.1)
+#########################################################
 amon=100nm
 ***********
 
