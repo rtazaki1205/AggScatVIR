@@ -21,12 +21,13 @@ To install the python package (called *aggscatpy*), after downloading the reposi
 Structure of this package
 ##########################
 
-The package has the following structure:
+The repository has the following structure:
 ::
 
     aggscatvir
-    ├── README.md
-    ├── aggscatrt
+    ├── README.md            
+    ├── docs                # documentation
+    ├── aggscatrt           # optical properties
     │    ├── single
     │    │   ├─── nochop
     │    │   ├─── chop5
@@ -35,12 +36,11 @@ The package has the following structure:
     │        ├─── nochop
     │        ├─── chop5
     │        └─── chop10
-    ├── docs
-    ├── particles
+    ├── particles           # particle shape data and images
     │    ├── aggregate
     │    ├── irregular
     │    └── images
-    └── python
+    └── python              # python package (aggscatpy)
          ├── aggscatpy
          ├── notebooks
          ├── povray

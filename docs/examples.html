@@ -954,7 +954,11 @@ writing ... dustkapscatmat_CALP_Nmin2048_Nmax2048_pow3.5_100nm_amc.inp
 </pre></div></div>
 </div>
 <p>The filename will be automatically generated based on the minimum and maximum particle sizes, power-law index, and chopping angle (if non-zero). You can also modify the filename by setting the <code class="docutils literal notranslate"><span class="pre">fn</span></code> option.</p>
-<p>Without any options, the generated file will have a standard ‘dustkapscatmat_XXX’ format. <strong>IMPORTANT: the definition of the scattering matrix to be written in the file will be the same as the one defined in each instance</strong>. The above instance <code class="docutils literal notranslate"><span class="pre">d</span></code> has the scattering matrix with the RADMC definition, you can use the generated file to run RADMC-3D.</p>
+<p>Without any options, the generated file will have a standard ‘dustkapscatmat_XXX’ format.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The definition of the scattering matrix to be written in the file will be the same as the one defined in each instance. Since the above instance <code class="docutils literal notranslate"><span class="pre">d</span></code> has the scattering matrix with the RADMC definition, the generated file contains <span class="math notranslate nohighlight">\(Z_{ij}\)</span>. In this case, the generated file is directly readable by RADMC-3D.</p>
+</div>
 <p>Conversely, if you have created an instance that has the scattering matrix in Bohren &amp; Huffman’s definition, the following will happen:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
