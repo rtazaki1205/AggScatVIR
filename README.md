@@ -1,4 +1,6 @@
 
+![GitHub repo size](https://img.shields.io/github/repo-size/rtazaki1205/AggScatVIR)
+
 # Caveat!
 *THIS PACKAGE IS STILL UNDER TESTING. PLEASE WAIT FOR AN OFFICIAL RELEASE*
 
