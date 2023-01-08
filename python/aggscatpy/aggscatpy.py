@@ -110,7 +110,7 @@ class dustmodel:
     av     : float (*only when* ``dist=False``)
             Volume-equivalent radius (micron) 
     pow    : float (*only when* ``dist=True``)
-            Power-law index of size distribution: n(a)da propto a^{-p}da
+            Power-law index of size distribution: n(a)da propto a^{-pow}da
     amon   : float (*only when* ``partype!='grs'``)
             Monomer radius (microns)
             Number of monomers of the minimum aggregate in the size distribution
