@@ -566,8 +566,8 @@ class distaverage:
             Distribution-averaged dust mass (g)
     avmin, avmax  : float
             Volume-equivalent radii of the minimum and maximum dust particles in the size distribution
-    powind : float
-            Power-law index of size distribution: n(a)da propto a^{-powind}da
+    pow    : float
+            Power-law index of size distribution: n(a)da propto a^{-pow}da
     amon   : float (*only when* ``partype!='grs'``)
             Monomer radius (microns)
             Number of monomers of the minimum aggregate in the size distribution
