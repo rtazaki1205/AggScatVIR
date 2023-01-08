@@ -465,7 +465,7 @@ div.rendered_html tbody tr:hover {
 <img alt="_images/examples_10_0.png" src="_images/examples_10_0.png" />
 </div>
 </div>
-<p>In this case, <code class="docutils literal notranslate"><span class="pre">partype</span></code> has to be <code class="docutils literal notranslate"><span class="pre">'grs'</span></code>. The <code class="docutils literal notranslate"><span class="pre">size</span></code> argument represents the volume-equivalent radius of maximum grains in the size distribution in units of microns (the decimal point needs to be replaced by an underscore). For example, <code class="docutils literal notranslate"><span class="pre">size='1_6000'</span></code> means that the volume-equivalent radius (of the maximum grain) is <span class="math notranslate nohighlight">\(1.6~\mu\)</span>m. By default, the command will display all (ten) realizations.</p>
+<p>In this case, <code class="docutils literal notranslate"><span class="pre">partype</span></code> has to be <code class="docutils literal notranslate"><span class="pre">'grs'</span></code>. The <code class="docutils literal notranslate"><span class="pre">size</span></code> argument represents the volume-equivalent radius of grains in units of microns (the decimal point needs to be replaced by an underscore). For example, <code class="docutils literal notranslate"><span class="pre">size='1_6000'</span></code> means that the volume-equivalent radius (of the maximum grain) is <span class="math notranslate nohighlight">\(1.6~\mu\)</span>m. By default, the command will display all (ten) realizations.</p>
 <p>You can get a list of the available size argument for irregular grains:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
@@ -518,7 +518,8 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<p>By default, the <code class="docutils literal notranslate"><span class="pre">dustmodel</span></code> class reads a dust file <strong>with size distribution and no forward-scattering chopping</strong>. You can change this default setting by the <code class="docutils literal notranslate"><span class="pre">dist</span></code> and <code class="docutils literal notranslate"><span class="pre">chop</span></code> options when calling the class. For example, if you want to switch off the size distribution, set <code class="docutils literal notranslate"><span class="pre">dist=False</span></code> (default: <code class="docutils literal notranslate"><span class="pre">dist=True</span></code>). If you want to forward scattering chopping, set either <code class="docutils literal notranslate"><span class="pre">chop='chop5'</span></code> or <code class="docutils literal notranslate"><span class="pre">chop='chop10'</span></code> (default: <code class="docutils literal notranslate"><span class="pre">chop='nochop'</span></code>). <code class="docutils literal notranslate"><span class="pre">chop5</span></code> and <code class="docutils literal notranslate"><span class="pre">chop10</span></code> refer to cases where the
+<p>The <code class="docutils literal notranslate"><span class="pre">size</span></code> argument specifies the maximum volume-equivalent radius of grains.</p>
+<p>By default, the <code class="docutils literal notranslate"><span class="pre">dustmodel</span></code> class reads a dust file <strong>with size distribution and no forward-scattering chopping</strong>. You can change this default setting by the <code class="docutils literal notranslate"><span class="pre">dist</span></code> and <code class="docutils literal notranslate"><span class="pre">chop</span></code> options when calling the class. For example, if you want to switch off the size distribution, set <code class="docutils literal notranslate"><span class="pre">dist=False</span></code> (default: <code class="docutils literal notranslate"><span class="pre">dist=True</span></code>). If you want to have forward scattering chopping, set either <code class="docutils literal notranslate"><span class="pre">chop='chop5'</span></code> or <code class="docutils literal notranslate"><span class="pre">chop='chop10'</span></code> (default: <code class="docutils literal notranslate"><span class="pre">chop='nochop'</span></code>). <code class="docutils literal notranslate"><span class="pre">chop5</span></code> and <code class="docutils literal notranslate"><span class="pre">chop10</span></code> refer to cases where the
 forward scattering peak is chopped at scattering angles below 5 or 10 degrees, respectively. For example, the command looks like this:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
@@ -531,7 +532,7 @@ forward scattering peak is chopped at scattering angles below 5 or 10 degrees, r
 </div>
 <div class="section" id="Check-physical-and-optical-properties">
 <h3>Check physical and optical properties<a class="headerlink" href="#Check-physical-and-optical-properties" title="Permalink to this heading"></a></h3>
-<p>Each instance created by <code class="docutils literal notranslate"><span class="pre">dustmodel</span></code> contains the physical and optical properties of the dust model as its attributes (see Appendix C for the attributes). The <em>aggscatpy</em> package includes functions that allow us to quickly overview the values stored in its attributes.</p>
+<p>Each instance created by <code class="docutils literal notranslate"><span class="pre">dustmodel</span></code> contains the physical and optical properties of the dust model in its attributes (see Appendix C for the attributes).</p>
 <p>We can display the physical properties of the dust particle stored in the instance <code class="docutils literal notranslate"><span class="pre">a</span></code> by using the <code class="docutils literal notranslate"><span class="pre">dustspec</span></code> function:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
@@ -953,7 +954,7 @@ wavelength =  3.780
 writing ... dustkapscatmat_CALP_Nmin2048_Nmax2048_pow3.5_100nm_amc.inp
 </pre></div></div>
 </div>
-<p>The filename will be automatically generated based on the minimum and maximum particle sizes, power-law index, and chopping angle (if non-zero). You can also modify the filename by setting the <code class="docutils literal notranslate"><span class="pre">fn</span></code> option.</p>
+<p>The filename will be automatically generated based on the minimum and maximum particle sizes, power-law index, and chopping angle (if non-zero). You can also modify the filename by setting the <code class="docutils literal notranslate"><span class="pre">fn</span></code> option if you want.</p>
 <p>Without any options, the generated file will have a standard ‘dustkapscatmat_XXX’ format.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -1055,7 +1056,7 @@ writing ... scatmat_CALP_Nmax4096_100nm_amc_lmd1.63um.out
 </div>
 <div class="section" id="Reloading-a-dustkapscatmat_XXX-file-generated-by-this-tool">
 <h2>Reloading a dustkapscatmat_XXX file generated by this tool<a class="headerlink" href="#Reloading-a-dustkapscatmat_XXX-file-generated-by-this-tool" title="Permalink to this heading"></a></h2>
-<p>You can use the <code class="docutils literal notranslate"><span class="pre">dustmodel</span></code> class to reload a file with the format dustkapscatmat_XXX.inp or dustkapscatmat_XXX.out generated by this tool. To do so, specify the relative path to the file when calling:</p>
+<p>You can use the <code class="docutils literal notranslate"><span class="pre">dustmodel</span></code> class to reload a file with the format dustkapscatmat_XXX.inp or dustkapscatmat_XXX.out generated by this tool. To do so, you just need to specify the relative path to the file when calling:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
@@ -1077,7 +1078,7 @@ writing ... scatmat_CALP_Nmax4096_100nm_amc_lmd1.63um.out
 <h2>Example analysis<a class="headerlink" href="#Example-analysis" title="Permalink to this heading"></a></h2>
 <div class="section" id="Comparing-phase-functions-of-different-fractal-dimensions">
 <h3>Comparing phase functions of different fractal dimensions<a class="headerlink" href="#Comparing-phase-functions-of-different-fractal-dimensions" title="Permalink to this heading"></a></h3>
-<p>For example, let’s examine how the phase function of aggregates changes with fractal dimension at the <span class="math notranslate nohighlight">\(H\)</span> band wavelength (<span class="math notranslate nohighlight">\(\lambda=1.63~\mu\)</span>m). We consider a fractal dimension of <span class="math notranslate nohighlight">\(D_\mathrm{f}=1.1\)</span>, <span class="math notranslate nohighlight">\(1.3\)</span>, <span class="math notranslate nohighlight">\(1.5\)</span>, and <span class="math notranslate nohighlight">\(1.9\)</span>.</p>
+<p>For example, let’s investigate how the phase function of aggregates changes with fractal dimension at the <span class="math notranslate nohighlight">\(H\)</span> band wavelength (<span class="math notranslate nohighlight">\(\lambda=1.63~\mu\)</span>m). We consider a fractal dimension of <span class="math notranslate nohighlight">\(D_\mathrm{f}=1.1\)</span>, <span class="math notranslate nohighlight">\(1.3\)</span>, <span class="math notranslate nohighlight">\(1.5\)</span>, and <span class="math notranslate nohighlight">\(1.9\)</span>.</p>
 <p>To do so, first create some lists:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
