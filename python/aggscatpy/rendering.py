@@ -330,6 +330,12 @@ def view_particle(partype,size,ireal=None,amon=None):
                        Monomer radius (necessary if you call aggregate files).
     """
 
+    # check particle type
+    check_particle_type(partype)
+
+    # check particle size
+    check_particle_size(partype,amon,size)
+
     if partype=='grs':
         if ireal==None:
             plt.figure(figsize=(15,20))
