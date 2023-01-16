@@ -397,7 +397,7 @@ div.rendered_html tbody tr:hover {
 writing ...  ./imgs/geom_demo1.png
 </pre></div></div>
 </div>
-<p>where <code class="docutils literal notranslate"><span class="pre">partype</span></code>, <code class="docutils literal notranslate"><span class="pre">size</span></code>, <code class="docutils literal notranslate"><span class="pre">amon</span></code> are the particle type, particle size, and the monomer radius, respectively. These arguments are the same as those introduced in the previous section. <code class="docutils literal notranslate"><span class="pre">ireal</span></code> is a realization number. The command will generate a povray readable file and pass it to POV-RAY automatically. As a result, a .png image will be saved in <code class="docutils literal notranslate"><span class="pre">./imgs/</span></code>.</p>
+<p>where <code class="docutils literal notranslate"><span class="pre">partype</span></code>, <code class="docutils literal notranslate"><span class="pre">size</span></code>, <code class="docutils literal notranslate"><span class="pre">amon</span></code> are the particle type, particle size, and the monomer radius, respectively. These arguments are the same as those introduced in the previous section. <code class="docutils literal notranslate"><span class="pre">ireal</span></code> is a realization number. The command will generate a povray readable file and pass it to POV-RAY automatically. After running POV-RAY, a .png image will be saved in <code class="docutils literal notranslate"><span class="pre">./imgs/</span></code>.</p>
 <p>To check out the produced image, let’s define a simple function:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
@@ -459,8 +459,8 @@ writing ...  ./imgs/geom_demo2.png
 </div>
 <div class="section" id="Particle-and-background-colors">
 <h2>Particle and background colors<a class="headerlink" href="#Particle-and-background-colors" title="Permalink to this heading"></a></h2>
-<p>We can specify the color of particles by adding <code class="docutils literal notranslate"><span class="pre">particle_color='rgb&lt;value,value,value&gt;'</span></code> as an option. The color can be chosen from basic colors (e.g., Red, Green, Blue, Yellow, Cyan, Magenta, Clear, White) or specified with RGB mixing. RGB is a mixture of colors based on the primary colors of light, allowing for fine-tuning of the particle color. The color can be specified in the form of ‘rgb&lt;value,value,value&gt;’, where each value ranges from 0 to 1. For example, black is ‘rgb&lt;0,0,0&gt;’, and
-white is ‘rgb&lt;1,1,1&gt;’. When all values of R, G, and B are the same, the color can also be specified simply as ‘rgb value’.</p>
+<p>We can specify the color of particles by adding <code class="docutils literal notranslate"><span class="pre">particle_color='rgb&lt;value,value,value&gt;'</span></code>. The color can be chosen from basic colors (e.g., Red, Green, Blue, Yellow, Cyan, Magenta, Clear, White) or specified with RGB mixing. RGB is a mixture of colors based on the primary colors of light, allowing for fine-tuning of the particle color. The color can be specified in the form of ‘rgb&lt;value,value,value&gt;’, where each value ranges from 0 to 1. For example, black is ‘rgb&lt;0,0,0&gt;’, and white is
+‘rgb&lt;1,1,1&gt;’. When all values of R, G, and B are the same, the color can also be specified simply as ‘rgb value’.</p>
 <p>As an example, let’s make a yellowish particle:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
@@ -487,7 +487,7 @@ writing ...  ./imgs/geom_demo3.png
 <img alt="_images/geometry_17_1.png" src="_images/geometry_17_1.png" />
 </div>
 </div>
-<p>By default, the background color is set to transparent. To change the background color, set <code class="docutils literal notranslate"><span class="pre">background=True</span></code> and set its color by adding <code class="docutils literal notranslate"><span class="pre">bg_color='rgb&lt;value,value,value&gt;'</span></code>. <code class="docutils literal notranslate"><span class="pre">bgcolor</span></code> can be specified in the same way as the particle color, either by RGB values or by basic colors (e.g., White, Black, Red, Green, Blue, Yellow, Cyan, Magenta, Gray). For example, to have a gray background, the command looks like this:</p>
+<p>By default, the background color is set to transparent. To change the background color, set <code class="docutils literal notranslate"><span class="pre">background=True</span></code> and specify its color by adding <code class="docutils literal notranslate"><span class="pre">bg_color='rgb&lt;value,value,value&gt;'</span></code>. <code class="docutils literal notranslate"><span class="pre">bgcolor</span></code> can be specified in the same way as the particle color, either by RGB values or by basic colors (e.g., White, Black, Red, Green, Blue, Yellow, Cyan, Magenta, Gray). For example, to have a gray background, the command looks like this:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
@@ -516,7 +516,7 @@ writing ...  ./imgs/geom_demo4.png
 </div>
 <div class="section" id="Reference-bar:-position-and-reference-scale">
 <h2>Reference bar: position and reference scale<a class="headerlink" href="#Reference-bar:-position-and-reference-scale" title="Permalink to this heading"></a></h2>
-<p>You can modify a reference-scale bar in the image. The default bar length is set to the characteristic radius and the volume-equivalent radius for aggregates and irregular grains, respectively. The physical length of the bar (in units of <span class="math notranslate nohighlight">\(\mu\mathrm{m}\)</span>) can be directly specified by setting <code class="docutils literal notranslate"><span class="pre">reference_length</span></code>. The color of the reference bar can also be changed with <code class="docutils literal notranslate"><span class="pre">reference_color</span></code> (similar to the particle and background colors). If you want larger text fonts, you can set a
+<p>You can modify/adjust a reference-scale bar in the image. The default bar length is set to the characteristic radius and the volume-equivalent radius for aggregates and irregular grains, respectively. The physical length of the bar (in units of <span class="math notranslate nohighlight">\(\mu\mathrm{m}\)</span>) can be directly specified by setting <code class="docutils literal notranslate"><span class="pre">reference_length</span></code>. The color of the reference bar can also be changed with <code class="docutils literal notranslate"><span class="pre">reference_color</span></code> (similar to the particle and background colors). If you want larger text fonts, you can set a
 magnification rate by <code class="docutils literal notranslate"><span class="pre">ref_fontsize</span></code> (to make it large, the value has to be &gt;1.0. Conversely, to make it small, the value should be &lt;1.0).</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
@@ -544,9 +544,9 @@ writing ...  ./imgs/geom_demo5.png
 <img alt="_images/geometry_22_1.png" src="_images/geometry_22_1.png" />
 </div>
 </div>
-<p>The reference bar is placed on the <span class="math notranslate nohighlight">\(y\)</span>-<span class="math notranslate nohighlight">\(z\)</span> plane (<span class="math notranslate nohighlight">\(x=0\)</span>) in the rendering coordinate system (<em>Note:</em> The system is left-handed). You can change the position of the reference bar, using <code class="docutils literal notranslate"><span class="pre">ref_dist</span></code> and <code class="docutils literal notranslate"><span class="pre">ref_posang</span></code> (see also the image below). The former and latter set the distance from the origin to the center of the bar (in units of the characteristic radius for aggregates and the volume-equivalent radius for irregular grains) and angle (in degrees) measured from the
-<span class="math notranslate nohighlight">\(z\)</span> axis, respectively.</p>
-<p><img alt="b0f010176c45412d8dedbd8dfe2ccf1f" class="no-scaled-link" src="_images/reference_bar.png" style="width: 300px;" /></p>
+<p>The reference bar is a cylindrical object placed on the <span class="math notranslate nohighlight">\(y\)</span>-<span class="math notranslate nohighlight">\(z\)</span> plane (<span class="math notranslate nohighlight">\(x=0\)</span>) in the rendering coordinate system (<em>Note:</em> The system is left-handed). You can change the position of the reference bar, using <code class="docutils literal notranslate"><span class="pre">ref_dist</span></code> and <code class="docutils literal notranslate"><span class="pre">ref_posang</span></code> (see also the image below). The former and latter set the distance from the origin to the center of the bar (in units of the characteristic radius for aggregates and the volume-equivalent radius for irregular grains) and angle (in degrees)
+measured from the <span class="math notranslate nohighlight">\(z\)</span> axis, respectively.</p>
+<p><img alt="f688fcbc1b044a7ebdf230c3cb8a3d64" class="no-scaled-link" src="_images/reference_bar.png" style="width: 300px;" /></p>
 <p>For example, if you would like to place the bar at the top of the image, set <code class="docutils literal notranslate"><span class="pre">ref_posang=90</span></code>:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
@@ -604,9 +604,9 @@ writing ...  ./imgs/geom_demo7.png
 </div>
 <div class="section" id="Camera-position-and-orientation-of-a-particle">
 <h2>Camera position and orientation of a particle<a class="headerlink" href="#Camera-position-and-orientation-of-a-particle" title="Permalink to this heading"></a></h2>
-<p>You can change the camera’s location (observer) and the particle’s orientation. The camera is fixed to the <span class="math notranslate nohighlight">\(x\)</span> axis of the coordinate system (<span class="math notranslate nohighlight">\(x_\mathrm{camera},0,0\)</span>) and you can change the distance from the origin to the camera position via <code class="docutils literal notranslate"><span class="pre">xcamera</span></code> (in units of the characteristic radius and the volume-equivalent radius for aggregates and irregular grains, respectively).</p>
-<p>You can also rotate the coordinate system about each axis: <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, and <span class="math notranslate nohighlight">\(z\)</span> (Note that POV-RAY adopts the left-handed system) by using <code class="docutils literal notranslate"><span class="pre">rotx</span></code>, <code class="docutils literal notranslate"><span class="pre">roty</span></code>, and <code class="docutils literal notranslate"><span class="pre">rotz</span></code>, respectively (in units of degrees) (see the image below).</p>
-<p><img alt="1ef3387a9c0744048780f8614692501f" class="no-scaled-link" src="_images/camera.png" style="width: 300px;" /></p>
+<p>You can change the camera’s location (observer) and the particle’s orientation. The camera is fixed to the <span class="math notranslate nohighlight">\(x\)</span> axis of the coordinate system (<span class="math notranslate nohighlight">\(x_\mathrm{camera},0,0\)</span>) and you can change the distance from the origin to the camera position via <code class="docutils literal notranslate"><span class="pre">xcamera</span></code> (in units of the characteristic radius and the volume-equivalent radius for aggregates and irregular grains, respectively). By default, <code class="docutils literal notranslate"><span class="pre">xcamera=3.5</span></code>.</p>
+<p>You can also rotate the coordinate system about each axis: <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, and <span class="math notranslate nohighlight">\(z\)</span>, while the particle is fixed to the space (Note that POV-RAY adopts the left-handed system) by using <code class="docutils literal notranslate"><span class="pre">rotx</span></code>, <code class="docutils literal notranslate"><span class="pre">roty</span></code>, and <code class="docutils literal notranslate"><span class="pre">rotz</span></code>, respectively (in units of degrees) (see the image below).</p>
+<p><img alt="e11ff5862709402eb0c2fa2e69590292" class="no-scaled-link" src="_images/camera.png" style="width: 300px;" /></p>
 <p>Here is an example. Let’s start with a default parameter:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
@@ -632,7 +632,7 @@ writing ...  ./imgs/geom_demo8.png
 <img alt="_images/geometry_33_1.png" src="_images/geometry_33_1.png" />
 </div>
 </div>
-<p>By setting the <code class="docutils literal notranslate"><span class="pre">xcamera</span></code> less than unity, the camera will get closer to the particle than in the default position, and therefore, you will get a closeup image of the particle (I changed the reference scale accordingly):</p>
+<p>By setting the <code class="docutils literal notranslate"><span class="pre">xcamera</span></code> less than 3.5, the camera will get closer to the particle than in the default position, and therefore, you will get a closeup image of the particle (I changed the reference scale accordingly):</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
@@ -658,7 +658,7 @@ writing ...  ./imgs/geom_demo9.png
 <img alt="_images/geometry_35_1.png" src="_images/geometry_35_1.png" />
 </div>
 </div>
-<p>Let’s get the camera back to the original position, and next set <code class="docutils literal notranslate"><span class="pre">rotx=45</span></code>:</p>
+<p>Let’s get the camera back to the default position, and next set <code class="docutils literal notranslate"><span class="pre">rotx=45</span></code>:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
@@ -684,7 +684,7 @@ writing ...  ./imgs/geom_demo10.png
 <img alt="_images/geometry_37_1.png" src="_images/geometry_37_1.png" />
 </div>
 </div>
-<p>Since the coordinate system was rotated 45 degrees around the <span class="math notranslate nohighlight">\(x\)</span> axis (counterclockwise), the aggregate gets rotated by the same angle clockwise.</p>
+<p>Since the coordinate system was rotated 45 degrees around the <span class="math notranslate nohighlight">\(x\)</span> axis (counterclockwise), the aggregate is apparently rotated by the same angle, but in clockwise.</p>
 </div>
 </div>
 
