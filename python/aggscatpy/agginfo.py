@@ -64,8 +64,7 @@ def check_particle_composition(comp):
 
 def get_sizelist(partype,amon=None):
     """
-    Get a list of available ``size`` arguments, which is necessary to call the ``dustmodel`` class.
-    If amon is None and partype is for dust aggregates, an available list of amon and size will be outputted.
+    Get a list of available ``size`` arguments.
 
     Parameters
     ----------
@@ -218,7 +217,7 @@ def get_sizelist(partype,amon=None):
 # volume equivalent radius of grs particles in unit of microns
 def grs_voleq(sizename):
     """
-    Get a volume-equivalent radius of grs particles.
+    Get a value of the volume-equivalent radius of GRS particles.
 
     Parameters
     ----------
@@ -257,7 +256,7 @@ def grs_voleq(sizename):
 # calculate mass
 def calculate_dust_mass(self):
     """
-    Calculate a dust mass (or distribution-averaged value when the size distribution is present).
+    Calculate the dust mass (or the distribution-averaged value when the size distribution is present).
 
     Parameters
     ----------
