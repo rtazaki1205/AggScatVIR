@@ -29,7 +29,6 @@ from aggscatpy.agginfo import get_radius_and_porosity
 from aggscatpy.rendering import particle_rendering 
 from aggscatpy.rendering import view_particle
 
-import inspect
 import pkg_resources  
 
 class dustmodel:
