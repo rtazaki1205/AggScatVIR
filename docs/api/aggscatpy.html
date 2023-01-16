@@ -119,7 +119,7 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="aggscatpy.agginfo.calculate_dust_mass">
 <span class="sig-prename descclassname"><span class="pre">aggscatpy.agginfo.</span></span><span class="sig-name descname"><span class="pre">calculate_dust_mass</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aggscatpy.agginfo.calculate_dust_mass" title="Permalink to this definition"></a></dt>
-<dd><p>Calculate a dust mass (or distribution-averaged value when the size distribution is present).</p>
+<dd><p>Calculate the dust mass (or the distribution-averaged value when the size distribution is present).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
@@ -205,8 +205,7 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="aggscatpy.agginfo.get_sizelist">
 <span class="sig-prename descclassname"><span class="pre">aggscatpy.agginfo.</span></span><span class="sig-name descname"><span class="pre">get_sizelist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aggscatpy.agginfo.get_sizelist" title="Permalink to this definition"></a></dt>
-<dd><p>Get a list of available <code class="docutils literal notranslate"><span class="pre">size</span></code> arguments, which is necessary to call the <code class="docutils literal notranslate"><span class="pre">dustmodel</span></code> class.
-If amon is None and partype is for dust aggregates, an available list of amon and size will be outputted.</p>
+<dd><p>Get a list of available <code class="docutils literal notranslate"><span class="pre">size</span></code> arguments.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
@@ -246,7 +245,7 @@ If amon is None and partype is for dust aggregates, an available list of amon an
 <dl class="py function">
 <dt class="sig sig-object py" id="aggscatpy.agginfo.grs_voleq">
 <span class="sig-prename descclassname"><span class="pre">aggscatpy.agginfo.</span></span><span class="sig-name descname"><span class="pre">grs_voleq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sizename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aggscatpy.agginfo.grs_voleq" title="Permalink to this definition"></a></dt>
-<dd><p>Get a volume-equivalent radius of grs particles.</p>
+<dd><p>Get a value of the volume-equivalent radius of GRS particles.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
@@ -351,7 +350,7 @@ Number of monomers of the minimum aggregate in the size distribution</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="aggscatpy.aggscatpy.dustmodel">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aggscatpy.aggscatpy.</span></span><span class="sig-name descname"><span class="pre">dustmodel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'nochop'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smatBH</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aggscatpy.aggscatpy.dustmodel" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">aggscatpy.aggscatpy.</span></span><span class="sig-name descname"><span class="pre">dustmodel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'nochop'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smatBH</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quiet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#aggscatpy.aggscatpy.dustmodel" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A class to read <cite>dustkapscatmat_XXX.inp</cite> and store the information therein</p>
 <dl class="field-list">
@@ -393,6 +392,8 @@ Bohren &amp; Huffman definition (default: smatBH=False).</p>
 </dd>
 <dt><strong>filename</strong><span class="classifier">str (optical)</span></dt><dd><p>A relative path to dustkapscatmat_XXX.inp in case if you want 
 to reload a file generated by this tool.</p>
+</dd>
+<dt><strong>quiet</strong><span class="classifier">bool (optical)</span></dt><dd><p>If False, a warning will be displayed when a dust model with incomplete wavelength grids is read.</p>
 </dd>
 </dl>
 </dd>

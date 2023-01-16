@@ -25,7 +25,7 @@ Since we adopt exact numerical techniques for solving the optical properties, th
 
 * **Monomers are homogeneous spheres with a single size**: Dust aggregates consist of numerous small particles referred to as monomers. The optical properties of the aggregates contained in this database are all constructed from monodisperse monomers with a homogeneous composition for computational convenience.
   
-* **Limited wavelength coverage**: As the package name suggests, this database contains the optical properties of visible and near-infrared wavelengths (ranging from :math:`0.554~\mu\mathrm{m}` to :math:`3.780~\mu\mathrm{m}`). Consequently, if you are seeking information on a wavelength outside of this range, the database will not be applicable.
+* **Limited wavelength coverage**: As the package name suggests, this database contains the optical properties of visible and near-infrared wavelengths (ranging from :math:`0.554~\mu\mathrm{m}` to :math:`3.780~\mu\mathrm{m}`). Consequently, if you are seeking the optical properties at a wavelength outside this range, the database will not be useful.
 
 
 How to cite?
