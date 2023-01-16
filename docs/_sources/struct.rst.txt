@@ -18,8 +18,8 @@ To install the python package (called *aggscatpy*), after downloading the reposi
 
     python3 -m pip install -e .
 
-Structure of this package
-##########################
+Structure of AggScatVIR
+########################
 
 The repository has the following structure:
 ::
