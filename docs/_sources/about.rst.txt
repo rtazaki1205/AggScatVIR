@@ -9,7 +9,7 @@ What is AggScatVIR?
 Highlighted features
 ######################
 
-* **Based on rigorous light-scattering solvers**: We used rigorous numerical techniques to calculate the optical properties of complex-shaped particles, such as the T-matrix method (used for aggregates) and discrete dipole approximation (used for irregular grains). This feature allows us to study the effect of a number of particle morphological parameters (porosity, fractal dimension, monomer radius, and so on) on the light scattering properties preciesly.
+* **Based on rigorous light-scattering solvers**: We used rigorous numerical techniques to calculate the optical properties of complex-shaped particles, such as the T-matrix method (used for aggregates) and discrete dipole approximation (used for irregular grains). This feature allows us to study the effect of a number of particle morphological parameters (porosity, fractal dimension, monomer radius, and so on) on the light scattering properties precisely.
 
 * **An extensive parameter-space coverage**: We cover a wide range of parameter space, such as aggregate radius, monomer radius, composition, porosity, and fractal dimension. The database contains 360 different dust models; 20 irregular grain models (10 grain radii; 2 compositions), 126 different compact aggregate models (3 aggregation models; 2 compositions; 3 monomer radii; on average 7 aggregate radii), and 214 fractal aggregate models (4 different fractal dimensions, 2 compositions, 5 monomer radii; on average 5.35 aggregate radii). This feature allows us to study a detailed parameter dependence of the light scattering properties.
 
