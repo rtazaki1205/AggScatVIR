@@ -233,12 +233,6 @@ class dustmodel:
             else:
                 print('...reading ',filename)
                 
-                # check if the file name is properly given
-                #if '.inp' not in filename or 'dustkapscatmat_' not in filename:
-                #if 'dustkapscatmat_' not in filename:
-                #    msg='The file name does not follow dustkapscatmat_XXX.inp.'
-                #    raise ValueError(msg)
-
                 # open the file and read some lines for some inspections
                 with open(filename,'r') as f:
                     dum=f.readline()
@@ -435,8 +429,6 @@ class dustmodel:
             if partype=='grs' and self.dist==False:
                 self.av=grs_voleq(size)
 
-            # calculate (distribution-averaged) mass [the last two arguments will not be used when self.aggop=True]
-            #self.mass=calculate_dust_mass(self,3.5,sizemin='0_2000',sizemax=size)
 
         # calculate (distribution-averaged) mass
         self.mass=calculate_dust_mass(self)
@@ -466,18 +458,6 @@ class dustmodel:
                     self.phase[iwl,iang]=self.smat11[iwl,iang]/self.ksca[iwl]
 
         # scattering matrix definition
-#        self.smatdef='radmc3d'
-#        if smatBH:
-#            self.smatdef='Bohren&Huffman'
-#            for iwl in range(self.nlmd):
-#                wavno=2.0*np.pi/(self.lmd[iwl]*mic2cm)
-#                self.smat11[iwl,:] = self.smat11[iwl,:] * self.mass * wavno * wavno
-#                self.smat12[iwl,:] = self.smat12[iwl,:] * self.mass * wavno * wavno
-#                self.smat22[iwl,:] = self.smat22[iwl,:] * self.mass * wavno * wavno
-#                self.smat33[iwl,:] = self.smat33[iwl,:] * self.mass * wavno * wavno
-#                self.smat34[iwl,:] = self.smat34[iwl,:] * self.mass * wavno * wavno
-#                self.smat44[iwl,:] = self.smat44[iwl,:] * self.mass * wavno * wavno
-
         if smatBH==True and reading_in_BHsmat==True:
             # S_ij ---> S_ij
             self.smatdef='Bohren&Huffman'
@@ -1082,11 +1062,10 @@ def showmodel(self,opacity=True,savefig=False,fn=None):
                 Filename for the ouput file
     """
 
-    #fig,axes = plt.subplots(2,2,figsize=(15,12),gridspec_kw={'hspace': 0.0, 'wspace': 0.2, 'width_ratios': [1,1]})
     fig,axes = plt.subplots(2,2,figsize=(15,12),gridspec_kw={'hspace':0.4})
 
     if opacity:
-        axes[0,0].set_title('Opacity',fontsize=20)
+        axes[0,0].set_title('Opacity ($\mathrm{cm}^2/\mathrm{g}$)',fontsize=20)
         plots.set_lmd_vs_opc(axes[0,0])
         axes[0,0].plot(self.lmd,self.kabs,linewidth=3,c='black',linestyle='-',label='$\kappa_\mathrm{abs}$')
         axes[0,0].plot(self.lmd,self.ksca,linewidth=3,c='black',linestyle='--',label='$\kappa_\mathrm{sca}$')
@@ -1322,16 +1301,8 @@ def write_data(self,fn=None,output='all',opacity=True,wlist=None):
                 wlist=[1.04,1.25,1.63,2.18,3.78]
 
         for iwlname in wlist:
-            #iwl=self.lmd.tolist().index(iwlname)
-            #print(iwl)
-            #try:
-            #    iwl=self.lmd.tolist().index(iwlname)
-            #except ValueError:
-            #    msg='Input wavelength is not in the wavelength grids. Wavelength grids are '+str(self.lmd.tolist())
-            #    raise UnboundLocalError(msg)
 
             if iwlname not in self.lmd.tolist():
-                #print(str(iwlname)+' is not in list')
                 msg='Input wavelength is not in the wavelength grids. Wavelength grids are '+str(self.lmd.tolist())
                 raise ValueError(msg)
 
