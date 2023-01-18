@@ -57,9 +57,9 @@ where :math:`k_\mathrm{f}` is the fractal prefactor.
 
 
 The fractal dimension is a quantity that characterizes the geometric shape of an aggregate. 
-For example, an aggregate with a fractal dimension of 3 has monomers distributed in such a way that the aggregate's mass grows with the cube of its radius of gyration, similar to an elementary scaling for a single spherical particle. In this case, the aggregate tends to have a compact structure. A fractal dimension may also be less than 3, with lower values corresponding to more open aggregate structures. For example, an aggregate consisting of monomers lined up in a straight chain would have a volume proportional to its radius, resulting in a fractal dimension of 1.
+For example, an aggregate with a fractal dimension of 3 has monomers distributed in such a way that the aggregate's mass grows with the cube of its radius of gyration, similar to an elementary scaling for a single spherical particle. In this case, the aggregate tends to have a compact structure. A fractal dimension may also be less than 3. The lower the fractal dimension is, the more open the aggregate structure becomes. For example, an aggregate consisting of monomers lined up in a straight chain would have a volume proportional to its radius, resulting in a fractal dimension of 1.
 
-The  fractal prefactor :math:`k_\mathrm{f}` may be regarded as related to a packing fraction in :math:`D_\mathrm{f}` dimensional space. Its meaning becomes clear if we consider the case of :math:`D_\mathrm{f}=3`. In this case, the above fractal scaling law gives 
+The  fractal prefactor :math:`k_\mathrm{f}` may be regarded as a packing fraction in :math:`D_\mathrm{f}` dimensional space. Its meaning becomes intuitive if we consider the case of :math:`D_\mathrm{f}=3`. In this case, the above fractal scaling law gives 
 
 .. math::
    \left(\frac{a_\mathrm{V}}{a_\mathrm{c}}\right)^3=\left(\frac{3}{5}\right)^{3/2}k_\mathrm{f}\approx0.465 k_\mathrm{f} ~~(D_\mathrm{f}=3)
@@ -70,7 +70,7 @@ By substituting this expression into the definition of porosity, we obtain
 .. math::
    \mathcal{P}=1-0.465 k_\mathrm{f}~~(D_\mathrm{f}=3)
 
-Therefore, the fractal prefactor is related to the porosity of an aggregate. 
+In the three dimensional space, the lowest porosity of a cluster of (hard) monodisperse spheres is known to be about 0.26, therefore, we expect :math:`k_\mathrm{f}\lesssim1.59` for :math:`D_\mathrm{f}=3.0`. 
 
 .. _scatmatdefs:
 

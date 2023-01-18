@@ -25,7 +25,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "Please ensure that RADMC-3D has been installed on your system before proceeding. If not, refer to [the RADMC-3D manual](https://www.ita.uni-heidelberg.de/~dullemond/software/radmc-3d/) for installation instructions. Once RADMC-3D is installed, go to the directory where you wish to run RADMC-3D. Please select one of our dust model files (dustkapscatmat_XXX.inp) and place it in your working directory. For example, we have made a local copy of ``dustkapscatmat_FA19_Nmax2048_100nm_amc_chop5.inp`` in ``python/notebooks/``. To prepare the other necessary files for RADMC-3D, we use radmc3dPy, which is also part of RADMC-3D. \n",
+    "Please ensure that RADMC-3D has been installed on your system before proceeding. If not, refer to [the RADMC-3D manual](https://www.ita.uni-heidelberg.de/~dullemond/software/radmc-3d/) for installation instructions. Once RADMC-3D is installed, go to the directory where you wish to run RADMC-3D. Please select one of our dust model files (dustkapscatmat_XXX.inp) and place it in your working directory. For example, we have created a local copy of ``dustkapscatmat_FA19_Nmax2048_100nm_amc_chop5.inp`` in ``python/notebooks/``. To prepare the other necessary files for RADMC-3D, we use radmc3dPy, which is also part of RADMC-3D. \n",
     "\n",
     "We first import the radmc3dPy package:"
    ]
@@ -84,7 +84,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "To create a scattered-light image using RADMC-3D, we need a dust temperature file (dust_temperature.dat or dust_temperature.bdat) in the working directory. Generally, RADMC-3D has a mode for determining the radiation equilibrium temperature of dust particles (mctherm), and the dust temperature file will be generated after running mctherm. **However, the wavelength coverage of this database is too narrow to determine the correct temperature**. Therefore, it is recommended that each user creates the dust temperature file manually.\n",
+    "To create a scattered-light image using RADMC-3D, we need a dust temperature file (dust_temperature.dat or dust_temperature.bdat) in the working directory. RADMC-3D has a function (mctherm) to determine the radiation equilibrium temperature of dust particles, and the dust temperature file will be generated after running it. **However, the wavelength coverage of this database is too narrow to determine the correct temperature**. Therefore, it is recommended that each user creates the dust temperature file manually.\n",
     "\n",
     "In this section, we simply omit the contribution of thermal emission, and therefore we set the dust temperature to 0 K everywhere in the simulation cells. To make such a dust temperature file, we will run mctherm without lauching any photon packets (``nphoto='int(0)'``).\n",
     "\n",
@@ -133,7 +133,7 @@
    "source": [
     "Please make sure to (i) specifiy the dust model name (``dustkappa_ext =\"['FA19_Nmax2048_100nm_amc_chop5']\"``) and (ii) include ``scattering_mode_max=5``.\n",
     "\n",
-    "Now we are ready to run RADMC-3D. Let's start running mctherm first (Again, no photon packets will be launched in this step. This is just to create a dust temperature file that is needed to scattering Monte Carlo run)."
+    "Now we are ready to run RADMC-3D. Let's start running mctherm first (Again, no photon packets will be launched in this step. This is just to create a dust temperature file that is needed to proceed to the scattering Monte Carlo stage)."
    ]
   },
   {
@@ -232,8 +232,8 @@
     {
      "data": {
       "text/plain": [
-       "{'implot': <matplotlib.image.AxesImage at 0x7f98f0e0cbb0>,\n",
-       " 'cbar': <matplotlib.colorbar.Colorbar at 0x7f98f0dd1af0>}"
+       "{'implot': <matplotlib.image.AxesImage at 0x7fcacb6dbfa0>,\n",
+       " 'cbar': <matplotlib.colorbar.Colorbar at 0x7fcacb69fac0>}"
       ]
      },
      "execution_count": 7,
@@ -316,8 +316,8 @@
     {
      "data": {
       "text/plain": [
-       "{'implot': <matplotlib.image.AxesImage at 0x7f98f972ba90>,\n",
-       " 'cbar': <matplotlib.colorbar.Colorbar at 0x7f98f98dd370>}"
+       "{'implot': <matplotlib.image.AxesImage at 0x7fcad0a30850>,\n",
+       " 'cbar': <matplotlib.colorbar.Colorbar at 0x7fcad0be6130>}"
       ]
      },
      "execution_count": 9,
@@ -358,7 +358,7 @@
    "source": [
     ".. important:: **Thermal Monte Carlo runs**: As already mentioned in the above example, dust files provided in AggScatVIR have a wavelength coverage too narrow to determine radiation equilibrium temperature via thermal Monte Carlo calculations (``mctherm`` in RADMC-3D). *Therefore, it is recommended to use the package for monochromatic scattering Monte Carlo radiative transfer simulations.*\n",
     "\n",
-    ".. warning:: **Models with incomplete wavelength coverage**: The following models only have the wavelength coverage of 1.04-3.78 microns; therefore, the data sets at 0.554 and 0.735 microns are missing: ``FA19_(Nmax)4096_100nm_amc``, ``FA19_(Nmax)4096_100nm_org``, ``FA15_(Nmax)1024_100nm_amc``, ``FA15_(Nmax)1024_100nm_org``, ``FA13_(Nmax)512_100nm_amc``, ``FA13_(Nmax)512_100nm_org``, ``FA11_(Nmax)256_100nm_amc``, ``FA11_(Nmax)256_100nm_org``.\n",
+    ".. warning:: **Models with incomplete wavelength coverage**: The following models only have the wavelength coverage of 1.04-3.78 microns. In other words, the data sets at 0.554 and 0.735 microns are missing: ``FA19_(Nmax)4096_100nm_amc``, ``FA19_(Nmax)4096_100nm_org``, ``FA15_(Nmax)1024_100nm_amc``, ``FA15_(Nmax)1024_100nm_org``, ``FA13_(Nmax)512_100nm_amc``, ``FA13_(Nmax)512_100nm_org``, ``FA11_(Nmax)256_100nm_amc``, ``FA11_(Nmax)256_100nm_org``.\n",
     "\n",
     ".. seealso:: **Chopping forward scattering**: Dust particles much larger than the wavelength may exhibit a strong forward scattering, which may cause some issues in your simulations, such as poor image quality. One approximate  way to mitigate this issue is to chop the forward scattering peak off. For this purpose, ``AggScatVIR`` offers the dustkapscatmat_XXX.inp file with two different chopping angles: 5 and 10 degrees. When you encounter such an issue, please consider using those files."
    ]

@@ -270,7 +270,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "You can modify/adjust a reference-scale bar in the image. The default bar length is set to the characteristic radius and the volume-equivalent radius for aggregates and irregular grains, respectively. The physical length of the bar (in units of $\\mu\\mathrm{m}$) can be directly specified by setting ``reference_length``. The color of the reference bar can also be changed with ``reference_color`` (similar to the particle and background colors). If you want larger text fonts, you can set a magnification rate by ``ref_fontsize`` (to make it large, the value has to be >1.0. Conversely, to make it small, the value should be <1.0)."
+    "You can modify/adjust a reference-scale bar in the image. The default bar length is set to the characteristic radius and the volume-equivalent radius for aggregates and irregular grains, respectively. The physical length of the bar (in units of $\\mu\\mathrm{m}$) can be directly changed by setting ``reference_length``. The color of the reference bar can also be changed with ``reference_color`` (similar to the particle and background colors). If you want larger text fonts, you can set a magnification rate by ``ref_fontsize`` (to make it large, the value has to be >1.0. Conversely, to make it small, the value should be <1.0)."
    ]
   },
   {
@@ -410,7 +410,7 @@
    "source": [
     "You can change the camera's location (observer) and the particle's orientation. The camera is fixed to the $x$ axis of the coordinate system ($x_\\mathrm{camera},0,0$) and you can change the distance from the origin to the camera position via ``xcamera``  (in units of the characteristic radius and the volume-equivalent radius for aggregates and irregular grains, respectively). By default, ``xcamera=3.5``.\n",
     "\n",
-    "You can also rotate the coordinate system about each axis: $x$, $y$, and $z$, while the particle is fixed to the space (Note that POV-RAY adopts the left-handed system) by using ``rotx``, ``roty``, and ``rotz``, respectively (in units of degrees) (see the image below). "
+    "You can also rotate the coordinate system about each axis: $x$, $y$, and $z$ by using ``rotx``, ``roty``, and ``rotz``, respectively (in units of degrees) (see the image below), while the particle is fixed to the space (Note that POV-RAY adopts the left-handed system)."
    ]
   },
   {

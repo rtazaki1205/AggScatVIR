@@ -129,7 +129,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">.</span>
 </pre></div>
 </div>
-<p><em>Note:</em> If multiple versions of python are installed in your environment (such as python2 and python3) and if the pip and python commands point to different versions, please try the following command to install of the python package:</p>
+<p><em>Note:</em> If multiple versions of python are installed in your environment (such as python2 and python3) and if the pip and python commands point to different versions, please try the following command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">.</span>
 </pre></div>
 </div>
@@ -160,7 +160,7 @@
      └── setup.py
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">aggscatrt</span></code> directory contains the data files of the optical properties of various dust particles. The <code class="docutils literal notranslate"><span class="pre">python</span></code> directory contains a python package (<em>aggscatpy</em>) useful for data analysis, and Jupyter Notebooks provides several exemplary uses of this package. The <code class="docutils literal notranslate"><span class="pre">particles</span></code> directory contains the particle shape data, such as the position data of monomers in each aggregate (in <code class="docutils literal notranslate"><span class="pre">particles/aggregate</span></code>) and the polygon surface models for irregular grains (in <code class="docutils literal notranslate"><span class="pre">particles/irregular</span></code>). Also, all particle images are stored in <code class="docutils literal notranslate"><span class="pre">particles/images</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">aggscatrt</span></code> directory contains the data files of the optical properties of various dust particles. The <code class="docutils literal notranslate"><span class="pre">python</span></code> directory contains a python package (<em>aggscatpy</em>) useful for data analysis as well as some Jupyter Notebooks. The <code class="docutils literal notranslate"><span class="pre">particles</span></code> directory contains the particle shape data, such as the position data of monomers in each aggregate and the polygon surface models for irregular grains. All particle images are available as well.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">aggscatrt</span></code> directory includes two sub-directories: <code class="docutils literal notranslate"><span class="pre">single</span></code> and <code class="docutils literal notranslate"><span class="pre">distave</span></code>. The former and the latter contain the optical properties without/with a particle size distribution, respectively. Each of these directories further includes three sub-directories: <code class="docutils literal notranslate"><span class="pre">nochop</span></code>, <code class="docutils literal notranslate"><span class="pre">chop5</span></code>, and <code class="docutils literal notranslate"><span class="pre">chop10</span></code>. The <code class="docutils literal notranslate"><span class="pre">nochop</span></code> directory contains the optical properties of various dust particles, while the other two contain data that has been processed with a special treatment that may be useful in radiative transfer simulations (see Note below). If you are new to this database, it is recommended to start with the <code class="docutils literal notranslate"><span class="pre">nochop</span></code> directory.</p>
 <p>If you enter the <code class="docutils literal notranslate"><span class="pre">nochop</span></code> directory, you will see a number of files with names like:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dustkapscatmat_XXX</span><span class="o">.</span><span class="n">inp</span>
@@ -170,12 +170,12 @@
 <ul class="simple">
 <li><p>the wavelength-dependent opacity and asymmetry parameter,</p></li>
 <li><p>scattering angle grids,</p></li>
-<li><p>scattering matrix elements (11, 12, 22, 33, 34, 44) for each wavelength and scattering angle.</p></li>
+<li><p>scattering matrix elements (<span class="math notranslate nohighlight">\(Z_{11}\)</span>, <span class="math notranslate nohighlight">\(Z_{12}\)</span>, <span class="math notranslate nohighlight">\(Z_{22}\)</span>, <span class="math notranslate nohighlight">\(Z_{33}\)</span>, <span class="math notranslate nohighlight">\(Z_{34}\)</span>, <span class="math notranslate nohighlight">\(Z_{44}\)</span>) for each wavelength and scattering angle.</p></li>
 </ul>
 <p>Regarding the detailed file structure, see <a class="reference internal" href="#filestruct"><span class="std std-ref">Structure of each dust file</span></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The chop5 and chop10 directories are intended for users who encounter problems due to the strong forward scattering peak of each dust particle in radiative transfer calculations. To alleviate this issue, the chop5 and chop10 directories provide the optical properties where the forward scattering peak is <em>chopped</em> at a scattering angle below 5 degrees or 10 degrees, respectively.</p>
+<p>The chop5 and chop10 directories are intended for users who encounter problems due to the strong forward scattering peak of each dust particle in radiative transfer calculations. To alleviate this issue, the chop5 and chop10 directories provide the optical properties where the forward scattering peak is <em>chopped</em> at scattering angles below 5 degrees or 10 degrees, respectively.</p>
 </div>
 </div>
 <div class="section" id="rules-for-dust-file-names">
@@ -361,7 +361,7 @@ each with a radius of 100 nm and the <code class="docutils literal notranslate">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">aggscatrt</span><span class="o">/</span><span class="n">distave</span><span class="o">/</span><span class="n">nochop</span><span class="o">/</span><span class="n">dustkapscatmat_FA19_Nmax4096_100nm_amc</span><span class="o">.</span><span class="n">inp</span>
 </pre></div>
 </div>
-<p>Please remember to insert <strong>Nmax</strong> right before the number of monomers and to switch the directory into <code class="docutils literal notranslate"><span class="pre">distave</span></code> for this case. This file contains the optical properties averaged over aggregate-size distribution; the maximum aggregate in the size distribution contains 4096 monomers and the minimum aggregate contains 8 monomers.</p>
+<p>Please remember to insert <strong>Nmax</strong> right before the number of monomers and to switch the directory into <code class="docutils literal notranslate"><span class="pre">distave</span></code> for this case. This file contains the optical properties averaged over aggregate-size distribution; the maximum aggregate in the size distribution contains 4096 monomers and the minimum aggregate contains 8 monomers with the power-law index of -3.5.</p>
 </div>
 <div class="section" id="for-irregular-grains">
 <h3>For irregular grains<a class="headerlink" href="#for-irregular-grains" title="Permalink to this heading"></a></h3>
@@ -370,14 +370,14 @@ each with a radius of 100 nm and the <code class="docutils literal notranslate">
 </pre></div>
 </div>
 <div class="line-block">
-<div class="line">where <code class="docutils literal notranslate"><span class="pre">COMP</span></code> is the grain composition (either <code class="docutils literal notranslate"><span class="pre">org</span></code> or <code class="docutils literal notranslate"><span class="pre">amc</span></code>) and <code class="docutils literal notranslate"><span class="pre">SIZE</span></code> is a volume-equivalent radius of irregular grains in units of microns (The decimal point should be replaced by the underscore). The available <code class="docutils literal notranslate"><span class="pre">size</span></code> options are as follows.</div>
+<div class="line">where <code class="docutils literal notranslate"><span class="pre">COMP</span></code> is the grain composition (either <code class="docutils literal notranslate"><span class="pre">org</span></code> or <code class="docutils literal notranslate"><span class="pre">amc</span></code>) and <code class="docutils literal notranslate"><span class="pre">SIZE</span></code> is the volume-equivalent radius of irregular grains in units of microns (The decimal point should be replaced by the underscore). The available <code class="docutils literal notranslate"><span class="pre">size</span></code> options are as follows.</div>
 <div class="line"><code class="docutils literal notranslate"><span class="pre">SIZE</span></code> = <code class="docutils literal notranslate"><span class="pre">0_2000</span></code>, <code class="docutils literal notranslate"><span class="pre">0_2520</span></code>, <code class="docutils literal notranslate"><span class="pre">0_3175</span></code>, <code class="docutils literal notranslate"><span class="pre">0_4000</span></code>, <code class="docutils literal notranslate"><span class="pre">0_5040</span></code>, <code class="docutils literal notranslate"><span class="pre">0_6350</span></code>, <code class="docutils literal notranslate"><span class="pre">0_8000</span></code>, <code class="docutils literal notranslate"><span class="pre">1_0079</span></code>, <code class="docutils literal notranslate"><span class="pre">1_2699</span></code>, <code class="docutils literal notranslate"><span class="pre">1_6000</span></code></div>
 </div>
 <p>For example, the file for single-sized irregular grains with <span class="math notranslate nohighlight">\(a_\mathrm{V}=1.6~\mu\mathrm{m}\)</span> and the <code class="docutils literal notranslate"><span class="pre">amc</span></code> composition is located at:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">aggscatrt</span><span class="o">/</span><span class="n">single</span><span class="o">/</span><span class="n">nochop</span><span class="o">/</span><span class="n">dustkapscatmat_grs_rv1_6000um_amc</span><span class="o">.</span><span class="n">inp</span>
 </pre></div>
 </div>
-<p>And its distribution-averaged counterpart is located at:</p>
+<p>… and its distribution-averaged counterpart is located at:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">aggscatrt</span><span class="o">/</span><span class="n">distave</span><span class="o">/</span><span class="n">nochop</span><span class="o">/</span><span class="n">dustkapscatmat_grs_rvmax1_6000um_amc</span><span class="o">.</span><span class="n">inp</span>
 </pre></div>
 </div>
@@ -478,7 +478,7 @@ For carbonaceous material, we adopt refractory organics by <a class="reference e
 </tr>
 </tbody>
 </table>
-<p>The material density is 1.6487 g/cc and 1.7779 g/cc for the org and amc models, respectively.</p>
+<p>The material density of the mixture is 1.6487 g/cc and 1.7779 g/cc for the org and amc models, respectively.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p><strong>Models with incomplete wavelength coverage</strong>: The following models do not have data sets at <span class="math notranslate nohighlight">\(\lambda=0.554~\mu\mathrm{m}\)</span> and <span class="math notranslate nohighlight">\(0.735~\mu\mathrm{m}\)</span>:
@@ -548,7 +548,7 @@ For carbonaceous material, we adopt refractory organics by <a class="reference e
 <div class="section" id="irregular-grains">
 <h3>Irregular grains<a class="headerlink" href="#irregular-grains" title="Permalink to this heading"></a></h3>
 <p>In <code class="docutils literal notranslate"><span class="pre">particles/irregular</span></code>, we provide the shape model of irregular grains with 10 realizations in two file formats: .vtk or .inc. Each file has a name of <code class="docutils literal notranslate"><span class="pre">grsXXX.vtk(.inc)</span></code>, where XXX indicates the realization index. The former file contains the shape model of irregular grains in ASCII Legacy VTK File Format. The first block summarizes the number of vertexes and its Cartesian coordinates. Then the second block specified which three of the vertexes are connected to form a triangular cell face. You can open these vtk files by using <a class="reference external" href="https://www.paraview.org/">ParaView</a>. The latter .inc files contain the same information as the former one, but it is written in a format to be useful for running <a class="reference external" href="https://www.povray.org/">POV-RAY</a>.</p>
-<p>In the light scattering calculation, the radius of each grain was scaled to have a prescribed value of the volume-equivalent radius while fixing the particle shape.</p>
+<p>In the light scattering calculation, the radius of each grain was scaled to have a prescribed value of the volume-equivalent radius while fixing the particle shape of each realization.</p>
 </div>
 </div>
 </div>
